@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lrrrrr}
+\toprule
+Category & $n$ & Mean $\Delta_{L2}^{32}$ & Median & Max & Mean AUC\textsubscript{[0,32]} \\
+\midrule
+  helpful-important & 3 & 19.95 & 22.65 & 24.45 & 193.2 \\
+  confidence-only & 51 & 18.61 & 16.71 & 42.29 & 175.6 \\
+  harmful-influential & 1 & 27.41 & 27.41 & 27.41 & 258.4 \\
+  fact-only & 14 & 8.07 & 7.54 & 16.72 & 75.8 \\
+  neutral & 439 & 6.01 & 4.87 & 19.22 & 57.4 \\
+  harmful-weak & 5 & 5.43 & 6.61 & 7.36 & 51.9 \\
+\bottomrule
+\end{tabular}
+\caption{Layer-32 representation drift and AUC by importance category. AUC approximated via trapezoid rule over checkpoints at layers 0, 16, 32.}
+\label{tab:e4_layer_drift_stats}
+\end{table}

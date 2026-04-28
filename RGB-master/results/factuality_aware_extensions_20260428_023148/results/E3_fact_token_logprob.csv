@@ -1,0 +1,11 @@
+query_id,removed_doc_idx,group,fact_degradation,original_logprob_deg,whole_seq_delta,fact_delta,nonfact_delta,n_fact_tokens,n_nonfact_tokens,n_total_tokens,fact_tokens
+2,2,Top Divergence,0,-3.375,-3.3846049308776855,-2.787175178527832,-0.5974297523498535,9,10,19,"['Kent', ' Wildcats', '202', '2', ' Cit', ' Bowl', ' Iowa', '20', '17']"
+3,0,Top Divergence,0,-2.25390625,-2.250031352043152,-2.1484375,-0.10159385204315186,2,2,4,"['Def', ' Coordinator']"
+6,0,Top Divergence,0,-2.125,-2.129035472869873,-0.471233606338501,-1.657801866531372,13,16,29,"['The', ' Super', ' Bowl', '202', '2', ' Super', ' Bowl', 'VI', ' So', 'Fi', ' Stadium', ' In', ' California']"
+8,0,Top Divergence,0,-1.46875,-1.4678120613098145,-1.2002594470977783,-0.26755261421203613,10,10,20,"['The', ' Power', ' Dog', ' Best', ' Motion', ' Picture', ' Drama', '79', ' Golden', ' Glob']"
+2,5,Top Divergence,0,-1.4375,-1.423953652381897,-1.0791568756103516,-0.3447967767715454,9,10,19,"['Kent', ' Wildcats', '202', '2', ' Cit', ' Bowl', ' Iowa', '20', '17']"
+0,1,Average Baseline,0,0.0,-0.03070080280303955,-0.0012714862823486328,-0.029429316520690918,19,20,39,"['The', 'Car', ' King', ' James', ' Taylor', ' Just', ' Call', ' Out', ' My', ' Name', ' January', '2', '202', '2', '9', '00', ' ET', 'PT', ' CNN']"
+0,3,Average Baseline,0,0.0,-0.004516243934631348,0.14094090461730957,-0.14545714855194092,19,20,39,"['The', 'Car', ' King', ' James', ' Taylor', ' Just', ' Call', ' Out', ' My', ' Name', ' January', '2', '202', '2', '9', '00', ' ET', 'PT', ' CNN']"
+0,4,Average Baseline,0,0.0,-0.004516243934631348,0.14094090461730957,-0.14545714855194092,19,20,39,"['The', 'Car', ' King', ' James', ' Taylor', ' Just', ' Call', ' Out', ' My', ' Name', ' January', '2', '202', '2', '9', '00', ' ET', 'PT', ' CNN']"
+0,17,Average Baseline,0,0.0,-0.00888979434967041,0.051905155181884766,-0.060794949531555176,19,20,39,"['The', 'Car', ' King', ' James', ' Taylor', ' Just', ' Call', ' Out', ' My', ' Name', ' January', '2', '202', '2', '9', '00', ' ET', 'PT', ' CNN']"
+2,23,Average Baseline,0,0.0,0.004414677619934082,0.1793351173400879,-0.1749204397201538,9,10,19,"['Kent', ' Wildcats', '202', '2', ' Cit', ' Bowl', ' Iowa', '20', '17']"

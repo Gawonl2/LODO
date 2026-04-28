@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{llrrrrrr}
+\toprule
+Method & Eval set & P@1 & P@3 & R@1 & R@3 & MRR & Spearman $r$ \\
+\midrule
+  Logprob-only & all & 0.050 & 0.067 & 0.092 & 0.588 & 0.075 & 0.039 \\
+  Logprob-only & nontrivial ($n_q$=4) & 0.500 & 0.667 & 0.092 & 0.588 & 0.750 & 0.039 \\
+  Factuality-aware & all & 0.100 & 0.083 & 0.404 & 0.712 & 0.100 & 0.723 \\
+  Factuality-aware & nontrivial ($n_q$=4) & 1.000 & 0.833 & 0.404 & 0.712 & 1.000 & 0.723 \\
+  Harmfulness-aware & all & 0.025 & 0.042 & 0.050 & 0.246 & 0.055 & -0.423 \\
+  Harmfulness-aware & nontrivial ($n_q$=4) & 0.250 & 0.417 & 0.050 & 0.246 & 0.550 & -0.423 \\
+\bottomrule
+\end{tabular}
+\caption{Ranking evaluation for identifying factually useful documents ($\Delta_{\text{fact}} > 0$). ``All'' includes queries with no positive; ``nontrivial'' restricts to queries with $\geq 1$ factually useful document.}
+\label{tab:e6_ranking}
+\end{table}

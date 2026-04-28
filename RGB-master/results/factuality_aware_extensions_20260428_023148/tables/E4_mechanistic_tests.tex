@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{llrrrr}
+\toprule
+Comparison & Metric & $n_A$ & $n_B$ & $U$ & $p$ \\
+\midrule
+  helpful-important vs confidence-only & layer 32 drift & 3 & 51 & 91.0 & 0.6159 \\
+  helpful-important vs confidence-only & auc late approx & 3 & 51 & 92.0 & 0.5904 \\
+  confidence-only vs neutral & layer 32 drift & 51 & 439 & 20847.0 & 0.0000** \\
+  helpful-important vs neutral & layer 32 drift & 3 & 439 & 1293.0 & 0.0040** \\
+\bottomrule
+\end{tabular}
+\caption{Mann-Whitney U tests for drift differences between importance categories. * $p < 0.05$, ** $p < 0.01$.}
+\label{tab:e4_mechanistic_tests}
+\end{table}

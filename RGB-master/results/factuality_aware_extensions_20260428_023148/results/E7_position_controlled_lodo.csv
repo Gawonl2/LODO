@@ -1,0 +1,26 @@
+# Experiment 7: Position-Controlled LODO
+# STATUS: TODO — model inference required
+#
+# The position-controlled LODO output file was not found:
+#   /home/gawon/lodo/RGB-master/lodo_position_controlled_en_counter_mid_llama3.json
+#
+# To generate it, run (from RGB-master/ with the LODO conda env):
+#
+#   python run_lodo_position_controlled.py \
+#       --dataset en_counter_mid \
+#       --modelname llama3 \
+#       --max_queries 10
+#
+# This requires a GPU and the Llama-3.1-8B-Instruct model loaded.
+# Estimated runtime: ~30-60 minutes on A100.
+#
+# After running, re-execute this script to generate the analysis.
+#
+# Expected output keys in each ablation:
+#   standard_lodo[i].representation_drift_l2
+#   controlled_lodo[i].representation_drift_l2
+#   controlled_lodo[i].positional_artifact_drift_l2
+#
+# Key question: does delta_PE = standard_L2 - controlled_L2 approach zero
+# at the integration horizon (layers 18-20)? If yes, the late-layer drift
+# is semantic, not a positional encoding artifact.

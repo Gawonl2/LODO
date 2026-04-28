@@ -1,0 +1,18 @@
+Total ablations: 513
+
+By source:
+  en_refine: 275
+  sweep: 238
+
+By passage_num (sweep only):
+  n=3.0: 30 ablations
+  n=5.0: 50 ablations
+  n=7.0: 68 ablations
+  n=10.0: 90 ablations
+
+logprob < -2.0:
+  55
+fact_degradation > 0:
+  17
+fact_degradation < 0:
+  6
