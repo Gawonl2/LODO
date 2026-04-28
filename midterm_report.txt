@@ -1,0 +1,222 @@
+% !TEX program = pdflatex
+\documentclass[11pt]{article}
+\usepackage{acl2023}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{enumitem}
+\usepackage{graphicx}
+
+\title{What Makes a Retrieved Document Useful? \\
+A Causal and Mechanistic Analysis of Evidence Utilization in RAG}
+
+\author{
+  Gawon Lim \\
+  University of Illinois Urbana-Champaign \\
+  \texttt{gawonl2@illinois.edu}
+}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+Retrieval-Augmented Generation (RAG) has become a widely used approach for improving factuality and reducing hallucination in large language models (LLMs). In my initial proposal, I framed this project around a broad question: \textit{What makes a retrieved document genuinely useful for generation?} This question was motivated by an observation that even irrelevant or noisy retrieved documents can sometimes improve factual scores, while seemingly relevant documents may not meaningfully influence the model's final answer.
+
+As I conducted a deeper literature review for the mid-term report, I found that this question can be framed more precisely. Existing attribution methods in RAG mainly identify \emph{what influences the model's output}. They focus heavily on causal contribution: whether removing a document changes the model's response or its likelihood. However, these methods generally do not distinguish whether such influence improves factual correctness or degrades it. A document can strongly affect the output but push the model toward an incorrect answer. Therefore, contribution alone is not a good metric to define usefulness.
+
+Based on this gap, I refine the purpose of this project: \textbf{existing attribution methods identify what influences the model's output, but fail to distinguish whether such influence improves or degrades factual correctness.} This project aims to \textbf{redefine document importance as causal contribution aligned with factual correctness}. In addition, beyond redefining importance at the output level, I further investigate whether important documents shows distinct internal processing patterns compared to non-important documents.
+
+
+\section{Literature Review}
+
+Recent work on attribution in language models has made important progress in identifying which parts of the context contribute to generated outputs. However, these methods primarily define importance in terms of influence, rather than factual usefulness.
+
+\subsection{ContextCite: Sparse Linear Surrogate Modeling}
+
+ContextCite \citet{cohen2024contextcite} treats attribution as a contributive problem: it aims to identify which retrieved context led the model to produce a statement, regardless of whether that statement is correct or incorrect. Its core method is to learn a sparse linear surrogate model using LASSO that predicts how the probability of the model's response changes when different parts of the context are ablated. By approximating the effect of context removal efficiently, ContextCite assigns importance scores to individual sentences or documents.
+
+While this it makes attribution more scalable and interpretable, its notion of importance is fundamentally tied to response influence. If a document strongly contributes to an answer that is factually wrong, the method would still identify it as important. As mentioned in Introduction, it captures \emph{causal contribution}, but not whether that contribution is beneficial.
+
+\subsection{TracLLM: Informed Search and Denoising for Long Contexts}
+
+TracLLM \citet{wang2025tracllm} addresses attribution in very long contexts, where ablation becomes computationally extremely heavy. It introduces an informed search strategy that recursively partitions long context into groups, estimates contribution scores, and prunes unimportant groups to narrow the search space. It also proposes a denoising mechanism that averages only the highest marginal contribution scores, reducing noise introduced by irrelevant combinations of text.
+
+This work is valuable for long-context settings, where attribution becomes expensive and noisy. Still, its objective focuses on identifying which context segments contribute most to the model's output. Same as ContextCite, it does not distinguish between helpful contribution and harmful contribution. A misleading or adversarial passage may still receive a high contribution score if it substantially alters the model's response.
+
+\subsection{AttriBoT: Efficiently Approximating Leave-One-Out Attribution}
+
+AttriBoT \citet{dubey2025attribot} focuses on making leave-one-out (LOO) attribution computationally feasible. Rather than directly recomputing full model outputs for every ablated span, it uses several efficiency techniques such as cached activations, hierarchical attribution, and proxy models that approximate larger target models. This allows the method to estimate how response likelihood changes when a specific span is removed, at significantly lower computational cost.
+
+AttriBoT is particularly relevant to this project because it operationalizes likelihood-based attribution in a scalable way. However, as with the previous methods, the underlying definition of importance is based on how much a context span changes the model's output likelihood. This again measures necessity or contribution, but not whether the contribution supports factual correctness.
+
+\subsection{Gaps}
+Taken together, ContextCite, TracLLM, and AttriBoT shows that recent attribution research in RAG and long-context LLMs is capable of identifying "what influenced the output". However, they share a common limitation: they do not distinguish whether the influence was factually helpful or harmful.
+
+This gap is important because, in RAG, a document that strongly influences generation is not necessarily a useful document. A retrieved passage may confidently push the model toward an incorrect answer, making it causally important but factually harmful. Therefore, defining document importance solely through contribution is incomplete and dangerous.
+
+This project addresses that gap by proposing a new definition of document importance: a document is important not only if it causally affects the output, but also if its contribution aligns with factual correctness.  I try to move from a purely contributive notion of importance to a \emph{factuality-aware causal notion of importance}.
+
+Furthermore, while prior attribution work remains mostly at the output level, this project extends the analysis into the model's internal processing. After identifying which retrieved documents are factually helpful or harmful, I further investigate whether these document types are processed differently inside the model, such as through distinct representation drift, layer-wise behavior, or token-answer alignment. This creates a second gap that the project explores: prior work measures contribution, but does not explain how beneficial versus harmful evidence is internally handled by the model.
+
+\section{Experiment Setup}
+
+\subsection{RGB Benchmark}
+
+I use the \textbf{RGB Benchmark} \cite{chen2024rgb} as the primary dataset for this project. RGB is specifically designed for evaluating Retrieval-Augmented Generation and provides controlled settings for analyzing how retrieved documents affect model behavior. It evaluates four core RAG abilities:
+
+\begin{itemize}
+    \item \textbf{Noise Robustness} -- resisting irrelevant retrieved passages
+    \item \textbf{Negative Rejection} -- ignoring deceptive or misleading documents
+    \item \textbf{Information Integration} -- synthesizing complementary evidence across multiple documents
+    \item \textbf{Counterfactual Robustness} -- resisting confidently stated but false evidence
+\end{itemize}
+
+RGB is particularly suitable for this project because it provides structured retrieval settings in which helpful, noisy, and misleading documents can be compared explicitly. This makes it easier for studying not only document contribution, but also whether that contribution supports or harms factual correctness.
+
+\subsection{Experimental Design}
+\textbf{Mechanistic LODO Evaluation}
+Objective and Pipeline Overview To investigate the causal impact of retrieved documents in our RAG pipeline, we implement a Leave-One-Document-Out (LODO) evaluation framework. This pipeline systematically ablates individual documents from the retrieved context to measure their specific contribution to the generation quality and the internal representation of the model.
+
+\textbf{Model and Hyperparameters} 
+All experiments are conducted using Llama-3 (Instruct) as the primary generator model. We decode with a default temperature of $\tau = 0.7$ to reflect realistic generative conditions while maintaining instructional adherence.
+
+\textbf{Baseline Formulation} 
+For each query in the dataset, we first construct a complete baseline context containing all retrieved documents (both positive and negative). We generate a baseline answer and extract three key baseline metrics:
+
+\begin{itemize}
+\item \textbf {Factual Correctness:} A discrete score evaluated against the ground-truth answer.
+\item \textbf {Generation Likelihood:} The log-probability of the generated baseline answer.
+\item \textbf {Internal Representations:} The mean hidden-state activations across layers during the generation of the baseline answer.
+\end{itemize}
+
+\textbf{Leave-One-Document-Out (LODO) Ablation } 
+To isolate the influence of individual documents, we iteratively remove one document at a time and pass the ablated context back into the model. 
+
+For each ablation step, we measure three axes of degradation compared to the baseline:
+\begin{itemize}
+\item \textbf{Factual Degradation ($\Delta_{fact}$):} The drop in factual correctness of a newly generated answer using the ablated context.
+\item \textbf{Likelihood Degradation ($\Delta_{logprob}$):} The reduction in the log-likelihood of the original baseline answer when forced through the model using the ablated context.
+\item \textbf {Representation Drift ($L_2$ Drift):} The $L_2$ distance between the mean hidden states of the baseline generation and those produced under the ablated context.
+\end{itemize}
+Causal Importance Criteria A document is classified as "causally important" if its removal triggers either a structural collapse in factuality ($\Delta_{fact} > 0$) or a severe collapse in confidence for the original output ($\Delta_{logprob} < -2.0$). This standards were selected as a starting point. I will address this in more professional way later in the project.
+
+
+\section{Experiment Result \& Discussion}
+
+\subsection{The Sparsity of Causal Importance}
+
+\textbf{Observation (1\_logprob\_outliers.png \& 3\_fact\_degradation\_counts.png)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{1_logprob_outliers.png}
+    \caption{Logprob degradation distribution and fact degradation counts.}
+    \label{fig:sparsity}
+\end{figure}
+
+Looking at the Logprob Degradation box plot, the interquartile range (IQR) is tightly bound entirely around 0.0.
+
+Out of 275 document ablations, 274 ablations caused absolutely no change to the factual correctness (Fact Degradation = 0).
+
+\textbf{Insight}
+
+The vast majority of retrieved documents provide redundant information or irrelevant noise. Llama-3 is highly resilient, and there are only a handful of "critical outliers" (the dots extending below -2.0) that actually disrupt the model's confidence.
+
+\subsection{Information Integration Happens Late}
+
+\textbf{Observation (2\_layer\_drift\_outliers.png)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{2_layer_drift_outliers.png}
+    \caption{Layer-wise representation drift showing late-layer divergence.}
+    \label{fig:layer_drift}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{3_fact_degradation_counts.png}
+    \caption{Fact degradation counts.}
+    \label{fig:layer_drift}
+\end{figure}
+
+
+Representation drift at layer\_0 is 0, and at layer\_16 (middle layer) it remains remarkably stable (median $\sim$ 0.5).
+
+However, at layer\_32 (the final output layer), the median drift jumps to $\sim$ 4.0, with extreme outliers reaching up to distance 15.
+
+\textbf{Insight}
+
+Missing context does not significantly alter early or middle-layer feature extraction. The process of integrating retrieved documents with parametric knowledge occurs almost entirely in the topmost/final layers of the Transformer just before generation.
+
+\subsection{Proof of "Collapse Divergence"}
+
+\textbf{Observation (5\_mechanistic\_divergence.png)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{5_mechanistic_divergence.png}
+    \caption{Mechanistic divergence showing collapse divergence cases.}
+    \label{fig:collapse_divergence}
+\end{figure}
+
+The scatter plot highlights exactly 3 causally important documents (red dots to the left of the -2.0 threshold).
+
+One of these ablations caused a massive Layer 32 drift of nearly 15 L2 distance.
+
+Crucially, these red points appear as circles (Fact Degradation = 0), meaning that despite the massive internal disruption, the model still ended up generating the factually correct answer.
+
+\textbf{Insight}
+
+The model's internal confidence (likelihood) collapsed, and its internal representation drifted wildly, but the final text generation remained correct due to robust pre-trained knowledge or greedy decoding. This demonstrates that traditional "factual accuracy" metrics completely hide the internal uncertainty caused by missing evidence.
+
+\subsection{Token-wise Logprob Trajectories (Deep Dive)}
+
+\textbf{Observation (6\_tokenwise\_trajectory.png)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{6_tokenwise_trajectory.png}
+    \caption{Token-wise log-probability trajectories under baseline and ablation.}
+    \label{fig:tokenwise}
+\end{figure}
+
+Looking at the generation of specific factual answers, the log-probability of most tokens (such as prepositions or grammatical structure) remains identical between the Baseline and Ablated conditions.
+
+However, for the Top Divergence cases, the exact moment the model is forced to emit a "factual/named entity" token, the log-probability of the Ablated trajectory plummets severely compared to the Baseline.
+
+\textbf{Insight}
+
+Causal influence is extremely localized. A document's utility is tied precisely to just 1 or 2 specific knowledge tokens in the generated answer, while the rest of the sentence structure remains parametrically robust.
+
+\subsection{Mechanistic Trajectories - The Integration Horizon (Layers 0-32)}
+
+\textbf{Observation (7\_layerwise\_drift\_curve.png)}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{7_layerwise_drift_curve.png}
+    \caption{Layer-wise drift trajectories showing integration horizon.}
+    \label{fig:integration_horizon}
+\end{figure}
+
+The stable/average queries (gray lines) remain tightly clustered and near zero across all 32 transformer layers.
+
+The Top Divergence queries (red lines) remain flat during the early layers, but begin a massive, exponential L2 divergence curve starting abruptly around Layer 18 $\sim$ 20.
+
+\textbf{Insight}
+
+This provides structural, mechanistic proof of where RAG evidence is processed inside Llama-3. The lower layers handle grammar and syntax routing, but the mid-to-late transformer layers (18+) are where the model actively searches its context window for factual grounding. This "Integration Horizon" completely splits the hidden states when critical evidence is omitted.
+
+\section{Further Plans}
+While the current experiments show strong patterns such as collapse divergence and late-stage integration, several limitations remain. The RGB benchmark appears too easy considering that there was only a single case of factual degradation was observed. I plan to introduce more challenging settings. In addition, I will refine the definition of document importance beyond heuristic thresholds by incorporating distributional measures (e.g., KL divergence but not sure). Finally, I hope to move beyond post-hoc analysis by identifying mechanistic signals that can predict document usefulness.
+
+\bibliography{references}
+\bibliographystyle{acl_natbib}
+
+\end{document}
