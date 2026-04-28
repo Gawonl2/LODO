@@ -58,78 +58,16 @@ This project introduces factual correctness as a first-class criterion in docume
 
 We use the \textbf{en\_counter\_mid} subset of RGB, which presents queries where retrieved documents assert an answer that contradicts the ground truth. This creates a hard counterfactual robustness setting: the model must resist the retrieved evidence to produce the correct answer.
 
-\textbf{Why not en\_mid?} Initial experiments on the standard \texttt{en\_mid} subset showed near-ceiling accuracy regardless of noise level (92--96\% at noise=0.0, 88--96\% at noise=0.4 across all prompt styles). In this setting, the model answers correctly whether or not any single document is present, making LODO causally uninformative: factual degradation is effectively unobservable. Figure~\ref{fig:dataset_motivation} illustrates this contrast directly.
+\textbf{Why not en\_mid?} Initial experiments on the standard \texttt{en\_mid} subset showed near-ceiling accuracy (92--96\%), meaning the model answers correctly whether or not any single document is present. LODO is causally uninformative in this regime: factual degradation is effectively unobservable. Figure~\ref{fig:dataset_motivation} illustrates this contrast directly.
 
 \begin{figure}[h]
     \centering
     \includegraphics[width=\linewidth]{plots/CF4_dataset_motivation.png}
-    \caption{Accuracy comparison between \texttt{en\_mid} and \texttt{en\_counter\_mid} across prompt styles and noise levels. \texttt{en\_mid} is near-ceiling (92--96\%), making document removal a non-event. \texttt{en\_counter\_mid} places accuracy at 8--17\%, creating a setting where each document's presence is causally meaningful.}
+    \caption{Accuracy on \texttt{en\_mid} vs.\ \texttt{en\_counter\_mid}. \texttt{en\_mid} is near-ceiling (92--96\%), making document removal a non-event. \texttt{en\_counter\_mid} places accuracy at 8--20\%, creating a setting where each document's presence is causally meaningful.}
     \label{fig:dataset_motivation}
 \end{figure}
 
-On \texttt{en\_counter\_mid}, average accuracy drops to 8--17\% depending on prompt style and noise level (Table~\ref{tab:cf_results}). Here, whether the model arrives at the correct answer depends critically on which specific documents are present---the ideal setting for LODO to reveal causal document importance.
-
-
-%% ============================================================
-\section{Prompt Style Experiment on en\_counter\_mid}
-%% ============================================================
-
-\subsection{Setup}
-
-We evaluate five prompt styles---Base, Academic, Confident, Conversational, Narrative---on \texttt{en\_counter\_mid} using Llama-3.1-8B-Instruct ($\tau=0.6$, passage\_num=5). Each style--noise combination is run 10 times (50 samples each) to characterize stochastic variance.
-
-\subsection{Results}
-
-\begin{table}[h]
-\centering
-\small
-\begin{tabular}{llrrr}
-\toprule
-Noise & Style & Acc (\%) & Rej (\%) & Wrong (\%) \\
-\midrule
-\multirow{5}{*}{0.0}
-  & Base          & $8.6 \pm 2.2$  & $10.4 \pm 2.0$ & $81.0 \pm 2.7$ \\
-  & Academic      & $8.8 \pm 2.2$  & $12.8 \pm 1.8$ & $78.4 \pm 2.0$ \\
-  & Confident     & $10.6 \pm 2.8$ & $9.0 \pm 2.6$  & $80.4 \pm 4.3$ \\
-  & Conversational& $10.8 \pm 1.3$ & $14.2 \pm 2.6$ & $75.0 \pm 3.3$ \\
-  & Narrative     & $\mathbf{15.4 \pm 2.0}$ & $7.6 \pm 2.3$ & $77.0 \pm 3.8$ \\
-\midrule
-\multirow{5}{*}{0.4}
-  & Base          & $12.6 \pm 2.8$ & $5.8 \pm 2.3$  & $81.6 \pm 4.1$ \\
-  & Academic      & $12.8 \pm 2.0$ & $13.0 \pm 2.0$ & $74.2 \pm 2.6$ \\
-  & Confident     & $14.8 \pm 1.8$ & $5.2 \pm 1.6$  & $80.0 \pm 2.0$ \\
-  & Conversational& $\mathbf{17.0 \pm 2.2}$ & $12.4 \pm 3.8$ & $\mathbf{70.6 \pm 4.3}$ \\
-  & Narrative     & $16.0 \pm 1.5$ & $9.0 \pm 2.7$  & $75.0 \pm 3.5$ \\
-\bottomrule
-\end{tabular}
-\caption{Counter-factual experiment results on \texttt{en\_counter\_mid} (mean $\pm$ std, $n=10$ runs). Bold = best per metric per noise level.}
-\label{tab:cf_results}
-\end{table}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{plots/CF1_style_noise_comparison.png}
-    \caption{Accuracy, Reject, and Wrong rates by prompt style and noise level on \texttt{en\_counter\_mid}. Error bars show standard deviation across 10 runs.}
-    \label{fig:cf1}
-\end{figure}
-
-\textbf{Key findings.} Narrative achieves the highest accuracy at noise=0.0 ($15.4\%$, $p < 0.001$ vs.\ Base/Academic via Welch's t-test), while Conversational leads at noise=0.4 ($17.0\%$) with the lowest wrong-answer rate ($70.6\%$). Introducing noise (noise=0.0 $\to$ 0.4) \emph{increases} accuracy significantly for all styles except Narrative ($p < 0.01$ for Base, Academic, Confident, Conversational). This counterintuitive finding suggests that noise documents dilute the influence of confidently-stated false evidence, allowing the model to resist the counterfactual context more effectively. Figure~\ref{fig:cf3} shows per-style accuracy deltas.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.95\linewidth]{plots/CF3_noise_delta.png}
-    \caption{Change in accuracy, reject, and wrong rates from noise=0.0 to noise=0.4. Conversational benefits most from noise ($\Delta\text{acc} = +6.2\%$).}
-    \label{fig:cf3}
-\end{figure}
-
-Figure~\ref{fig:cf6} shows pairwise statistical significance. Narrative vs.\ others is strongly significant at noise=0.0; the gap closes at noise=0.4 as Conversational catches up.
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=\linewidth]{plots/CF6_pairwise_significance.png}
-    \caption{Pairwise Welch's t-test p-values for accuracy differences between styles (* $p$<0.05, ** $p$<0.01).}
-    \label{fig:cf6}
-\end{figure}
+On \texttt{en\_counter\_mid}, average accuracy drops to 8--20\% depending on the number of retrieved documents. Whether the model arrives at the correct answer depends critically on which specific documents are present---the ideal setting for LODO to reveal causal document importance.
 
 
 %% ============================================================
@@ -265,7 +203,6 @@ The passage-number sweep allows us to characterize the \emph{redundancy curve}: 
 %% ============================================================
 
 \begin{enumerate}[noitemsep]
-    \item \textbf{Complete passage-number sweep}: Analyze full results from the $\{3, 5, 7, 10\}$ sweep and fit the redundancy curve.
     \item \textbf{Run position-controlled LODO}: Execute \texttt{run\_lodo\_position\_controlled.py} to quantify $\Delta_{\text{PE}}$ and validate that the integration horizon is a semantic---not positional---effect.
     \item \textbf{Distributional importance threshold}: Replace the heuristic $\Delta_{\text{logprob}} < -2.0$ with a per-query distributional criterion ($> 2\sigma$ below the query mean), making importance classification adaptive to query difficulty.
     \item \textbf{Predictive signals}: Investigate whether mid-layer drift ($\sim$layer 20) can serve as a real-time signal to flag uncertain generation before decoding completes.
