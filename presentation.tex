@@ -14,6 +14,7 @@
 \usepackage{xcolor}
 \usepackage{tikz}
 \usepackage{enumitem}
+\usetikzlibrary{arrows.meta,shapes.geometric,positioning,fit,backgrounds}
 
 % ----------------------------------------------------------------
 % Color palette
@@ -22,8 +23,9 @@
 \definecolor{uiucorange}{RGB}{232,74,39}
 \definecolor{helpblue}{RGB}{91,155,213}
 \definecolor{conforange}{RGB}{224,123,84}
-\definecolor{neutralgray}{RGB}{191,191,191}
+\definecolor{neutralgray}{RGB}{150,150,150}
 \definecolor{factgreen}{RGB}{112,173,71}
+\definecolor{lightgray}{RGB}{240,240,240}
 
 \setbeamercolor{palette primary}{bg=uiucblue,fg=white}
 \setbeamercolor{palette secondary}{bg=uiucblue!80,fg=white}
@@ -32,11 +34,16 @@
 \setbeamercolor{structure}{fg=uiucblue}
 \setbeamercolor{section in toc}{fg=uiucblue}
 \setbeamercolor{alerted text}{fg=uiucorange}
+\setbeamercolor{block title}{bg=uiucblue,fg=white}
+\setbeamercolor{block body}{bg=uiucblue!8}
+\setbeamercolor{block title alerted}{bg=uiucorange,fg=white}
+\setbeamercolor{block body alerted}{bg=uiucorange!10}
+\setbeamercolor{block title example}{bg=factgreen!80!black,fg=white}
+\setbeamercolor{block body example}{bg=factgreen!8}
 
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
-  \leavevmode
-  \hbox{
+  \leavevmode\hbox{
     \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.5ex,center]{palette secondary}
       \usebeamerfont{author in head/foot}\insertshorttitle
     \end{beamercolorbox}
@@ -49,12 +56,17 @@
   }
 }
 
+% ----------------------------------------------------------------
+% Macros
+% ----------------------------------------------------------------
 \newcommand{\dlogp}{\Delta_{\mathrm{logprob}}}
 \newcommand{\dfact}{\Delta_{\mathrm{fact}}}
 \newcommand{\dltwo}{\Delta_{L2}}
 \newcommand{\lodo}{\textsc{Lodo}}
 \newcommand{\cdr}{\textsc{Cdr}}
 \newcommand{\hilight}[1]{\textcolor{uiucorange}{\textbf{#1}}}
+\newcommand{\good}[1]{\textcolor{helpblue}{\textbf{#1}}}
+\newcommand{\bad}[1]{\textcolor{conforange}{\textbf{#1}}}
 
 \graphicspath{
   {RGB-master/plots/}
@@ -90,91 +102,331 @@
 \section{Motivation}
 % ================================================================
 
-\begin{frame}{Retrieval-Augmented Generation}
+\begin{frame}{RAG: Grounding LLM Outputs in Retrieved Evidence}
   \begin{columns}
-    \column{0.55\textwidth}
-    \textbf{RAG pipeline}
-    \begin{enumerate}
+    \column{0.56\textwidth}
+    \textbf{Retrieval-Augmented Generation (RAG)}
+    \begin{enumerate}\setlength{\itemsep}{0.4em}
       \item Retrieve $n$ documents $\mathbf{D}$ for query $q$
-      \item Model generates answer $\hat{y} = \mathcal{M}(q, \mathbf{D})$
+      \item Model generates $\hat{y} = \mathcal{M}(q, \mathbf{D})$
     \end{enumerate}
-    \vspace{0.8em}
-    \textbf{A natural question:}\\
-    \medskip
-    \textit{Which documents actually caused\\the model to produce the correct answer?}
-    \vspace{0.8em}
 
-    \textbf{Existing attribution methods answer:}\\
-    \textit{Whichever documents most shift the\\model's output distribution.}
+    \vspace{1em}
+    \textbf{Key attribution question:}\\[0.4em]
+    \textit{``Which documents actually caused\\
+    the model to produce the correct answer?''}
 
-    \column{0.42\textwidth}
-    \begin{tikzpicture}[scale=0.85]
-      \node[draw,rounded corners,fill=uiucblue!10,minimum width=3.2cm,minimum height=0.7cm]
-        at (0,3.2) {\small Query $q$};
-      \node[draw,rounded corners,fill=uiucblue!10,minimum width=3.2cm,minimum height=0.7cm]
-        at (0,2.2) {\small Retriever};
-      \node[draw,rounded corners,fill=conforange!30,minimum width=3.2cm,minimum height=0.7cm]
-        at (0,1.2) {\small Docs $\mathbf{D} = \{d_1,\ldots,d_n\}$};
-      \node[draw,rounded corners,fill=uiucblue!10,minimum width=3.2cm,minimum height=0.7cm]
-        at (0,0.2) {\small LLM $\mathcal{M}$};
-      \node[draw,rounded corners,fill=factgreen!30,minimum width=3.2cm,minimum height=0.7cm]
-        at (0,-0.8) {\small Answer $\hat{y}$};
-      \draw[->,thick] (0,2.85) -- (0,2.55);
-      \draw[->,thick] (0,1.85) -- (0,1.55);
-      \draw[->,thick] (0,0.85) -- (0,0.55);
-      \draw[->,thick] (0,-0.15) -- (0,-0.45);
+    \vspace{1em}
+    \textbf{Why it matters:}
+    \begin{itemize}
+      \item Citation and provenance
+      \item Retrieval debugging
+      \item User trust in high-stakes domains
+    \end{itemize}
+
+    \column{0.41\textwidth}
+    \centering
+    \begin{tikzpicture}[
+      node distance=0.55cm,
+      box/.style={draw,rounded corners,fill=uiucblue!10,
+                  minimum width=3.0cm,minimum height=0.65cm,
+                  font=\small},
+      docbox/.style={draw,rounded corners,fill=conforange!25,
+                     minimum width=3.0cm,minimum height=0.65cm,
+                     font=\small},
+      ansbox/.style={draw,rounded corners,fill=factgreen!30,
+                     minimum width=3.0cm,minimum height=0.65cm,
+                     font=\small}]
+      \node[box]    (q)  {Query $q$};
+      \node[box,below=of q]    (ret) {Retriever};
+      \node[docbox,below=of ret]   (docs){$\mathbf{D} = \{d_1,\ldots,d_n\}$};
+      \node[box,below=of docs]  (llm) {LLM $\mathcal{M}$};
+      \node[ansbox,below=of llm] (ans) {Answer $\hat{y}$};
+      \draw[->,thick] (q)--(ret);
+      \draw[->,thick] (ret)--(docs);
+      \draw[->,thick] (docs)--(llm);
+      \draw[->,thick] (llm)--(ans);
+      \node[right=0.2cm of docs,font=\footnotesize,text=uiucorange,
+            align=left] {Which\\of these\\matters?};
     \end{tikzpicture}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{The Core Problem: Influence $\neq$ Usefulness}
-  \begin{block}{Existing attribution methods (ContextCite, TracLLM, AttriBoT)}
-    Score document importance by \textbf{log-probability degradation}:\\
-    \medskip
-    \centering
-    $d_i$ is important $\Leftrightarrow$ removing $d_i$ causes large $|\dlogp|$
-  \end{block}
+\begin{frame}{Prior Work: Attribution as Causal Influence}
+  \begin{columns}
+    \column{0.56\textwidth}
+    \textbf{Three leading attribution methods:}
 
-  \bigskip
-  \begin{alertblock}{The gap}
-    A document can cause \textbf{large logprob collapse} while providing \textbf{no factual benefit}.
-    \medskip
+    \vspace{0.6em}
+    \begin{description}[leftmargin=0pt]\setlength{\itemsep}{0.6em}
+      \item[\textbf{ContextCite}] Sparse linear surrogate (LASSO) over context ablations
+      \item[\textbf{TracLLM}] Recursive partitioning + contribution denoising for long contexts
+      \item[\textbf{AttriBoT}] Cached activations + proxy model for efficient leave-one-out
+    \end{description}
 
+    \vspace{0.8em}
+    \textbf{Shared definition of importance:}
+    \[
+      d_i\ \text{is important} \Leftrightarrow
+      \bigl|\dlogp(d_i)\bigr|\ \text{is large}
+    \]
+
+    \column{0.42\textwidth}
+    \begin{alertblock}{Shared limitation}
+      All three methods measure\\
+      \textbf{causal influence on output probability}.\\[0.5em]
+      None measure whether the\\
+      output is \textbf{factually correct}.\\[0.5em]
+      A document asserting a\\
+      \textit{confidently wrong fact} would\\
+      score as \textbf{highly important}\\
+      under all three.
+    \end{alertblock}
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------
+\begin{frame}{The Core Gap: Influence $\neq$ Usefulness}
+  \begin{columns}
+    \column{0.5\textwidth}
+
+    \begin{tikzpicture}[scale=0.88,every node/.style={font=\small}]
+      % Full context box
+      \node[draw,fill=uiucblue!8,rounded corners,
+            minimum width=5.6cm,minimum height=1.1cm,align=center]
+        (full) at (0,3.0)
+        {Full context $\mathbf{D}$\\
+         \footnotesize Model resists, outputs \textcolor{factgreen}{\textbf{correct}} $\hat{y}$};
+
+      % Doc removed
+      \node[draw,fill=conforange!18,rounded corners,
+            minimum width=5.6cm,minimum height=1.1cm,align=center]
+        (abl) at (0,1.3)
+        {Remove $d_i$ (counterfactual doc)\\
+         \footnotesize Still outputs \textcolor{factgreen}{\textbf{correct}} $\hat{y}_{-i}$};
+
+      \draw[->,thick] (full)--(abl) node[midway,right=2pt]
+        {\footnotesize ablation};
+
+      % Axes
+      \node[draw,fill=conforange!30,rounded corners,
+            minimum width=2.5cm,minimum height=0.7cm,align=center]
+        at (-1.4,0.1)
+        {\footnotesize $\dlogp \ll 0$\\[-0.1em]\tiny logprob collapses};
+
+      \node[draw,fill=factgreen!20,rounded corners,
+            minimum width=2.5cm,minimum height=0.7cm,align=center]
+        at (1.4,0.1)
+        {\footnotesize $\dfact = 0$\\[-0.1em]\tiny fact unchanged};
+
+      \draw[->,dashed,thick,conforange] (abl.south west) -- (-1.4,0.45);
+      \draw[->,dashed,thick,factgreen] (abl.south east) -- (1.4,0.45);
+
+      % Verdict
+      \node[draw,fill=uiucorange!20,rounded corners,
+            minimum width=5.6cm,minimum height=0.7cm,align=center]
+        at (0,-0.8)
+        {\textbf{Attribution:} ``$d_i$ is important'' \quad
+         \textbf{Reality:} factually useless};
+    \end{tikzpicture}
+
+    \column{0.47\textwidth}
+    \textbf{What is happening?}
+
+    \vspace{0.5em}
+    The model \textit{anchors its confidence} on\\
+    the counterfactual document $d_i$.\\[0.5em]
+    When $d_i$ is removed:\\
     \begin{itemize}
-      \item Model anchors confidence on a \textit{false document}
-      \item Removing it shifts model confidence heavily
-      \item But the correct answer never changes
+      \item Model confidence in $\hat{y}$ \textbf{drops} (logprob collapses)
+      \item But the \textbf{correct answer persists}
     \end{itemize}
-    \medskip
-    \textbf{Attribution says: ``important.'' Reality: factually useless.}
-  \end{alertblock}
+
+    \vspace{0.8em}
+    \begin{alertblock}{Collapse Divergence}
+      Large $|\dlogp|$ \textbf{without} any $\dfact$\\
+      Logprob signals importance.\\
+      Factuality signals uselessness.\\
+      They disagree.
+    \end{alertblock}
+  \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
 \begin{frame}{Why This Matters}
   \begin{columns}
     \column{0.5\textwidth}
-    \textbf{High-stakes RAG systems}\\(medicine, law, finance)
-    \vspace{0.5em}
-    \begin{itemize}
-      \item Attribution labels guide user trust
-      \item A ``highly important'' document\\gets cited as evidence
-      \item If that document is\\confidence-only (not factually useful):\\\medskip
-        \hilight{Wrong guidance to the user}
+    \textbf{High-stakes RAG applications}
+
+    \vspace{0.4em}
+    \begin{itemize}\setlength{\itemsep}{0.5em}
+      \item \textbf{Medicine:} ``Which document\\
+            caused this drug dosage recommendation?''
+      \item \textbf{Law:} ``Which source supports\\
+            this legal conclusion?''
+      \item \textbf{Finance:} ``Which filing caused\\
+            this risk assessment?''
     \end{itemize}
 
+    \vspace{0.6em}
+    If attribution labels a \bad{confidence-only}\\
+    document as ``important'' $\Rightarrow$\\[0.3em]
+    \hilight{Wrong citation. Wrong trust. Wrong guidance.}
+
     \column{0.48\textwidth}
-    \begin{exampleblock}{Our question}
-      Can we measure document importance\\
-      in a way that distinguishes
-      \medskip
-      \begin{itemize}
-        \item[\textcolor{helpblue}{\textbullet}] \textcolor{helpblue}{\textbf{helpful}} influence (use this)
-        \item[\textcolor{conforange}{\textbullet}] \textcolor{conforange}{\textbf{confidence-only}} influence (ignore)
-        \item[\textcolor{uiucorange}{\textbullet}] \textcolor{uiucorange}{\textbf{harmful}} influence (warn)
-      \end{itemize}
+    \begin{exampleblock}{This paper}
+      Extend attribution with factual alignment.\\[0.4em]
+      Measure importance on \textbf{three axes}:
+      \begin{enumerate}\setlength{\itemsep}{0.3em}
+        \item Did removing $d_i$ flip factual correctness?
+        \item Did removing $d_i$ collapse log-probability?
+        \item Did removing $d_i$ shift internal representations?
+      \end{enumerate}
     \end{exampleblock}
+
+    \vspace{0.5em}
+    \textbf{Claim:} Axis 1 ($\dfact$) is necessary.\\
+    Axes 2--3 alone are insufficient.
+  \end{columns}
+\end{frame}
+
+% ================================================================
+\section{Related Work}
+% ================================================================
+
+\begin{frame}{Attribution Methods: What They Measure}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{llll}
+    \toprule
+    Method & Mechanism & Measures & Factuality? \\
+    \midrule
+    \textbf{ContextCite} & LASSO over ablations & $\dlogp$ per sentence & \textcolor{uiucorange}{\texttimes} \\
+    \textbf{TracLLM}   & Recursive partitioning & $\dlogp$ over segments & \textcolor{uiucorange}{\texttimes} \\
+    \textbf{AttriBoT}  & Cached activations + proxy & Approx.\ $\dlogp$ & \textcolor{uiucorange}{\texttimes} \\
+    \addlinespace
+    \textbf{This work} & Full LODO + factuality eval & $\dfact,\dlogp,\dltwo$ & \textcolor{factgreen}{\checkmark} \\
+    \bottomrule
+  \end{tabular}
+
+  \vspace{1em}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \textbf{Mechanistic interpretability}
+    \begin{itemize}
+      \item Factual knowledge in mid-layer MLPs\\
+            (Meng et al.\ 2022; Dai et al.\ 2022)
+      \item Early layers: syntax / structure
+      \item Late layers: semantic grounding
+    \end{itemize}
+    \column{0.48\textwidth}
+    \textbf{RAG evaluation}
+    \begin{itemize}
+      \item RGB benchmark (Chen et al.\ 2024)\\
+            evaluates noise robustness
+      \item RAGAS: end-to-end factuality metrics
+      \item Neither measures per-document\\
+            causal contribution to correctness
+    \end{itemize}
+  \end{columns}
+\end{frame}
+
+% ================================================================
+\section{Problem Formulation}
+% ================================================================
+
+\begin{frame}{Formal Setup and LODO Ablation}
+  \begin{columns}
+    \column{0.52\textwidth}
+    \textbf{Notation}
+    \begin{itemize}\setlength{\itemsep}{0.3em}
+      \item Query: $q$
+      \item Retrieved documents: $\mathbf{D} = \{d_1, \ldots, d_n\}$
+      \item Model: $\mathcal{M}$, ground truth: $y^*$
+      \item Baseline answer: $\hat{y} = \mathcal{M}(q, \mathbf{D})$
+      \item Factuality scorer: $f(\hat{y}, y^*) \in \{0, 1\}$
+    \end{itemize}
+
+    \vspace{0.8em}
+    \textbf{LODO ablation} for document $d_i$:
+    \[
+      \mathbf{D}_{-i} = \mathbf{D} \setminus \{d_i\}
+    \]
+    \[
+      \hat{y}_{-i} = \mathcal{M}(q,\, \mathbf{D}_{-i})
+    \]
+
+    \column{0.46\textwidth}
+    \textbf{Three degradation axes:}
+
+    \vspace{0.5em}
+    \textbf{(1) Factual degradation}
+    \[
+      \dfact(d_i) = f(\hat{y}, y^*) - f(\hat{y}_{-i}, y^*)
+    \]
+
+    \textbf{(2) Logprob collapse}
+    \[
+      \dlogp(d_i) = \log P(\hat{y}\,|\,\mathbf{D}_{-i})
+                   - \log P(\hat{y}\,|\,\mathbf{D})
+    \]
+    \footnotesize Teacher-forcing over $\hat{y}$;\\
+    fully deterministic, temperature-free.
+
+    \normalsize
+    \vspace{0.4em}
+    \textbf{(3) Representation drift}
+    \[
+      \dltwo^{(\ell)}(d_i) =
+      \bigl\lVert \bar{h}^{(\ell)}_{\mathbf{D}} -
+      \bar{h}^{(\ell)}_{\mathbf{D}_{-i}} \bigr\rVert_2
+    \]
+    \footnotesize Mean hidden state at layer $\ell$.
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------
+\begin{frame}{What the Two Definitions of Importance Look Like}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{block}{Prior definition: logprob-important}
+      \[
+        d_i\ \text{is important} \Leftrightarrow \dlogp(d_i) < -2.0
+      \]
+      Measures: \textit{how much did model confidence shift?}\\[0.4em]
+      Does \textbf{not} ask: \textit{was the answer right?}
+    \end{block}
+
+    \vspace{0.6em}
+    \begin{exampleblock}{Our definition: factually useful}
+      \[
+        d_i\ \text{is useful} \Leftrightarrow \dfact(d_i) > 0
+      \]
+      Requires a \textbf{correct baseline}: $f(\hat{y}, y^*) = 1$\\[0.3em]
+      Measures: \textit{did removing $d_i$ break a correct answer?}
+    \end{exampleblock}
+
+    \column{0.48\textwidth}
+    \textbf{Collapse Divergence Rate (\cdr)}
+
+    \vspace{0.4em}
+    Among all logprob-important documents,\\
+    what fraction provide \textbf{zero factual benefit}?
+
+    \[
+      \cdr = \frac{|\{d_i : \dlogp < -2,\ \dfact = 0\}|}
+                  {|\{d_i : \dlogp < -2\}|}
+    \]
+
+    \vspace{0.4em}
+    \begin{itemize}
+      \item \cdr = 1.0 $\Rightarrow$ logprob-only attribution\\
+            is entirely factually uninformative
+      \item \cdr = 0.0 $\Rightarrow$ perfect alignment
+    \end{itemize}
+
+    \vspace{0.4em}
+    \hilight{We find CDR $\approx$ 0.93}
   \end{columns}
 \end{frame}
 
@@ -182,100 +434,182 @@
 \section{Method}
 % ================================================================
 
-\begin{frame}{Factuality-Aware LODO: Three-Axis Framework}
-  \textbf{Leave-One-Document-Out (\lodo)} — remove each document in turn, measure three axes:
+\begin{frame}{\lodo Procedure}
+  \begin{center}
+  \begin{tikzpicture}[
+    scale=0.82, every node/.style={font=\small},
+    step/.style={draw,rounded corners,fill=uiucblue!10,
+                 minimum width=3.8cm,minimum height=0.75cm,align=center},
+    result/.style={draw,rounded corners,fill=factgreen!15,
+                   minimum width=3.8cm,minimum height=0.65cm,align=center},
+    arrow/.style={->,thick,uiucblue}]
 
-  \bigskip
-  \begin{columns}
-    \column{0.32\textwidth}
-    \centering
-    \textcolor{factgreen}{\Large $\dfact(d_i)$}\\[0.3em]
-    \small Factual degradation\\
-    Did removing $d_i$ flip the\\answer from correct to wrong?\\[0.5em]
-    \textbf{Binary. Directional.}
+    \node[step] (s1) at (0,4.0)
+      {1.\ Generate baseline $\hat{y}$\\from $\mathcal{M}(q,\mathbf{D})$};
+    \node[result,right=1.5cm of s1] (r1)
+      {Record $f(\hat{y},y^*)$\\and $\log P(\hat{y}|\mathbf{D})$};
+    \draw[arrow] (s1)--(r1);
 
-    \column{0.32\textwidth}
-    \centering
-    \textcolor{conforange}{\Large $\dlogp(d_i)$}\\[0.3em]
-    \small Log-prob collapse\\
-    How much did model confidence\\in the original answer drop?\\[0.5em]
-    \textbf{Teacher-forcing. Deterministic.}
+    \node[step] (s2) at (0,2.6)
+      {2.\ For each $d_i$: generate\\$\hat{y}_{-i}$ from $\mathcal{M}(q,\mathbf{D}_{-i})$};
+    \node[result,right=1.5cm of s2] (r2)
+      {Compute $\dfact(d_i)$};
+    \draw[arrow] (s2)--(r2);
 
-    \column{0.32\textwidth}
-    \centering
-    \textcolor{helpblue}{\Large $\dltwo^{(\ell)}(d_i)$}\\[0.3em]
-    \small Representation drift\\
-    How much did hidden states\\shift at each layer?\\[0.5em]
-    \textbf{Layer-wise. Mechanistic.}
-  \end{columns}
+    \node[step] (s3) at (0,1.4)
+      {3.\ Teacher-force $\hat{y}$\\under $\mathbf{D}_{-i}$};
+    \node[result,right=1.5cm of s3] (r3)
+      {Compute $\dlogp(d_i)$\\(deterministic)};
+    \draw[arrow] (s3)--(r3);
 
-  \bigskip
-  \begin{block}{Key insight}
-    Prior methods use only $\dlogp$. We add $\dfact$ to test \textit{whether} the influence is useful.
-  \end{block}
+    \node[step] (s4) at (0,0.2)
+      {4.\ Compare hidden states\\$\bar{h}^{(\ell)}_{\mathbf{D}}$ vs $\bar{h}^{(\ell)}_{\mathbf{D}_{-i}}$};
+    \node[result,right=1.5cm of s4] (r4)
+      {Compute $\dltwo^{(\ell)}(d_i)$\\per layer $\ell$};
+    \draw[arrow] (s4)--(r4);
+
+    \node[step,fill=uiucorange!15] (s5) at (0,-1.0)
+      {5.\ Classify $d_i$ into\\taxonomy category};
+    \draw[arrow] (s1)--(s2);
+    \draw[arrow] (s2)--(s3);
+    \draw[arrow] (s3)--(s4);
+    \draw[arrow] (s4)--(s5);
+
+    \node[right=1.5cm of s5,draw,rounded corners,fill=uiucorange!15,
+          minimum width=3.8cm,minimum height=0.65cm,align=center] (r5)
+      {helpful / conf-only /\\fact-only / neutral \ldots};
+    \draw[arrow] (s5)--(r5);
+  \end{tikzpicture}
+  \end{center}
 \end{frame}
 
 % ----------------------------------------------------------------
 \begin{frame}{Factuality-Aware Importance Taxonomy}
   Classify every ablated document by its $(\dlogp,\, \dfact)$ pair:
 
-  \bigskip
+  \vspace{0.6em}
   \begin{center}
-  \renewcommand{\arraystretch}{1.3}
-  \begin{tabular}{llll}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{lllp{5cm}}
     \toprule
-    Category & $\dlogp$ & $\dfact$ & Interpretation \\
+    Category & $\dlogp$ & $\dfact$ & Meaning \\
     \midrule
-    \textcolor{helpblue}{\textbf{Helpful-important}}   & $< -2$ & $> 0$ & Causally and factually useful \\
-    \textcolor{conforange}{\textbf{Confidence-only}}   & $< -2$ & $= 0$ & Influential but \textbf{factually useless} \\
-    \textcolor{uiucorange}{\textbf{Harmful-influential}} & $< -2$ & $< 0$ & Makes wrong answer more likely \\
+    \textcolor{helpblue}{\textbf{Helpful-important}}
+      & $< -2$ & $> 0$
+      & Causally \emph{and} factually useful\\
+    \textcolor{conforange}{\textbf{Confidence-only}}
+      & $< -2$ & $= 0$
+      & Influential but \textbf{factually useless} (CDR population)\\
+    \textcolor{uiucorange}{\textbf{Harmful-influential}}
+      & $< -2$ & $< 0$
+      & Influence pushes toward wrong answer\\
     \addlinespace
-    \textcolor{factgreen}{\textbf{Fact-only}}          & $\geq -2$ & $> 0$ & Quietly necessary \\
-    \textcolor{neutralgray}{\textbf{Neutral}}          & $\geq -2$ & $= 0$ & No effect on either axis \\
-    \textbf{Harmful-weak}                              & $\geq -2$ & $< 0$ & Weakly harmful \\
+    \textcolor{factgreen}{\textbf{Fact-only}}
+      & $\geq -2$ & $> 0$
+      & Quietly necessary; modest logprob impact\\
+    \textcolor{neutralgray}{\textbf{Neutral}}
+      & $\geq -2$ & $= 0$
+      & No measurable effect on either axis\\
+    \textbf{Harmful-weak}
+      & $\geq -2$ & $< 0$
+      & Weakly degrades factuality\\
     \bottomrule
   \end{tabular}
   \end{center}
 
-  \bigskip
-  \textbf{Collapse Divergence Rate:}
-  \[
-    \cdr = \frac{|\{d_i : \dlogp < -2,\; \dfact = 0\}|}{|\{d_i : \dlogp < -2\}|}
-  \]
+  \vspace{0.5em}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \textbf{Factuality-aware causal score:}
+    \[
+      s_{\mathrm{FA}}(d_i) = \max(0,-\dlogp) \cdot \max(0,\dfact)
+    \]
+    \column{0.48\textwidth}
+    \footnotesize Non-zero only when a document is \textbf{both}
+    logprob-important \emph{and} factually useful.\\
+    Directly operationalizes ``influence aligned with correctness.''
+  \end{columns}
 \end{frame}
 
 % ================================================================
 \section{Experimental Setup}
 % ================================================================
 
-\begin{frame}{Setup}
+\begin{frame}{Why en\_counter\_mid?}
   \begin{columns}
     \column{0.5\textwidth}
-    \textbf{Dataset: RGB en\_counter\_mid}
-    \begin{itemize}
-      \item All retrieved docs assert the \textit{wrong} answer
-      \item Model must \textit{resist} evidence to be correct
-      \item Accuracy: 0--20\% (makes LODO observable)
-    \end{itemize}
+    \textbf{RGB benchmark (Chen et al.\ 2024)}
 
-    \vspace{0.5em}
-    \textbf{Why not en\_mid?}\\
-    Near-ceiling accuracy (92--96\%) —\\removing any doc is a non-event.
+    \vspace{0.4em}
+    \begin{description}[leftmargin=0pt]\setlength{\itemsep}{0.4em}
+      \item[\texttt{en\_mid}]
+        Standard retrieval. Near-ceiling accuracy\\
+        (92--96\%) regardless of noise level.\\
+        \textit{Removing any single document\\
+        rarely changes the output.}\\
+        \bad{LODO is causally uninformative.}
+      \item[\texttt{en\_counter\_mid}]
+        All retrieved docs assert the \textbf{wrong} answer.\\
+        Model must resist the evidence to be correct.\\
+        Accuracy: 0--20\%.\\
+        \good{Every document's presence is causally observable.}
+    \end{description}
 
     \column{0.48\textwidth}
     \includegraphics[width=\linewidth]{CF4_dataset_motivation.png}
-    \captionof*{figure}{\small en\_mid (near-ceiling) vs en\_counter\_mid}
+    \vspace{0.3em}
+    \small Baseline accuracy comparison. \texttt{en\_mid} (near-ceiling)
+    makes document removal a non-event. \texttt{en\_counter\_mid} creates
+    the conditions where causal perturbation is measurable.
   \end{columns}
+\end{frame}
 
-  \bigskip
+% ----------------------------------------------------------------
+\begin{frame}{Model, Scale, and Passage Sweep}
   \begin{columns}
     \column{0.5\textwidth}
-    \textbf{Model:} Llama-3.1-8B-Instruct\\
-    \textbf{Scale:} 513 total ablations
+    \textbf{Model}
+    \begin{itemize}
+      \item Llama-3.1-8B-Instruct
+      \item $\tau = 0.7$ for generation
+      \item Teacher-forcing for $\dlogp$ and $\dltwo$\\
+            (fully deterministic; no temperature effect)
+    \end{itemize}
+
+    \vspace{0.6em}
+    \textbf{Scale}
+    \begin{itemize}
+      \item Passage-number sweep:\\
+            $n \in \{3, 5, 7, 10\}$,\ 10 queries,\ seed 42
+      \item 238 sweep ablations
+      \item 275 \texttt{en\_refine} ablations (all correct baselines)
+      \item \textbf{513 total ablations}
+    \end{itemize}
+
     \column{0.48\textwidth}
-    \textbf{Passage-number sweep:}\\
-    passage\_num $\in \{3, 5, 7, 10\}$\\
-    10 queries, seed = 42
+    \textbf{Document composition per query}
+
+    \vspace{0.3em}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.85,every node/.style={font=\small}]
+      \foreach \n/\pos/\npos/\nneg in
+        {3/0/{1}/{2},5/1.1/{1}/{4},7/2.2/{1}/{6},10/3.3/{2}/{8}}{
+        \draw[fill=factgreen!25] (\pos,0) rectangle ++(0.3*\npos,0.7);
+        \draw[fill=conforange!25] (\pos+0.3*\npos,0) rectangle ++(0.3*\nneg,0.7);
+        \node[below=0.05cm] at (\pos+0.15*\n, 0) {\footnotesize $n$=\n};
+      }
+      \node[above] at (-0.3,0.7) {};
+      \node[right] at (3.7,0.35) {};
+      \draw[fill=factgreen!25] (0,-0.6) rectangle ++(0.3,0.3);
+      \node[right] at (0.35,-0.45) {\footnotesize positive (correct)};
+      \draw[fill=conforange!25] (2.5,-0.6) rectangle ++(0.3,0.3);
+      \node[right] at (2.85,-0.45) {\footnotesize negative (counter.)};
+    \end{tikzpicture}
+    \end{center}
+
+    \vspace{0.4em}
+    At least 1 positive doc per query.\\
+    Remaining docs are counterfactual.
   \end{columns}
 \end{frame}
 
@@ -283,98 +617,196 @@
 \section{Results}
 % ================================================================
 
-\begin{frame}{RQ1 — Does Logprob Overestimate Factual Usefulness?}
+\begin{frame}{RQ1 — The Headline Number: CDR = 92.7\%}
   \begin{columns}
-    \column{0.52\textwidth}
-    \textbf{Among 55 logprob-important documents:}
+    \column{0.50\textwidth}
+    \textbf{Among all 55 logprob-important documents:}
 
-    \bigskip
-    \begin{center}
+    \vspace{0.5em}
     \renewcommand{\arraystretch}{1.3}
     \begin{tabular}{lrr}
       \toprule
-      & Count & \% \\
+      Category & Count & \% \\
       \midrule
-      \textcolor{helpblue}{Helpful-important}    &  3 &  5.5\% \\
-      \textcolor{conforange}{Confidence-only}    & 51 & \hilight{92.7\%} \\
-      \textcolor{uiucorange}{Harmful-influential} &  1 &  1.8\% \\
+      \textcolor{helpblue}{\textbf{Helpful-important}}    &  3 &  5.5\% \\
+      \textcolor{conforange}{\textbf{Confidence-only}}    & 51 & \hilight{92.7\%} \\
+      \textcolor{uiucorange}{\textbf{Harmful-influential}} &  1 &  1.8\% \\
+      \midrule
+      \textbf{Total}                                      & 55 & 100\% \\
       \bottomrule
     \end{tabular}
-    \end{center}
 
-    \bigskip
-    \begin{alertblock}{CDR = 92.7\%}
-      Among documents flagged as ``important'' by logprob, \textbf{9 out of 10}
-      provide \textbf{zero factual benefit}.
+    \vspace{0.8em}
+    \begin{alertblock}{\cdr = 92.7\%}
+      Among documents flagged ``important'' by\\
+      logprob, \textbf{9 out of 10 provide zero\\
+      factual benefit}.
     \end{alertblock}
 
-    \column{0.46\textwidth}
+    \column{0.48\textwidth}
     \includegraphics[width=\linewidth]{E1_cdr_by_passage_num.png}
-    \small CDR stays $>$90\% at every passage count — not a low-$n$ artifact.
+
+    \vspace{0.2em}
+    \small
+    CDR (orange) stays \textbf{above 90\%} at every passage count.\\[0.3em]
+    This is not a low-$n$ artifact.\\
+    It is a fundamental property of\\
+    likelihood-based attribution.
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------
+\begin{frame}{RQ1 — CDR by Document Type}
+  \begin{columns}
+    \column{0.50\textwidth}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{lrr}
+      \toprule
+      Group & $N_{\mathrm{imp}}$ & CDR \\
+      \midrule
+      \textbf{Overall}          & 55 & 92.7\% \\
+      \addlinespace
+      $n=3$                     & 15 & 93.3\% \\
+      $n=5$                     & 11 & 90.9\% \\
+      $n=7$                     & 12 & 91.7\% \\
+      $n=10$                    & 14 & 92.9\% \\
+      \addlinespace
+      Positive docs             & 32 & 93.8\% \\
+      Negative (counterfactual) & 20 & 90.0\% \\
+      \bottomrule
+    \end{tabular}
+
+    \vspace{0.5em}
+    \small \textbf{Positive docs have higher CDR} than negative docs.\\
+    Even ground-truth-supporting documents mostly\\
+    cause confidence-only importance.
+
+    \column{0.48\textwidth}
+    \includegraphics[width=\linewidth]{E1_cdr_by_doc_type.png}
+
+    \vspace{0.3em}
+    \small CDR broken down by document type\\
+    (positive = ground-truth supporting,\\
+    negative = counterfactual).\\[0.4em]
+    Both types show CDR $\approx$ 90--94\%.
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
 \begin{frame}{RQ2 — Full Importance Taxonomy (513 Ablations)}
   \begin{columns}
-    \column{0.48\textwidth}
+    \column{0.50\textwidth}
     \includegraphics[width=\linewidth]{E2_taxonomy_stacked_by_passage_num.png}
 
-    \column{0.5\textwidth}
+    \vspace{0.2em}
+    \small
+    Stacked bar by passage count.\\
+    Orange (confidence-only) is consistently\\
+    the dominant \textit{non-neutral} category.\\
+    Blue (helpful-important) appears only at $n \geq 5$.
+
+    \column{0.48\textwidth}
     \renewcommand{\arraystretch}{1.25}
     \begin{tabular}{lrr}
       \toprule
       Category & Count & \% \\
       \midrule
-      \textcolor{neutralgray}{\textbf{Neutral}}   & 439 & 85.6\% \\
-      \textcolor{conforange}{\textbf{Conf.-only}} &  51 &  9.9\% \\
-      \textcolor{factgreen}{\textbf{Fact-only}}   &  14 &  2.7\% \\
-      Harmful-weak   &   5 &  1.0\% \\
-      \textcolor{helpblue}{\textbf{Helpful-imp.}} &   3 &  0.6\% \\
-      Harmful-inf.   &   1 &  0.2\% \\
+      \textcolor{neutralgray}{\textbf{Neutral}}        & 439 & 85.6\% \\
+      \textcolor{conforange}{\textbf{Conf.-only}}      &  51 &  9.9\% \\
+      \textcolor{factgreen}{\textbf{Fact-only}}        &  14 &  2.7\% \\
+      Harmful-weak                                     &   5 &  1.0\% \\
+      \textcolor{helpblue}{\textbf{Helpful-imp.}}      &   3 &  0.6\% \\
+      Harmful-influential                              &   1 &  0.2\% \\
+      \midrule
+      \textbf{Total}                                   & 513 & 100\% \\
       \bottomrule
     \end{tabular}
 
-    \bigskip
+    \vspace{0.5em}
     \textbf{Key observations:}
-    \begin{itemize}
-      \item Most documents do nothing at all
-      \item Confidence-only $\gg$ helpful-important
-      \item Helpful-important appears only at $n \geq 5$\\
-        (needs a correct baseline to degrade)
+    \begin{itemize}\setlength{\itemsep}{0.3em}
+      \item 85.6\% of documents do nothing
+      \item Confidence-only \textbf{17$\times$ more common}\\
+            than helpful-important
+      \item Helpful-important requires $n \geq 5$\\
+            (needs correct baseline to degrade)
     \end{itemize}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{RQ2 — Factuality-Aware Ranking Outperforms Logprob-Only}
+\begin{frame}{RQ2 — Taxonomy in the $(\dlogp, \dfact)$ Space}
+  \begin{columns}
+    \column{0.55\textwidth}
+    \includegraphics[width=\linewidth]{E2_logprob_vs_fact_taxonomy.png}
+
+    \small
+    Each point = one ablation.\\
+    Dashed vertical: logprob threshold ($-2.0$).\\
+    Dashed horizontal: zero factual change.
+
+    \column{0.43\textwidth}
+    \textbf{Reading the scatter:}
+
+    \vspace{0.5em}
+    \begin{itemize}\setlength{\itemsep}{0.5em}
+      \item \textbf{Left of dashed line}:\\
+            logprob-important (55 points)\\
+            $\rightarrow$ 92.7\% at $\dfact = 0$
+
+      \item \textbf{Right side}:\\
+            most ablations cluster near $(0, 0)$\\
+            — neither axis triggered
+
+      \item \textbf{Top-left quadrant}:\\
+            helpful-important (rare, only 3)
+
+      \item \textbf{Bottom-left}:\\
+            harmful-influential (1 case)
+    \end{itemize}
+
+    \vspace{0.4em}
+    \small The CDR population (confidence-only)\\
+    is the dense cluster on the\\
+    \textit{left} of the threshold at $\dfact = 0$.
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------
+\begin{frame}{RQ2 — Factuality-Aware Ranking vs Logprob-Only}
   \begin{columns}
     \column{0.52\textwidth}
-    Evaluated on 4 queries with $\geq 1$ factually useful document:
+    Evaluated on \textbf{4 queries} with $\geq 1$ factually useful document:
 
-    \bigskip
+    \vspace{0.5em}
     \renewcommand{\arraystretch}{1.3}
-    \begin{tabular}{lrrr}
+    \begin{tabular}{lrrrr}
       \toprule
-      Method & P@1 & MRR & Spearman $r$ \\
+      Method & P@1 & P@3 & MRR & Spearman $r$ \\
       \midrule
-      Logprob-only     & 0.50 & 0.75 & 0.04 \\
-      \textbf{Fact.-aware} & \textbf{1.00} & \textbf{1.00} & \textbf{0.72} \\
-      Harmfulness-aware & 0.25 & 0.55 & $-$0.42 \\
+      Logprob-only      & 0.50 & 0.67 & 0.75 & 0.04 \\
+      \textbf{Fact.-aware} & \textbf{1.00} & \textbf{0.83} & \textbf{1.00} & \textbf{0.72} \\
+      Harmfulness-aware & 0.25 & 0.42 & 0.55 & $-$0.42 \\
       \bottomrule
     \end{tabular}
 
-    \bigskip
-    Factuality-aware score:
+    \vspace{0.5em}
+    \textbf{Factuality-aware score} (Eq.):
     \[
-      s_{\mathrm{FA}}(d_i) = \max(0, -\dlogp) \cdot \max(0, \dfact)
+      s_{\mathrm{FA}}(d_i) = \max(0,-\dlogp)\cdot\max(0,\dfact)
     \]
     Non-zero only when \textbf{both} axes degrade.
 
     \column{0.46\textwidth}
     \includegraphics[width=\linewidth]{E6_precision_by_ranking_method.png}
-    \small P@1 and P@3 by ranking method.\\
-    Factuality-aware: perfect on non-trivial queries.
+
+    \vspace{0.2em}
+    \small
+    Factuality-aware scoring correctly identifies\\
+    the helpful document at rank 1 every time.\\[0.3em]
+    Logprob-only is at chance level (P@1\,=\,0.5).\\[0.3em]
+    Harmfulness-aware is \textit{anti-correlated} with\\
+    factual usefulness.
   \end{columns}
 \end{frame}
 
@@ -384,8 +816,14 @@
     \column{0.52\textwidth}
     \includegraphics[width=\linewidth]{E5_influence_usefulness_gap_by_passage.png}
 
+    \small
+    Orange: logprob-important rate.\\
+    Blue: fact-useful rate.\\
+    Shaded: the \textbf{influence-usefulness gap}.\\
+    Black dashed: baseline accuracy (right axis).
+
     \column{0.46\textwidth}
-    \renewcommand{\arraystretch}{1.3}
+    \renewcommand{\arraystretch}{1.25}
     \begin{tabular}{crrr}
       \toprule
       $n$ & Logprob-imp & Fact-useful & Gap \\
@@ -397,103 +835,161 @@
       \bottomrule
     \end{tabular}
 
-    \bigskip
-    \textbf{Two regimes:}
-    \begin{itemize}
-      \item $n=3$: \textit{context starvation}\\
-        0\% correct baseline\\
-        no factual degradation possible
-      \item $n \geq 5$: \textit{redundancy}\\
-        gap narrows but CDR stays $>$90\%
-    \end{itemize}
+    \vspace{0.4em}
+    \textbf{Gap narrows with $n$ — but why?}\\[0.3em]
+    \small
+    Logprob-important rate \textit{falls}\\
+    (redundancy buffers each removal).\\[0.2em]
+    Fact-useful rate \textit{rises}\\
+    (more correct baselines exist).\\[0.2em]
+    \hilight{CDR stays $>$90\% throughout.}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{RQ4 — Integration Horizon: Where Evidence Is Processed}
+\begin{frame}{RQ3 — Two Distinct Regimes}
   \begin{columns}
-    \column{0.52\textwidth}
-    \includegraphics[width=\linewidth]{E4_full_33layer_drift_case_studies.png}
-    \small Full 33-layer drift (10 case studies).\\
-    Red: top-divergence. Gray: average-baseline.
-
-    \column{0.46\textwidth}
-    \begin{block}{Integration Horizon at layers 18--20}
+    \column{0.5\textwidth}
+    \begin{alertblock}{Context starvation ($n=3$)}
       \begin{itemize}
-        \item Layers 0--17: near-zero drift
-        \item Layers 18--20: sharp rise
-        \item Layer 32: maximum divergence
+        \item Baseline accuracy = \textbf{0\%}
+        \item Model never produces correct answer\\
+              with 3 counterfactual docs
+        \item Any removal $\Rightarrow$ logprob collapse\\
+              (model has nothing to stand on)
+        \item $\dfact$ cannot be $>0$ (no correct\\
+              baseline to degrade from)
+        \item Gap = 50\%; CDR = 93\%
+      \end{itemize}
+    \end{alertblock}
+
+    \column{0.48\textwidth}
+    \begin{exampleblock}{Redundancy regime ($n \geq 5$)}
+      \begin{itemize}
+        \item Baseline accuracy becomes non-zero
+        \item Occasionally correct baselines exist\\
+              $\Rightarrow$ factual degradation observable
+        \item Remaining docs buffer each removal\\
+              $\Rightarrow$ logprob-important rate falls
+        \item But: CDR stays above 90\%
+        \item More docs $\neq$ better factual grounding
+      \end{itemize}
+    \end{exampleblock}
+
+    \vspace{0.4em}
+    \textbf{Adding docs doesn't fix the gap.}\\
+    It just adds more confidence-only noise.
+  \end{columns}
+\end{frame}
+
+% ----------------------------------------------------------------
+\begin{frame}{RQ4 — Integration Horizon: Where Evidence Is Integrated}
+  \begin{columns}
+    \column{0.54\textwidth}
+    \includegraphics[width=\linewidth]{E4_full_33layer_drift_case_studies.png}
+
+    \small
+    Full 33-layer L2 drift (10 case studies).\\
+    Red: top-divergence ($\dlogp \ll 0$).\\
+    Gray: average-baseline ($\dlogp \approx 0$).
+
+    \column{0.44\textwidth}
+    \begin{block}{Integration Horizon: layers 18--20}
+      \begin{itemize}\setlength{\itemsep}{0.4em}
+        \item Layers 0--17: \textbf{near-zero drift}\\
+              syntactic / structural encoding
+        \item Layers 18--20: \textbf{sharp rise}\\
+              evidence begins to dominate
+        \item Layer 32: \textbf{maximum divergence}\\
+              output-space representation
       \end{itemize}
     \end{block}
 
-    \bigskip
-    Retrieved evidence is integrated\\
-    \textbf{late in the transformer}\\
-    (not in early attention layers)
+    \vspace{0.5em}
+    Consistent with mechanistic interpretability\\
+    literature on mid-layer factual storage.
+
+    \vspace{0.4em}
+    \small \textbf{Implication:} A real-time signal at\\
+    layer $\sim$20 could flag factually uncertain\\
+    generation \textit{before decoding completes}.
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{RQ4 — Drift Does Not Reveal Factual Alignment}
+\begin{frame}{RQ4 — Drift Cannot Distinguish Helpful from Confidence-Only}
   \begin{columns}
     \column{0.52\textwidth}
     \includegraphics[width=\linewidth]{E4_layerwise_drift_by_taxonomy.png}
 
+    \small Mean L2 drift at layers 0, 16, 32\\
+    by importance category.
+
     \column{0.46\textwidth}
     \textbf{Mean L2 drift at layer 32:}
 
-    \bigskip
+    \vspace{0.4em}
     \renewcommand{\arraystretch}{1.3}
     \begin{tabular}{lr}
       \toprule
       Category & $\dltwo^{32}$ \\
       \midrule
-      \textcolor{helpblue}{Helpful-important}  & 19.95 \\
-      \textcolor{conforange}{Confidence-only}  & 18.61 \\
+      \textcolor{helpblue}{\textbf{Helpful-important}}    & \textbf{19.95} \\
+      \textcolor{conforange}{\textbf{Confidence-only}}    & 18.61 \\
+      \textcolor{uiucorange}{Harmful-influential}          & 27.41 \\
       \addlinespace
-      \textcolor{factgreen}{Fact-only}         &  8.07 \\
-      \textcolor{neutralgray}{Neutral}         &  6.01 \\
+      \textcolor{factgreen}{Fact-only}                    &  8.07 \\
+      \textcolor{neutralgray}{Neutral}                    &  6.01 \\
       \bottomrule
     \end{tabular}
 
-    \bigskip
-    \begin{alertblock}{Critical finding}
-      Helpful-important and confidence-only documents produce
-      \textbf{nearly identical} L2 drift.\\
-      \smallskip
-      Representation drift, like logprob, is \textbf{directionally agnostic}.
+    \vspace{0.5em}
+    \begin{alertblock}{Critical result}
+      Helpful-important (\textbf{19.95}) and\\
+      confidence-only (\textbf{18.61}) produce\\
+      \textbf{nearly identical L2 drift}.\\[0.3em]
+      Representation drift is also\\
+      \textbf{directionally agnostic}.\\
+      It cannot replace $\dfact$.
     \end{alertblock}
   \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{RQ5 — Logprob Collapse Is Localized to Factual Tokens}
+\begin{frame}{RQ5 — Logprob Collapse Localizes to Factual Tokens}
   \begin{columns}
     \column{0.54\textwidth}
     \includegraphics[width=\linewidth]{E3_token_type_logprob_drop_boxplot.png}
-    \small Per-token logprob change (10 case studies).\\
-    Orange: factual tokens. Blue: structural tokens.
+
+    \small
+    Per-token logprob change (10 case studies).\\
+    \textbf{Left}: top-divergence cases.\ \ \textbf{Right}: average-baseline.\\
+    Orange: factual tokens.\ \ Blue: structural tokens.
 
     \column{0.44\textwidth}
-    \textbf{Factual tokens:}\\
-    numbers, dates, capitalized proper nouns\\
-    ($\approx$48\% of output tokens)
-
-    \bigskip
-    \textbf{Finding:}
+    \textbf{Factual tokens identified by:}
     \begin{itemize}
-      \item In top-divergence cases,\\
-        logprob collapse concentrates\\
-        on factual tokens
-      \item Structural tokens (prepositions,\\
-        function words) are stable
+      \item Digit-containing tokens (numbers, dates)
+      \item Capitalized tokens of length $>1$\\
+            (named entities, proper nouns)
     \end{itemize}
 
-    \bigskip
-    \textbf{Doubly sparse:}\\
-    Causal influence is concentrated\\
-    in a few documents, and within\\
-    those, in a few factual tokens.
+    \vspace{0.3em}
+    Comprise $\approx$48\% of output tokens.
+
+    \vspace{0.6em}
+    \textbf{Finding:}
+    \begin{itemize}
+      \item Top-divergence: collapse concentrated\\
+            on \textbf{factual tokens} only
+      \item Structural tokens (prepositions,\\
+            conjunctions): near-zero change
+      \item Average-baseline: both types stable
+    \end{itemize}
+
+    \vspace{0.4em}
+    \textbf{Doubly sparse:} few documents,\\
+    and within those, 1--2 tokens.
   \end{columns}
 \end{frame}
 
@@ -501,88 +997,147 @@
 \section{Discussion \& Conclusion}
 % ================================================================
 
-\begin{frame}{Summary of Findings}
+\begin{frame}{Summary: All Five Research Questions}
   \begin{center}
-  \renewcommand{\arraystretch}{1.4}
-  \begin{tabular}{lll}
+  \renewcommand{\arraystretch}{1.45}
+  \begin{tabular}{llp{5cm}l}
     \toprule
-    RQ & Finding & Key Number \\
+    RQ & Question (short) & Finding & Key Number \\
     \midrule
-    RQ1 & Logprob inflates importance & \hilight{CDR = 92.7\%} \\
-    RQ2 & Factuality-aware ranking works & \hilight{P@1: 1.00 vs 0.50} \\
-    RQ3 & Gap persists across passage counts & CDR $>$90\% at all $n$ \\
-    RQ4 & Drift agnostic to factual direction & Helpful $\approx$ Conf.-only\\
-    RQ5 & Collapse localized to factual tokens & 1--2 tokens affected \\
+    1 & Does logprob overestimate? & 9/10 logprob-imp.\ docs are factually useless & \hilight{CDR\,=\,92.7\%} \\
+    2 & Can we rank better? & Factuality-aware score is perfect at rank 1 & \hilight{P@1: 1.00 vs 0.50} \\
+    3 & Does $n$ change the gap? & Gap persists; CDR stable at all passage counts & CDR $>$90\% at all $n$ \\
+    4 & Where in the model? & Late-layer integration; helpful $\approx$ conf-only drift & Horizon: layers 18--20 \\
+    5 & Which tokens? & Collapse on 1--2 factual tokens only & 48\% of tokens affected \\
     \bottomrule
   \end{tabular}
   \end{center}
 
-  \bigskip
+  \vspace{0.5em}
   \begin{block}{Central message}
-    Among all documents that cause strong log-probability collapse,
-    \textbf{9 out of 10 have zero factual effect}. \\[0.3em]
-    Influence-based attribution identifies what shifts the model's output.\\
-    It does not identify what makes that output correct.
+    Influence-based attribution correctly measures what shifts model output.\\
+    It does \textbf{not} measure whether that shift was factually beneficial.\\[0.3em]
+    \textbf{$\dfact$ is necessary.} Neither $\dlogp$ nor $\dltwo$ can substitute for it.
   \end{block}
 \end{frame}
 
 % ----------------------------------------------------------------
-\begin{frame}{Implications and Future Work}
+\begin{frame}{Implications}
   \begin{columns}
     \column{0.5\textwidth}
-    \textbf{For attribution methods}
-    \begin{itemize}
+    \textbf{For attribution systems}
+    \begin{itemize}\setlength{\itemsep}{0.4em}
       \item ContextCite / TracLLM / AttriBoT:\\
-        \textit{correct but incomplete}
-      \item Extend with factuality filter:\\
-        weight $\dlogp$ by $\dfact$ alignment
-      \item Use factuality-aware score\\
-        for document reranking
+            \textit{correct but incomplete}
+      \item Extend: weight $\dlogp$ by $\dfact$ alignment
+      \item Factuality-aware score as post-hoc filter
+      \item Low-CDR corpus = more reliable RAG
+    \end{itemize}
+
+    \vspace{0.6em}
+    \textbf{For RAG evaluation}
+    \begin{itemize}\setlength{\itemsep}{0.4em}
+      \item Track CDR as a corpus quality metric
+      \item Diagnose retriever behavior:\\
+            high CDR $\Rightarrow$ retriever is returning\\
+            influential-but-useless documents
     \end{itemize}
 
     \column{0.48\textwidth}
-    \textbf{For RAG system design}
-    \begin{itemize}
-      \item Track CDR as a corpus\\quality diagnostic
-      \item Integration Horizon (layers 18--20)\\as real-time uncertainty signal
-      \item Position-controlled ablation\\to validate semantic origin\\of late-layer drift
+    \textbf{Future directions}
+    \begin{itemize}\setlength{\itemsep}{0.4em}
+      \item \textbf{Position-controlled LODO}\\
+            Isolate semantic absence from\\
+            positional encoding artifact
+      \item \textbf{Mid-layer signal (layer 18--20)}\\
+            Real-time uncertainty detection\\
+            before decoding completes
+      \item \textbf{Factuality-aware reranking}\\
+            Fine-tune retriever toward\\
+            factually useful documents
+      \item \textbf{More models and datasets}\\
+            Generalize beyond Llama-3.1-8B\\
+            and counterfactual setting
     \end{itemize}
   \end{columns}
+\end{frame}
 
-  \bigskip
-  \begin{exampleblock}{Limitations}
-    Post-hoc; requires correct-baseline queries; counterfactual setting;
-    token analysis at $n=10$ only; single model (Llama-3.1-8B)
-  \end{exampleblock}
+% ----------------------------------------------------------------
+\begin{frame}{Limitations}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{alertblock}{Scope limitations}
+      \begin{itemize}\setlength{\itemsep}{0.4em}
+        \item Single model: Llama-3.1-8B-Instruct
+        \item Single benchmark: RGB en\_counter\_mid\\
+              (adversarial retrieval setting)
+        \item CDR may differ in standard\\
+              (non-counterfactual) retrieval
+        \item Small scale: 10 queries,\\
+              513 ablations total
+      \end{itemize}
+    \end{alertblock}
+
+    \column{0.48\textwidth}
+    \begin{alertblock}{Method limitations}
+      \begin{itemize}\setlength{\itemsep}{0.4em}
+        \item Post-hoc: requires correct-baseline queries;\\
+              not usable at retrieval time
+        \item $O(n)$ extra forward passes per query
+        \item $\dfact$ depends on evaluator quality\\
+              (exact-match may miss paraphrases)
+        \item Token analysis: only 10 case studies\\
+              (no AUROC over full ablation set)
+        \item Positional encoding confound not\\
+              yet controlled (E7 pending)
+      \end{itemize}
+    \end{alertblock}
+  \end{columns}
 \end{frame}
 
 % ----------------------------------------------------------------
 \begin{frame}{Conclusion}
   \begin{center}
-    \Large
-    \textbf{Influence Is Not Usefulness}
+    \LARGE\textbf{Influence Is Not Usefulness}
   \end{center}
 
-  \bigskip
-  \begin{itemize}\setlength{\itemsep}{0.6em}
-    \item We proposed \textbf{Factuality-Aware \lodo}: a three-axis
-          evaluation framework for document attribution in RAG
-    \item \textbf{CDR = 92.7\%}: the majority of logprob-important
-          documents provide zero factual benefit — \textit{collapse divergence}
-    \item The six-category \textbf{importance taxonomy} separates
-          helpful, confidence-only, and harmful influence
-    \item Factuality-aware ranking achieves \textbf{P@1 = 1.00} vs 0.50
-          for logprob-only scoring
-    \item Mechanistically, evidence integration is \textbf{late-layer}
-          (horizon at layers 18--20) and \textbf{token-localized}
-    \item Attribution methods must be \textbf{extended with factual alignment}
-          to reliably identify useful retrieved evidence
-  \end{itemize}
+  \vspace{0.4em}
+  \begin{columns}
+    \column{0.55\textwidth}
+    \begin{itemize}\setlength{\itemsep}{0.55em}
+      \item \textbf{LODO}: three-axis evaluation\\
+            ($\dfact$, $\dlogp$, $\dltwo$) per removed document
+      \item \textbf{CDR = 92.7\%}: among logprob-important\\
+            documents, 9 out of 10 provide zero factual benefit
+      \item \textbf{Six-category taxonomy}: separates\\
+            helpful, confidence-only, and harmful influence
+      \item \textbf{Factuality-aware ranking}: P@1 = 1.00\\
+            vs 0.50 for logprob-only
+      \item \textbf{Integration Horizon}: layers 18--20;\\
+            logprob collapse localized to 1--2 factual tokens
+      \item Influence-based attribution must be\\
+            \textbf{extended with $\dfact$} to be reliable
+    \end{itemize}
 
-  \vfill
-  \begin{center}
-    \small \texttt{gawonl2@illinois.edu} \quad | \quad github.com/Gawonl2/LODO
-  \end{center}
+    \column{0.43\textwidth}
+    \begin{center}
+    \begin{tikzpicture}[scale=0.78, every node/.style={font=\small}]
+      \draw[fill=uiucblue!8,rounded corners] (-2,-1.5) rectangle (2,1.5);
+      \node[above] at (0,1.2) {\footnotesize logprob-important docs};
+      \draw[fill=conforange!40,rounded corners] (-1.7,-1.2) rectangle (0.5,0.9);
+      \node at (-0.6,-0.15) {\footnotesize \textcolor{conforange}{\textbf{93\%}}};
+      \node at (-0.6,-0.6) {\footnotesize conf.-only};
+      \draw[fill=helpblue!50,rounded corners] (0.7,-1.2) rectangle (1.8,0.9);
+      \node at (1.25,-0.15) {\footnotesize \textcolor{helpblue}{\textbf{5.5\%}}};
+      \node at (1.25,-0.6) {\footnotesize helpful};
+      \node[below] at (0,-1.4) {\footnotesize All $\dlogp < -2$};
+    \end{tikzpicture}
+    \end{center}
+
+    \vspace{0.3em}
+    \small \texttt{gawonl2@illinois.edu}\\
+    \texttt{github.com/Gawonl2/LODO}
+  \end{columns}
 \end{frame}
 
 % ================================================================
@@ -590,7 +1145,7 @@
 % ================================================================
 \appendix
 
-\begin{frame}{Backup: Scatter Plot — Logprob vs Factual Degradation}
+\begin{frame}{Backup: Scatter — Logprob vs Factual Degradation}
   \begin{center}
     \includegraphics[width=0.65\linewidth]{E2_logprob_vs_fact_taxonomy.png}
   \end{center}
@@ -600,13 +1155,14 @@
   The vast majority of logprob-important points (left of dashed line) sit at $\dfact = 0$.
 \end{frame}
 
-\begin{frame}{Backup: CDR vs Baseline Accuracy by Passage Count}
+\begin{frame}{Backup: CDR vs Baseline Accuracy}
   \begin{center}
-    \includegraphics[width=0.6\linewidth]{E5_cdr_vs_baseline_accuracy.png}
+    \includegraphics[width=0.58\linewidth]{E5_cdr_vs_baseline_accuracy.png}
   \end{center}
   \small
-  CDR does not decrease as baseline accuracy increases. The influence-usefulness gap
-  is not resolved by having more correct baselines.
+  CDR does not decrease as baseline accuracy increases. Even when the model generates
+  correct answers more often (larger $n$), the fraction of logprob-important documents
+  that are factually useless stays above 90\%.
 \end{frame}
 
 \begin{frame}{Backup: Layer-32 Drift Distribution by Category}
@@ -615,17 +1171,49 @@
   \end{center}
   \small
   Box plots of L2 drift at layer 32 by importance category.
-  Helpful-important and confidence-only overlap substantially.
+  Helpful-important and confidence-only distributions overlap substantially,
+  confirming that L2 drift alone cannot separate factually useful from useless influence.
 \end{frame}
 
-\begin{frame}{Backup: Passage Sweep — Positive vs Negative Documents}
+\begin{frame}{Backup: AUC Under Drift Curve by Category}
   \begin{center}
-    \includegraphics[width=0.7\linewidth]{S3_pos_vs_neg_importance.png}
+    \includegraphics[width=0.75\linewidth]{E4_auc_late_layers_by_taxonomy.png}
   \end{center}
   \small
-  Causal importance rate by document type (positive = ground-truth supporting;
-  negative = counterfactual). At $n=3$, both are equally likely to be causally
-  important. At $n=10$, positive documents dominate.
+  Area under the layer-wise drift curve (trapezoid approximation over layers 0, 16, 32).
+  Helpful-important (193.2) and confidence-only (175.6) are again much larger than
+  neutral (57.4), but remain similar to each other.
+\end{frame}
+
+\begin{frame}{Backup: Positive vs Negative Document Importance}
+  \begin{center}
+    \includegraphics[width=0.68\linewidth]{S3_pos_vs_neg_importance.png}
+  \end{center}
+  \small
+  Causal importance rate by document type (positive = ground-truth supporting,
+  negative = counterfactual). At $n=3$, both types are equally likely to be
+  causally important. At $n=10$, positive documents dominate: the model's correct
+  outputs depend on the positive docs resisting the counterfactual narrative.
+\end{frame}
+
+\begin{frame}{Backup: Token-wise Logprob Trajectory}
+  \begin{center}
+    \includegraphics[width=0.80\linewidth]{6_tokenwise_trajectory.png}
+  \end{center}
+  \small
+  Token-wise logprob trajectories under baseline (solid) and ablated (dashed) contexts.
+  Logprob collapse is highly localized: 1--2 named-entity or numeric tokens drop
+  significantly, while surrounding structural tokens are unaffected.
+\end{frame}
+
+\begin{frame}{Backup: Passage Sweep — Logprob and Drift}
+  \begin{center}
+    \includegraphics[width=0.75\linewidth]{S1_passage_sweep_summary.png}
+  \end{center}
+  \small
+  Causal importance rate, mean logprob degradation, and mean L2 drift as a function
+  of passage count. The dramatic transition from $n=3$ to $n=5$ marks the boundary
+  between the context starvation and redundancy regimes.
 \end{frame}
 
 \end{document}
