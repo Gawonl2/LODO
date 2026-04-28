@@ -1,0 +1,307 @@
+[
+  {
+    "style": "Base",
+    "accuracy_mean": 8.6,
+    "accuracy_std": 2.2,
+    "reject_mean": 10.4,
+    "reject_std": 1.9595917942265428,
+    "wrong_mean": 81.0,
+    "wrong_std": 2.7202941017470885,
+    "raw_results": [
+      {
+        "accuracy": 8.0,
+        "reject": 12.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 12.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 14.000000000000002,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 8.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 8.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 10.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 12.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 10.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 8.0,
+        "wrong": 86.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 10.0,
+        "wrong": 80.0
+      }
+    ]
+  },
+  {
+    "style": "Academic",
+    "accuracy_mean": 8.8,
+    "accuracy_std": 2.227105745132009,
+    "reject_mean": 12.8,
+    "reject_std": 1.8330302779823364,
+    "wrong_mean": 78.4,
+    "wrong_std": 1.9595917942265422,
+    "raw_results": [
+      {
+        "accuracy": 8.0,
+        "reject": 14.000000000000002,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 16.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 14.000000000000002,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 14.000000000000002,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 10.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 14.000000000000002,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 12.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 12.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 12.0,
+        "wrong": 80.0
+      }
+    ]
+  },
+  {
+    "style": "Confident",
+    "accuracy_mean": 10.6,
+    "accuracy_std": 2.835489375751566,
+    "reject_mean": 9.0,
+    "reject_std": 2.5690465157330262,
+    "wrong_mean": 80.4,
+    "wrong_std": 4.2708313008125245,
+    "raw_results": [
+      {
+        "accuracy": 12.0,
+        "reject": 12.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 8.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 10.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 14.000000000000002,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 6.0,
+        "wrong": 88.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 6.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 6.0,
+        "reject": 8.0,
+        "wrong": 86.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 6.0,
+        "wrong": 84.0
+      }
+    ]
+  },
+  {
+    "style": "Conversational",
+    "accuracy_mean": 10.8,
+    "accuracy_std": 1.32664991614216,
+    "reject_mean": 14.2,
+    "reject_std": 2.6,
+    "wrong_mean": 75.0,
+    "wrong_std": 3.255764119219941,
+    "raw_results": [
+      {
+        "accuracy": 10.0,
+        "reject": 12.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 12.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 16.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 14.000000000000002,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 12.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 20.0,
+        "wrong": 68.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 12.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 12.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 16.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 16.0,
+        "wrong": 76.0
+      }
+    ]
+  },
+  {
+    "style": "Narrative",
+    "accuracy_mean": 15.4,
+    "accuracy_std": 2.0099751242241775,
+    "reject_mean": 7.6,
+    "reject_std": 2.3323807579381204,
+    "wrong_mean": 77.0,
+    "wrong_std": 3.82099463490856,
+    "raw_results": [
+      {
+        "accuracy": 18.0,
+        "reject": 12.0,
+        "wrong": 70.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 6.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 12.0,
+        "wrong": 70.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 6.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 6.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 6.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 6.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 6.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 8.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 8.0,
+        "wrong": 78.0
+      }
+    ]
+  }
+]

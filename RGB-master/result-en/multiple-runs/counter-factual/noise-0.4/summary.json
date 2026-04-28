@@ -1,0 +1,307 @@
+[
+  {
+    "style": "Base",
+    "accuracy_mean": 12.6,
+    "accuracy_std": 2.8354893757515653,
+    "reject_mean": 5.8,
+    "reject_std": 2.2715633383201093,
+    "wrong_mean": 81.6,
+    "wrong_std": 4.079215610874227,
+    "raw_results": [
+      {
+        "accuracy": 18.0,
+        "reject": 10.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 6.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 4.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 4.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 6.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 8.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 8.0,
+        "reject": 6.0,
+        "wrong": 86.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 2.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 8.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 4.0,
+        "wrong": 84.0
+      }
+    ]
+  },
+  {
+    "style": "Academic",
+    "accuracy_mean": 12.8,
+    "accuracy_std": 2.039607805437114,
+    "reject_mean": 13.0,
+    "reject_std": 2.04939015319192,
+    "wrong_mean": 74.2,
+    "wrong_std": 2.6,
+    "raw_results": [
+      {
+        "accuracy": 16.0,
+        "reject": 12.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 14.000000000000002,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 16.0,
+        "wrong": 70.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 10.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 10.0,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 14.000000000000002,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 12.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 14.000000000000002,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 16.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 10.0,
+        "reject": 12.0,
+        "wrong": 78.0
+      }
+    ]
+  },
+  {
+    "style": "Confident",
+    "accuracy_mean": 14.8,
+    "accuracy_std": 1.8330302779823358,
+    "reject_mean": 5.2,
+    "reject_std": 1.6,
+    "wrong_mean": 80.0,
+    "wrong_std": 2.0,
+    "raw_results": [
+      {
+        "accuracy": 16.0,
+        "reject": 4.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 6.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 12.0,
+        "reject": 6.0,
+        "wrong": 82.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 4.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 6.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 4.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 6.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 6.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 2.0,
+        "wrong": 84.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 8.0,
+        "wrong": 78.0
+      }
+    ]
+  },
+  {
+    "style": "Conversational",
+    "accuracy_mean": 17.0,
+    "accuracy_std": 2.236067977499789,
+    "reject_mean": 12.4,
+    "reject_std": 3.7735924528226414,
+    "wrong_mean": 70.6,
+    "wrong_std": 4.294182110716777,
+    "raw_results": [
+      {
+        "accuracy": 16.0,
+        "reject": 20.0,
+        "wrong": 64.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 14.000000000000002,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 18.0,
+        "wrong": 64.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 8.0,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 20.0,
+        "reject": 12.0,
+        "wrong": 68.0
+      },
+      {
+        "accuracy": 20.0,
+        "reject": 12.0,
+        "wrong": 68.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 12.0,
+        "wrong": 70.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 8.0,
+        "wrong": 74.0
+      }
+    ]
+  },
+  {
+    "style": "Narrative",
+    "accuracy_mean": 16.0,
+    "accuracy_std": 1.549193338482966,
+    "reject_mean": 9.0,
+    "reject_std": 2.720294101747089,
+    "wrong_mean": 75.0,
+    "wrong_std": 3.492849839314596,
+    "raw_results": [
+      {
+        "accuracy": 16.0,
+        "reject": 8.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 10.0,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 10.0,
+        "wrong": 72.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 10.0,
+        "wrong": 76.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 8.0,
+        "wrong": 78.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 12.0,
+        "wrong": 70.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 4.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 18.0,
+        "reject": 8.0,
+        "wrong": 74.0
+      },
+      {
+        "accuracy": 14.000000000000002,
+        "reject": 6.0,
+        "wrong": 80.0
+      },
+      {
+        "accuracy": 16.0,
+        "reject": 14.000000000000002,
+        "wrong": 70.0
+      }
+    ]
+  }
+]

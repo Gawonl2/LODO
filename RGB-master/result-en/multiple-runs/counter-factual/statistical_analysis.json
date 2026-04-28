@@ -1,0 +1,11 @@
+{
+  "noise-0": [
+    {
+      "metric": "Accuracy",
+      "style": "Academic",
+      "base_mean": 8.6,
+      "style_mean": 8.8,
+      "difference": 0.20000000000000107,
+      "t_statistic": -0.18291322825490786,
+      "p_value": 0.858920228552995,
+      "significant": 

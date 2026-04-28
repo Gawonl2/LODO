@@ -1,0 +1,43 @@
+# =============================================================================
+# LLM Requirements for RGB Project
+# =============================================================================
+# Install with: pip install -r requirements.txt
+#
+# IMPORTANT: For CUDA support, install PyTorch FIRST with:
+#   pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+# Then install the rest:
+#   pip install -r requirements.txt
+#
+# Python version: 3.10+
+# =============================================================================
+
+# =============================================================================
+# Core ML Libraries
+# =============================================================================
+# PyTorch - Install separately with CUDA if you have GPU (see instructions above)
+# If no GPU, uncomment below:
+# torch>=2.0.0
+
+transformers>=4.35.0,<5.0.0
+accelerate>=0.24.0
+
+# =============================================================================
+# Hugging Face Integration
+# =============================================================================
+huggingface-hub>=0.19.0
+
+# =============================================================================
+# Tokenizer Dependencies (required for LLaMA models)
+# =============================================================================
+sentencepiece>=0.1.99
+
+# =============================================================================
+# Numerical & Scientific Computing
+# =============================================================================
+numpy>=1.24.0,<2.0.0
+tqdm>=4.65.0
+
+# =============================================================================
+# Optional: 8-bit quantization (saves VRAM)
+# =============================================================================
+# bitsandbytes>=0.41.0

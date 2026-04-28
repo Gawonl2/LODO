@@ -1,0 +1,5 @@
+# Rename this file to 'hg' and add your HuggingFace token
+# Get your token from: https://huggingface.co/settings/tokens
+# Note: Llama-3.1 requires approval from Meta
+hf_your_token_here
+

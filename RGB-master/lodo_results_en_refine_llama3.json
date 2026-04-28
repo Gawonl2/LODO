@@ -1,0 +1,4217 @@
+[
+  {
+    "id": 0,
+    "query": "When is the premiere of 'Carole King & James Taylor: Just Call Out My Name'?",
+    "baseline_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00 pm ET/PT on CNN.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -4.53125,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "However, the concert tour took place in honor of the 40th anniversary. The two might have aged since...",
+        "new_generated_answer": "Carole King & James Taylor: Just Call Out My Name premiered January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -5.53125,
+        "logprob_degradation": -1.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.49932744321543376,
+          "layer_32": 5.442007526022852
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "The concert film includes the following songs:(You Make Me Feel Like) A Natural WomanSomething in th...",
+        "new_generated_answer": "The film Carole King & James Taylor: Just Call Out My Name premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3673241383989569,
+          "layer_32": 3.9178326950839346
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Jan 2, 2022 ... Carole King & James Taylor: Just Call Out My Name premiered January 2, 2022, at 9:00...",
+        "new_generated_answer": "The premiere of 'Carole King & James Taylor: Just Call Out My Name' was on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.65625,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29614205767497803,
+          "layer_32": 3.9059623581686505
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "Subscribe to CNN Press Room Email Updates Frank Marshall-Directed Film, CAROLE KING & JAMES TAYLOR: ...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3529446473280948,
+          "layer_32": 3.334972242833339
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "Subscribe to CNN Press Room Email Updates Frank Marshall-Directed Film, CAROLE KING & JAMES TAYLOR: ...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3529446473280948,
+          "layer_32": 3.334972242833339
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "Feb 10, 2022                                 Runtime:                                   2h 0m       ...",
+        "new_generated_answer": "The premiere of 'Carole King & James Taylor: Just Call Out My Name' took place on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.25,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.28960175963263607,
+          "layer_32": 3.294047595981394
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Your Ticket Confirmation # is located under the header in your email that reads \"Your Ticket Reserva...",
+        "new_generated_answer": "The film premiered January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.296599013468382,
+          "layer_32": 3.3194990555105983
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "I have no answer as to why the film wasn’t released in 2011, but an appreciation of a musical collab...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.921875,
+        "logprob_degradation": 0.609375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35038936816493077,
+          "layer_32": 3.6446103819737625
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "A concert film that explores the 50-year friendship between award-winning singer/songwriters James T...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.625,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.16865320599644282,
+          "layer_32": 1.8191841513844726
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "The track is one of 15 the pair recorded live from West Hollywood’s The Troubadour in 2007, where th...",
+        "new_generated_answer": "Carole King & James Taylor: Just Call Out My Name premiered January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.71875,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.398419068980515,
+          "layer_32": 3.810083259148693
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "Sara Haines Sends 'The View' Into Hysterics After Whispering in Whoopi Goldberg's Ear: \"Sara Made It...",
+        "new_generated_answer": "The film 'Carole King & James Taylor: Just Call Out My Name' premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.25,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.47926936950603727,
+          "layer_32": 4.623460057272055
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "From here on out, there will be no point of view presented outside the King-Taylor circle, so the he...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.40625,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.33832600510292304,
+          "layer_32": 3.1864908089863158
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "Kootch, Sklar, and Kunkel have been session musicians for a number of major musicians over the years...",
+        "new_generated_answer": "The film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5625,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34015393165521324,
+          "layer_32": 3.118520000573641
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "The documentary’s new interview with King and Taylor, coupled with their performances, highlight the...",
+        "new_generated_answer": "The film 'Carole King & James Taylor: Just Call Out My Name' premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.375,
+        "logprob_degradation": 0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29564916255369605,
+          "layer_32": 3.0252301636491
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "Prior to forming The Immediate Family, Kortchmar, Kunkel and Sklar have worked together since the ea...",
+        "new_generated_answer": "The premiere of 'Carole King & James Taylor: Just Call Out My Name' took place on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.40625,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.32594003414773487,
+          "layer_32": 3.0858558207274087
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Movies in theaters Movies at home More Certified fresh picks                New TV Tonight          ...",
+        "new_generated_answer": "The concert film \"Carole King & James Taylor: Just Call Out My Name\" premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.38181044406723375,
+          "layer_32": 3.7025312395396694
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "Towards the end, we get current-day interviews with Taylor and King, who look back lovingly on the t...",
+        "new_generated_answer": "Carole King & James Taylor: Just Call Out My Name premiered January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5625,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.344052826733399,
+          "layer_32": 3.2676193341886735
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "Explore Carole’s Career Through The Years Tapestry Visit the store »...",
+        "new_generated_answer": "The film premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.13480952810621094,
+          "layer_32": 1.5486473230762088
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "HBO Max recently began its global roll out launching in 39 markets across Latin America and the Cari...",
+        "new_generated_answer": "The concert film 'Carole King & James Taylor: Just Call Out My Name' premiered on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.6875,
+        "logprob_degradation": -0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.40078955664330307,
+          "layer_32": 4.0885907206739045
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Carole King & James Taylor: Just Call Out My Name ... Synopsis: A concert film that explores the 50-...",
+        "new_generated_answer": "The premiere of 'Carole King & James Taylor: Just Call Out My Name' is on January 2, 2022, at 9:00pm ET/PT on CNN.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.875,
+        "logprob_degradation": -0.34375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4760104940024988,
+          "layer_32": 4.122862404370474
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "query": "The genre of the drama \"Good Sam\" is what?",
+    "baseline_answer": "The genre of the drama \"Good Sam\" is medical drama.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -1.84375,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "The new CBS drama Good Sam is likely to draw viewers towards more shows that revolve around medical ...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.359375,
+        "logprob_degradation": -0.515625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6744168377311089,
+          "layer_32": 8.958329495755416
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "Sam Griffith (Sophia Bush) is a female lead, still a rarity in medical dramas. The cast diversity is...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8125,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35838901136754187,
+          "layer_32": 5.4604338033234265
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Based on       1 parent review     GOOD SAM plays in the standard medical procedural sandbox, but th...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.7109375,
+        "logprob_degradation": 0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3054715017693612,
+          "layer_32": 5.0793686780821155
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "By Monique Jones, Common Sense Media Reviewer               Common Sense Media Reviewers       Commo...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8125,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3627080145743208,
+          "layer_32": 5.260587048051865
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "When you purchase through links on our site, we may earn an affiliate commission. Here’s how it work...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8671875,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35314823508433896,
+          "layer_32": 5.097216768523876
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "Good Sam is an American medical drama television series created by Katie Wech for CBS, starring  Jas...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.96875,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37438797499637105,
+          "layer_32": 5.994750662509129
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Type keyword(s) to search  Pilot Script Review of Good Sam  Good Sam is CBS's only contender this ye...",
+        "new_generated_answer": "Medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.9453125,
+        "logprob_degradation": -0.1015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.27683686931719387,
+          "layer_32": 4.928796508138449
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "The only way to resume his job is as her subordinate, an arrangement which, for him, is untenable. T...",
+        "new_generated_answer": "Medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.921875,
+        "logprob_degradation": -0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34341193357243976,
+          "layer_32": 5.1292700517886365
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "By Peter White  Television Editor Medical drama Good Sam, starring Sophia Bush, and bowling comedy S...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8671875,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4521538151904581,
+          "layer_32": 5.374081387264064
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "In May 2022, the series was canceled after one season. Good Sam. Genre, Medical drama. Created by, K...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.703125,
+        "logprob_degradation": -0.859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5662090572771477,
+          "layer_32": 7.840185574014684
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "May 14, 2021 ... Medical drama Good Sam, starring Sophia Bush, and bowling comedy Smallwood ... genr...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.875,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.25055545864236545,
+          "layer_32": 3.3234342954160323
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Mar 25, 2020 ... Sophia Bush is back at bat with a new Grey's-like CBS drama. ... Good Sam is CBS's ...",
+        "new_generated_answer": "Based on the provided documents, the genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.78125,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1657803144565519,
+          "layer_32": 2.896667990776696
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "Feb 2, 2022 ... The new CBS drama Good Sam is likely to draw viewers towards more shows that revolve...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.890625,
+        "logprob_degradation": -0.046875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1852239817964866,
+          "layer_32": 2.5785805179660857
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "Jan 5, 2022 ... Sophia Bush is back on TV for Good Sam, and here's how the CBS drama compares to oth...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.734375,
+        "logprob_degradation": 0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.16808878559282336,
+          "layer_32": 2.5314870493241477
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "May 29, 2023 Few things feel like summer, quite like taking a vacation or going to the movies. There...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.875,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31788305771127773,
+          "layer_32": 4.573943821569294
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Follows a talented yet stifled surgeon who embraces her leadership role after her renowned and pompo...",
+        "new_generated_answer": "Medical drama",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.7421875,
+        "logprob_degradation": 0.1015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2235082129587456,
+          "layer_32": 3.876492150919356
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "When he awakens and wants to resume surgery, however, it falls to her to supervise this overbearing ...",
+        "new_generated_answer": "Medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.9375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29179792276632377,
+          "layer_32": 4.3284613773607346
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "27][28] In February 2021, Edwin Hodge joined the cast in a starring role.[29] In January 2022, it wa...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8203125,
+        "logprob_degradation": 0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.24389723388585577,
+          "layer_32": 3.9084563860934223
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "You can help us help kids by            suggesting a diversity update.       Want suggestions based ...",
+        "new_generated_answer": "Based on the provided documents, the genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8515625,
+        "logprob_degradation": -0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21645111475449758,
+          "layer_32": 3.7565212700423496
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "If Kermit the Frog making his way to Hollywood by way of a swamp in Florida, meeting Fozzie, Gonzo, ...",
+        "new_generated_answer": "Medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.9765625,
+        "logprob_degradation": -0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29609640179199914,
+          "layer_32": 4.226794273470173
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "Get our latest storiesin the feed of your favorite networks We want to hear from you! Send us a tip ...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8359375,
+        "logprob_degradation": 0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22891038658965887,
+          "layer_32": 3.5068943313623415
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "over on NBC on Wednesdays, filling the slot previously held by CSI: Vegas. See what happens next wit...",
+        "new_generated_answer": "Medical drama",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8984375,
+        "logprob_degradation": -0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22738743214033344,
+          "layer_32": 3.5246530725277023
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "May 29, 2023 ... Action in the movies is great, but it's not as ideal while you're on the road. Spar...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.8046875,
+        "logprob_degradation": 0.0390625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1550078004906732,
+          "layer_32": 2.843362623651695
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "Inspired by the Karate Kid movies, Cobra Kai reunites the Karate champions Johnny Lawrence and Danie...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.96875,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31318487826145464,
+          "layer_32": 5.316816603784362
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "At the nurses station, nurses DONNA (50s) and PAMELA (30s) are explaining to a patient how it crazy ...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.03125,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2795902649800797,
+          "layer_32": 4.422402516032327
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "Jim Carrey is at his all-time Jim Carrey-est, and Jeff Daniels is able to somehow keep up. Also, “Ha...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.984375,
+        "logprob_degradation": -0.140625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3337785804004597,
+          "layer_32": 4.508809156064384
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "A talented yet stifled surgeon embraces her leadership role after her renowned and pompous boss fall...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is a medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.734375,
+        "logprob_degradation": 0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35433240523387005,
+          "layer_32": 4.586562298561934
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "Movies Similar to Good Sam: Love on the Slopes (2018), Right in Front of Me ... secret identity and ...",
+        "new_generated_answer": "The genre of the drama \"Good Sam\" is medical drama.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.953125,
+        "logprob_degradation": -0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3853404662456995,
+          "layer_32": 4.345689360153337
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "query": "Who won the 2022 Citrus Bowl?",
+    "baseline_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -4.25,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "A late drive by No. 22 Kentucky sealed the Wildcat victory over the 15th-ranked University of Iowa f...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.953125,
+        "logprob_degradation": 0.296875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.624019888791798,
+          "layer_32": 8.498009127513814
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "Kentucky secured its fourth straight bowl victory Saturday with a 20-17 Citrus Bowl win over Iowa. D...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.90625,
+        "logprob_degradation": -0.65625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.46300995654032145,
+          "layer_32": 7.705958828264063
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Kentucky Wildcats win Citrus Bowl, 4th straight bowl game | whas11....",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -7.625,
+        "logprob_degradation": -3.375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3958625343246122,
+          "layer_32": 5.8024337232928955
+        },
+        "is_causally_important": true
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "This time, it was the No. 15 Iowa Hawkeyes who Kentucky took down in the final minutes en route to a...",
+        "new_generated_answer": "Kentucky secured its fourth straight bowl victory Saturday with a 20-17 Citrus Bowl win over Iowa.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.625,
+        "logprob_degradation": 0.625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3806371361472394,
+          "layer_32": 4.924953524600506
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "Game summary of the Kentucky Wildcats vs. Iowa Hawkeyes NCAAF game, final score 20-17, from January ...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": -0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5855380452089552,
+          "layer_32": 6.641170858393071
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "Kentucky defeated Iowa 20-17 in the 2022 VRBO Citrus Bowl, giving the Wildcats its 4th straight post...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -5.6875,
+        "logprob_degradation": -1.4375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5554526290538794,
+          "layer_32": 7.214987833210096
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "The seventh-oldest collegiate bowl game in the country, the Cheez-It Citrus Bowl began as the Tanger...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.40625,
+        "logprob_degradation": -0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5895865257241557,
+          "layer_32": 5.622331104182766
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "The Aggies opened the season 1-5 before closing out the year by winning six of seven to finish 7-6. ...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the Iowa Hawkeyes with a score of 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5196484674969576,
+          "layer_32": 5.05910273415295
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Western Kentucky: WKU may have had the most impressive performance of bowl season. The Hilltoppers t...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.4375,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.49581739875560166,
+          "layer_32": 4.7905406916187925
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "The game was a punt hater’s dream. And it was a nightmare for Ole Miss QB Jaxson Dart. He threw thre...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.4375,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5115557218695326,
+          "layer_32": 4.663113234981586
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "Head coach Kirk Ferentz has kept things close to the vest with his signal-callers, but it's looking ...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.34375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2571169661161595,
+          "layer_32": 3.1399468956185954
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Purdue University  LSU 12/30/2022 11:01:00 AM  | Football...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the 15th-ranked University of Iowa football team with a score of 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5,
+        "logprob_degradation": -0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.20963920749751724,
+          "layer_32": 2.3164191509680436
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "Georgia Southern: The Camellia Bowl was a painful watch if you were an Eagles fan. Buffalo beat Geor...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5073432600329552,
+          "layer_32": 4.586028886942929
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "8 yards per catch at that point in the game. Daniels put the Tigers in prime scoring position after ...",
+        "new_generated_answer": "Kentucky secured its fourth straight bowl victory Saturday with a 20-17 Citrus Bowl win over Iowa.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.59375,
+        "logprob_degradation": -0.34375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5017051176493678,
+          "layer_32": 4.775507369729418
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "Iowa QBs combined to throw for seven TDs all season while the defense itself scored six touchdowns. ...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating the 15th-ranked Iowa Hawkeyes 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.34375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.508854669699627,
+          "layer_32": 4.899635320661703
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Gavin Williams, LeShon Williams and Arland Bruce IV have taken the five total rushes and Spencer Pet...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5265038281400687,
+          "layer_32": 5.061219372856036
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "The freshman Maiava-Peters threw for just 47 yards and an interception but rushed 14 times for 96 ya...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the Iowa Hawkeyes 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.4375,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5184606253669514,
+          "layer_32": 4.1567740136903195
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "It’s been a long time coming. Before Chris Creighton arrived as head coach in 2014, the 1987 Califor...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the Iowa Hawkeyes 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.96875,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6208467405544911,
+          "layer_32": 5.032249026741524
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "The NC State offense struggled mightily all day, and that ended up being the final scoring opportuni...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.1875,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.595914228855897,
+          "layer_32": 4.4281603129101335
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Duke capped off a remarkable season by beating UCF 30-13 on Wednesday in the Military Bowl — the pro...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl with a score of 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.21875,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5961763670570225,
+          "layer_32": 4.662496659736601
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "Site by Maven Creative © 2023 Florida Citrus Sports...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.375,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.18472562068339818,
+          "layer_32": 1.8621992058821206
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "The 6-3, 200-pound dual threat threw for 16 TDs and ran for another 11 this season. He has been the ...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the Iowa Hawkeyes 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5625,
+        "logprob_degradation": -0.3125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6082884519940771,
+          "layer_32": 4.877790453104524
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "The the offense responded with its best drive of the day, featuring a gorgeous 34-yard completion fr...",
+        "new_generated_answer": "Kentucky secured its fourth straight bowl victory Saturday with a 20-17 Citrus Bowl win over Iowa.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6258101803384494,
+          "layer_32": 4.8454311358524835
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "A hard play-action on second down, then a little screen to Sam LaPorta running behind Mason Richman ...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the 15th-ranked University of Iowa football team with a score of 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.25,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6309071708373838,
+          "layer_32": 5.028803152409683
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "The 2022 Citrus Bowl was a college football bowl game played on January 1, 2022, with kickoff at 1:0...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.4375,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4786817368003788,
+          "layer_32": 4.871803814684697
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "Jan 1, 2022 ... The 2022 Vrbo Citrus Bowl was a heck of a great game, with momentum swings and thril...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.32897344046461724,
+          "layer_32": 3.4200489881933955
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "The seventh-oldest bowl game in the country, the Cheez-It Citrus Bowl hosts the top Big Ten and SEC ...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5,
+        "logprob_degradation": -0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.27990142067647106,
+          "layer_32": 3.5120201127699375
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "Jan 2, 2023 ... Here is the latest list of players for the Purdue Boilermakers and LSU Tigers that w...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.46875,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3234233037390213,
+          "layer_32": 3.6677536475051817
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 28,
+        "removed_doc_text": "The Cheez-It Citrus Bowl hosts the top Big Ten and SEC teams from outside... ... wins in four of the...",
+        "new_generated_answer": "Kentucky Wildcats won the 2022 Citrus Bowl, defeating the 15th-ranked University of Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.1875,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3177067213889478,
+          "layer_32": 3.541159312097404
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 29,
+        "removed_doc_text": "12/30/2022 11:01:00 AM | Football ... Purdue won the 2021 Music City Bowl despite missing All-Americ...",
+        "new_generated_answer": "Kentucky won the 2022 Citrus Bowl, defeating Iowa 20-17.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.28125,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4232314255687871,
+          "layer_32": 5.2416781399030405
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "query": "What position did Jason Semore hold at Valdosta State before returning to Georgia Tech?",
+    "baseline_answer": "Defensive Coordinator.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -0.90234375,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "2006 | Round Valley (AZ) High School (Defensive Coordinator) 2007 | Colorado School of Mines (Second...",
+        "new_generated_answer": "Defensive coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.15625,
+        "logprob_degradation": -2.25390625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 2.3160275340395327,
+          "layer_32": 15.10692599212704
+        },
+        "is_causally_important": true
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "At some point, he and Batt may talk about the possibility of Key taking over the program, but Key un...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.53125,
+        "logprob_degradation": -0.62890625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 1.315969874028283,
+          "layer_32": 10.617610220744341
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Sep 29, 2022 ... Share · Jason Semore helped lead Valdosta State to the 2021 NCAA Division II nation...",
+        "new_generated_answer": "Defensive coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2109375,
+        "logprob_degradation": -0.30859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.8600217245367683,
+          "layer_32": 8.212814339754607
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "A hugely successful high school quarterback, he threw for over 5,300 yards and 59 touchdowns at Nort...",
+        "new_generated_answer": "Defensive Coordinator",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.9140625,
+        "logprob_degradation": -0.01171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7092464023346516,
+          "layer_32": 6.303019715420219
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "“And he really understood everything about the defense and how it worked. And I was like, ‘Man, this...",
+        "new_generated_answer": "Defensive Coordinator",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.9375,
+        "logprob_degradation": -0.03515625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.8362814999457681,
+          "layer_32": 7.360177704840938
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "I was also raised to see the correlation between life and the game of football and how the process o...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.9375,
+        "logprob_degradation": -0.03515625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7166579896066169,
+          "layer_32": 6.550008721606908
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Semore has gone by “Boogie” ever since. It probably says something about him that he was willing to ...",
+        "new_generated_answer": "Defensive Coordinator",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.97265625,
+        "logprob_degradation": -0.0703125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7503810651985761,
+          "layer_32": 6.909385903402128
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "Jason Semore is a former Ganado High School football player who now is a linebackers coach at Georgi...",
+        "new_generated_answer": "Defensive coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.98046875,
+        "logprob_degradation": -0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5647031489406499,
+          "layer_32": 5.455972925482533
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "“My preference has always been defense as a player and a coach,” Semore said. “Defense is more react...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.984375,
+        "logprob_degradation": -0.08203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.560928339115674,
+          "layer_32": 5.445946715707089
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "Even with a dad who coached, Semore knows his background – childhood on a reservation, Division II f...",
+        "new_generated_answer": "Defensive coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.97265625,
+        "logprob_degradation": -0.0703125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5125907327604854,
+          "layer_32": 4.819462140144639
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "A Biletnikoff Award finalist and one of the most productive pass catchers in Wyoming football histor...",
+        "new_generated_answer": "Defensive coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.9765625,
+        "logprob_degradation": -0.07421875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5862490521204173,
+          "layer_32": 5.489451309060974
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Thomas's celebration of life was held at McCamish Pavilion on December 20. Friends, former teammates...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.0078125,
+        "logprob_degradation": -0.10546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5646006001245092,
+          "layer_32": 5.356366432204806
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "These include Alabama running back Najee Harris, Penn State product Saquon Barkley, and Tennessee St...",
+        "new_generated_answer": "Defensive Coordinator",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.98828125,
+        "logprob_degradation": -0.0859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5792776501795526,
+          "layer_32": 5.5958336952801035
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "After beginning his coaching career at Astronaut High School and USAFA prep, he spent several years ...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.99609375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4804707709905812,
+          "layer_32": 4.6187027665276075
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "(VSU Sports Information Director Kit Strief) told me last week before our media day, 'Coach, when yo...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.046875,
+        "logprob_degradation": -0.14453125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.562307159162377,
+          "layer_32": 5.706389148777855
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Mixed clouds and sun this morning. Scattered thunderstorms developing this afternoon. Potential for ...",
+        "new_generated_answer": "Defensive Coordinator",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.046875,
+        "logprob_degradation": -0.14453125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.663306170200795,
+          "layer_32": 7.21351519508965
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "I have always tried to surround myself with good people, and make disciplined choices that reflect m...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.0859375,
+        "logprob_degradation": -0.18359375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6136445145155534,
+          "layer_32": 6.114893291036823
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "Oct 19, 2022 ... Before Key could even think about Georgia Tech beating an FBS ... So he headed stra...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.9140625,
+        "logprob_degradation": -0.01171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3105119673754859,
+          "layer_32": 3.5581204485449143
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "Jul 19, 2022 ... Jason Semore is a former Ganado High School football player who now is a ... Temple...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.92578125,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37235139500257414,
+          "layer_32": 3.561311349821724
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Jun 14, 2021 ... Semore is a veteran defensive coach who had been working in-state for Geoff Collins...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.8828125,
+        "logprob_degradation": 0.01953125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3395474120204715,
+          "layer_32": 3.884384763300028
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "On July 18 the Yellow Jackets revealed a refreshed uniform set. The uniforms were made in partnershi...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.015625,
+        "logprob_degradation": -0.11328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3510562549949991,
+          "layer_32": 4.712810145365334
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "Aug 6, 2021 ... Goff tapped former Georgia Tech defensive quality control specialist Jason Semore to...",
+        "new_generated_answer": "Defensive Coordinator.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.91796875,
+        "logprob_degradation": -0.015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.40148726338294277,
+          "layer_32": 4.681247165671229
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "query": "How many vehicles did Tesla deliver in 2021?",
+    "baseline_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -2.34375,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "The EV maker doesn't disclose U.S.-only sales figures but claims sales for the year were up an amazi...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.5,
+        "logprob_degradation": -0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.979111858360049,
+          "layer_32": 10.338189385738788
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "Microchip shortage? What microchip shortage? EV maker Tesla, which it should be pointed out produces...",
+        "new_generated_answer": "Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.671875,
+        "logprob_degradation": -0.328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5157931682045673,
+          "layer_32": 7.642702284115462
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Jan 3, 2022 ... In 2021, Tesla says, it delivered 936,172 vehicles around the world. Exactly how man...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.640625,
+        "logprob_degradation": -0.296875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4685936277376426,
+          "layer_32": 6.176471764576966
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "The EV maker doesn't disclose U.S.-only sales figures but claims sales for the year were up an amazi...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.53125,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.36944366103762816,
+          "layer_32": 4.806628172623149
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "Checking Accounts Best Credit Cards for Small Business Best Small Business Loans Best Tax Software f...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.46875,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34514206127499414,
+          "layer_32": 4.797680174447373
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "in January 2016. The remaining quarterly figures prior to Q4 2022 were taken from previous Tesla upd...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.40625,
+        "logprob_degradation": -0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2699250940991701,
+          "layer_32": 3.7817919807116436
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Annual sales of Tesla cars in China boast the following climbing trajectory: At the beginning of 202...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.375,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3157915575741166,
+          "layer_32": 4.210498987543902
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "Jun 7, 2023 ... How many Tesla vehicles were delivered in 2023? ... 1,313.86 1,313.86 422.88 422.88 ...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021, which represents an 87 percent increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.375,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3121372376750331,
+          "layer_32": 3.8336925194033835
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Jan 2, 2023 ... Tesla reports 1.31 million deliveries in 2022, growth of 40% over last ... Musk aske...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.40625,
+        "logprob_degradation": -0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.17015042837127328,
+          "layer_32": 2.771031514321255
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "Jan 2, 2022 ... The Rise of Electric Vehicles ... Tesla does not break out its deliveries by country...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.3125,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.13968719819183542,
+          "layer_32": 2.128896633638324
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "In 2021, we began our transition to Tesla Vision by removing radar from Model ... Today, in most reg...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.28125,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.14131598153356043,
+          "layer_32": 2.311388038910483
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Analysts predict that Tesla’s rapid growth can accelerate in the third quarter and beyond. Speaking ...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, which represents an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.546875,
+        "logprob_degradation": -0.203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3424295582862494,
+          "layer_32": 4.6326958493799815
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "31, 2022, Wall Street was expecting Tesla to report deliveries around 427,000 for the final quarter ...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021, representing an 87 percent increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.609375,
+        "logprob_degradation": -0.265625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34035352128323676,
+          "layer_32": 4.50846117457706
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "Tesla noted also: \"Annualized vehicle production run-rate of over 1.22 million in Q4-2021\" * The com...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.515625,
+        "logprob_degradation": -0.171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3456415004481616,
+          "layer_32": 4.760968439683287
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "The company also said that the factory in Shanghai allows it to manufacture 750,000 Model 3 and Mode...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.546875,
+        "logprob_degradation": -0.203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3384660995038839,
+          "layer_32": 4.395274487368877
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "1 billion in China and $4.2 billion in \"other\" regions. As for the actual number of Tesla sold in th...",
+        "new_generated_answer": "Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.578125,
+        "logprob_degradation": -0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3290074718477251,
+          "layer_32": 4.2925591867464865
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "At present, Tesla is planning to employ 100,000 people in its plants worldwide, though this number d...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.5,
+        "logprob_degradation": -0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3239519363871266,
+          "layer_32": 4.164245348600139
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "5 billion earned in 2020, with a 70.64% growth in sales during 2021. In 2022, Tesla remains the larg...",
+        "new_generated_answer": "Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.421875,
+        "logprob_degradation": -0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34951232720858877,
+          "layer_32": 4.481163604161647
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": ", 100% online, shop for your next car, buy online and get it delivered to you anywhere in Quebec! Pa...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.453125,
+        "logprob_degradation": -0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.33727154425119116,
+          "layer_32": 4.339332417120683
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Gigafactory Texas, located near Austin, Texas, started the limited production of Model Y at the end ...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021, representing an 87 percent increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.5,
+        "logprob_degradation": -0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3334475688307377,
+          "layer_32": 4.26459097646187
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "Checking Accounts Best Credit Cards for Small Business Best Small Business Loans Best Tax Software f...",
+        "new_generated_answer": "Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.4375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.44261703671052505,
+          "layer_32": 5.179286373405619
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "It left behind BMW, which had worn this crown for the last three years but sold only 332,388 cars in...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, which represents an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.3125,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.40400199801045417,
+          "layer_32": 4.948934358597678
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "As of October 2021, forty European countries had Tesla Supercharger stations, with 86.6% of faciliti...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.578125,
+        "logprob_degradation": -0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3704993612695157,
+          "layer_32": 4.552901889410676
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "Tesla reported third-quarter earnings after the bell on Wednesday, October 19, 2022 (See: Tesla Earn...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.546875,
+        "logprob_degradation": -0.203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37660926170012565,
+          "layer_32": 4.516336815548765
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "It may thus be 2023 before we can really see if Tesla’s major future rivals can make a dent in its a...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.3125,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3095680480768924,
+          "layer_32": 3.5484184315789506
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "Tesla reported its 2023 first-quarter earnings on Wednesday, April 19, with EPS of $0.85, $0.01 wors...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.375,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3726702268714547,
+          "layer_32": 4.512983937939612
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "Tesla can make such a switch because the components in its cars are designed to be controlled largel...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021, which represents an 87 percent increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.53125,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3512627266414738,
+          "layer_32": 4.2538779843105585
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "In its third-quarter shareholder presentation, Tesla wrote: \"Over a multi-year horizon we expect to ...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.390625,
+        "logprob_degradation": -0.046875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34745041312672686,
+          "layer_32": 4.120186606325376
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 28,
+        "removed_doc_text": "Retail shareholders and analysts alike attributed some of Tesla's falling share price in 2022 to a s...",
+        "new_generated_answer": "936,172 vehicles.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.34375,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3505165036320729,
+          "layer_32": 4.2769349609339855
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 29,
+        "removed_doc_text": "Tesla has said it hopes deliveries will increase about 50 percent a year for the next several years,...",
+        "new_generated_answer": "According to the provided documents, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.546875,
+        "logprob_degradation": -0.203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.39613611624091827,
+          "layer_32": 4.637501545501506
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 30,
+        "removed_doc_text": "Between January and March 2022, Tesla broke its own delivery record, when its car deliveries crossed...",
+        "new_generated_answer": "According to the documents, Tesla delivered 936,172 vehicles in 2021, representing an 87% increase from 2020.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.296875,
+        "logprob_degradation": 0.046875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3045586597043662,
+          "layer_32": 3.668413823949555
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 31,
+        "removed_doc_text": "Jan 3, 2022 ... Tesla Came This Close to Delivering a Million Vehicles in 2021 · Sales of Hybrid Veh...",
+        "new_generated_answer": "According to the document, Tesla delivered 936,172 vehicles in 2021.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.40625,
+        "logprob_degradation": -0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3856089042181498,
+          "layer_32": 4.187735358206147
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "query": "Which company acquired ShowBiz Cinemas?",
+    "baseline_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -1.671875,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "Evo Entertainment Group has acquired 100 percent of the stock of Showbiz Cinemas in an all-cash deal...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.21875,
+        "logprob_degradation": 0.453125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5000110609670664,
+          "layer_32": 7.660643908849924
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "EVO Entertainment Group has acquired ShowBiz Cinemas in an all-cash deal, it was announced Monday (J...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4765625,
+        "logprob_degradation": 0.1953125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.42104713687610296,
+          "layer_32": 5.2583314559759256
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "Searching for your content...  In-Language News   Contact Us    888-776-0942  from 8 AM - 10 PM ET  ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4375,
+        "logprob_degradation": 0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35746328806684935,
+          "layer_32": 5.159613032590527
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "ShowBiz Cinemas in Kingwood is one of four locations in the Houston area. The chain has been acquire...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.3984375,
+        "logprob_degradation": 0.2734375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34901567338760997,
+          "layer_32": 4.040458747412794
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "businessLocal Companies By Paul O'Donnell 12:17 PM on Jan 6, 2022 CST Showbiz Cinemas, a Dallas-base...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.421875,
+        "logprob_degradation": 0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.36798642591949293,
+          "layer_32": 4.384007006748296
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "The Austin-based EVO Entertainment Group captured headlines during the COVID pandemic by making the ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.359375,
+        "logprob_degradation": 0.3125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34596343984879,
+          "layer_32": 4.705165696299689
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Partly cloudy skies. Hot. High around 105F. Winds S at 10 to 15 mph..\r                              ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4765625,
+        "logprob_degradation": 0.1953125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3601133246906318,
+          "layer_32": 4.353985910308421
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "Jan 6, 2022 ... EVO Entertainment Group said Thursday that it acquired 100% of the stock of Showbiz ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.609375,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.25441885654808566,
+          "layer_32": 2.8117836864388823
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Jan 4, 2022 ... Evo Entertainment Group has acquired 100 percent of the stock of Showbiz Cinemas in ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4609375,
+        "logprob_degradation": 0.2109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2099722287290299,
+          "layer_32": 2.4935626923986014
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "EVO ENTERTAINMENT GROUP ACQUIRES SHOWBIZ CINEMAS. Acquisition Establishes EVO ... ShowBiz Seeing Upt...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.6953125,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22144602985368433,
+          "layer_32": 4.89322493753879
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "Jan 5, 2022 ... EVO Entertainment Group has acquired ShowBiz Cinemas in an all-cash deal, it was ann...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4921875,
+        "logprob_degradation": 0.1796875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21536860020364648,
+          "layer_32": 2.8140458259434884
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Showbiz Cinemas was acquired by EVO Entertainment Group on Jan 3, 2022 . Transaction Name....",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.046875,
+        "logprob_degradation": -0.375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2968246800377262,
+          "layer_32": 3.9569744359943795
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "Read More The ShowBiz Entertainment Complex opened their doors again, Friday October 2, 2020 with ne...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4296875,
+        "logprob_degradation": 0.2421875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34069065619994393,
+          "layer_32": 3.9650980224618158
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "Read More Building on a successful partnership, All Elite Wrestling (AEW) is once again teaming with...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal on January 3, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4140625,
+        "logprob_degradation": 0.2578125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3238270661439785,
+          "layer_32": 4.28842808722395
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "The “out-of home” entertainment company’s brands include EVO Entertainment, EVO Cinemas and EVO Conc...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4375,
+        "logprob_degradation": 0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4202554855136818,
+          "layer_32": 4.660763585940975
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "“As you look ahead into 2022, all the studios are going back to an exclusive window” for theaters, R...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.546875,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3549234686050813,
+          "layer_32": 4.106179147485347
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "Share this post  Boxoffice Staff  •  Aug 7th   Hoyts has launched new branding as a part of their ‘S...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.484375,
+        "logprob_degradation": 0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3260273481163637,
+          "layer_32": 4.318708581786978
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "Though such thinking might seem logical and be very tempting, some or all of the financing came from...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.421875,
+        "logprob_degradation": 0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22269908708819655,
+          "layer_32": 3.4229078417730716
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "The combined enterprise will provide dynamic and multi-faceted entertainment experiences to over eig...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.40625,
+        "logprob_degradation": 0.265625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3008596292232945,
+          "layer_32": 3.9407328736708678
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Entertainment Center in Homestead, FL is scheduled to open for regular business on Sunday, Oct. 27.....",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.5390625,
+        "logprob_degradation": 0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.17305054455800906,
+          "layer_32": 2.1631219875904124
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "If you signed up in-theatre and are logging in for the first time, your password will be your Star R...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.4609375,
+        "logprob_degradation": 0.2109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.18009060584632286,
+          "layer_32": 2.4805320506573674
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "All fields are required Frequently Asked Questions Age Admission & Cell Phone Policy Contact Us Adve...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.5625,
+        "logprob_degradation": 0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2277151631253825,
+          "layer_32": 3.2665036531336273
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "Read More Frequently Asked Questions Age Admission & Cell Phone Policy Contact Us Advertise With Us ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal on January 3, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.5546875,
+        "logprob_degradation": 0.1171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.24308005709000333,
+          "layer_32": 3.4384542336467754
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "or anything. Be Nice. No racism, sexism or any sort of -ism that is degrading to another person. Be ...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.6328125,
+        "logprob_degradation": 0.0390625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34033232285101717,
+          "layer_32": 4.309748770942511
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "For any refunds please contact the corresponding theatre you purchased your ... For online ticket pu...",
+        "new_generated_answer": "EVO Entertainment Group acquired ShowBiz Cinemas in an all-cash deal.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.6484375,
+        "logprob_degradation": 0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2978413292562693,
+          "layer_32": 3.325085583034009
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "query": "Where is the Super Bowl held in 2022?",
+    "baseline_answer": "The Super Bowl in 2022, also known as Super Bowl LVI, was held at SoFi Stadium in Inglewood, California.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -4.3125,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "Super Bowl LVI[12] was an American football game played to determine the champion of the National Fo...",
+        "new_generated_answer": "The Super Bowl in 2022 is held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -6.4375,
+        "logprob_degradation": -2.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 1.0167331025223811,
+          "layer_32": 8.638747657125638
+        },
+        "is_causally_important": true
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "The game was played on February 13, 2022, at SoFi Stadium in Inglewood, California, the home stadium...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.3125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31985143144719985,
+          "layer_32": 3.606097094571871
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "The Super Bowl is going to be held indoors for a little while. After last year's contest in Raymond ...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California, the home stadium of the Los Angeles Rams.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.375,
+        "logprob_degradation": -0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4682794056632063,
+          "layer_32": 5.5805719123762945
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "When the Super Bowl is played Feb. 13 at SoFi Stadium in Inglewood, it will mark the first time in n...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.34375,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4797185227264915,
+          "layer_32": 5.177474329749142
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "Super Bowl LVI[11] was an American football game played to determine the champion of the National Fo...",
+        "new_generated_answer": "The Super Bowl in 2022 was held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.09375,
+        "logprob_degradation": 0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.45980775992654593,
+          "layer_32": 5.100529451446285
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "At Super Bowl LV, it was Tom Brady stealing the show yet again, but for the first time in his career...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.53125,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35534206197383755,
+          "layer_32": 5.410975013154361
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Super Bowl XLIV, slated for February 7, 2010, was withdrawn from New York City's proposed West Side ...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.3125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.30354704465363586,
+          "layer_32": 3.876586293259164
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "Two teams have played the Super Bowl in their home market but at a different venue than their home s...",
+        "new_generated_answer": "The Super Bowl in 2022 is held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.21875,
+        "logprob_degradation": 0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29134207599447554,
+          "layer_32": 3.7775404099550896
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Besides the Rose Bowl, the only other Super Bowl venues that were not the home stadium to NFL teams ...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California, the home stadium of the Los Angeles Rams.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.1875,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3051307678621412,
+          "layer_32": 3.9010528111447234
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "The 49ers reportedly requested to wear an all-white third jersey ensemble for Super Bowl LIV, which ...",
+        "new_generated_answer": "The Super Bowl in 2022 was held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3190617463063905,
+          "layer_32": 4.367536314240091
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "Through Super Bowl LVI, teams were allowed to bid for the rights to host Super Bowls, where cities s...",
+        "new_generated_answer": "The Super Bowl LVI (56) was held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.21875,
+        "logprob_degradation": 0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31627086374060187,
+          "layer_32": 3.878834385312844
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "This was the first Super Bowl to be played on the second Sunday in February, following the adoption ...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.25,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3051574249239167,
+          "layer_32": 3.929433620477398
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "The incident led to fines being issued by the FCC (and a larger crackdown over \"indecent\" content br...",
+        "new_generated_answer": "The Super Bowl was held in 2022 at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.09375,
+        "logprob_degradation": 0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.30645298013583305,
+          "layer_32": 3.8139774162623734
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "Roman numerals are used to identify each Super Bowl, rather than the year in which it is held, since...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.3125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3174463547698773,
+          "layer_32": 3.9390806046829074
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "Only MetLife Stadium did not have a roof (be it fixed or retractable) but it was still picked as the...",
+        "new_generated_answer": "The Super Bowl in 2022, also known as Super Bowl LVI, was held at SoFi Stadium in Inglewood, California, which is the home stadium of the Los Angeles Rams.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.0625,
+        "logprob_degradation": 0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.30554224285520143,
+          "layer_32": 3.888268359914586
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Feb 8, 2023 ... State Farm Stadium – home of the Arizona Cardinals – will host the Super Bowl for th...",
+        "new_generated_answer": "The Super Bowl in 2022 was held at SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.34375,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3483567205562169,
+          "layer_32": 3.0447775724984893
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "OFFICIAL SUPER BOWL TICKET PACKAGES ... Sorry! Something has gone wrong. Looks like this video canno...",
+        "new_generated_answer": "SoFi Stadium in Inglewood, California.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.5,
+        "logprob_degradation": -0.1875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22203647031822688,
+          "layer_32": 3.109482211808315
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "query": "When will Truth Social launch on iOS?",
+    "baseline_answer": "According to the documents, Truth Social launched on iOS on February 21st, 2022.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -3.625,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "Donald Trump's much-anticipated social media platform, called Truth Social, has debuted on iOS. And ...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.8125,
+        "logprob_degradation": 0.8125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.962194465002641,
+          "layer_32": 13.510884436270326
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "Truth Social, Donald Trump’s Twitter-like social media platform has launched on the App Store, CNET ...",
+        "new_generated_answer": "According to the provided documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.09375,
+        "logprob_degradation": 0.53125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.48767679271032616,
+          "layer_32": 7.872409106018745
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "By  Jay Peters, a news editor who writes about technology, video games, and virtual worlds. He’s sub...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.890625,
+        "logprob_degradation": -0.265625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.42362080068487734,
+          "layer_32": 6.2631086356351515
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "Jan 6, 2022 ... Former President Donald Trump's new social network, Truth Social, will launch on iOS...",
+        "new_generated_answer": "February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -4.1875,
+        "logprob_degradation": -0.5625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.30298032431386784,
+          "layer_32": 5.974803616640035
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "Feb 20, 2022 ... Truth Social, Donald Trump's Twitter-like social media platform, will reportedly la...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.84375,
+        "logprob_degradation": -0.21875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3108995746007815,
+          "layer_32": 3.5167850005782575
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "On February 21, 2022, Truth Social was released on Apple iOS,[98] reaching number one on the App Sto...",
+        "new_generated_answer": "Truth Social was launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.0625,
+        "logprob_degradation": 0.5625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7097076369846483,
+          "layer_32": 8.599029700900065
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "By  Jon Porter, a reporter with five years of experience covering consumer tech releases, EU tech po...",
+        "new_generated_answer": "Truth Social was launched on February 21, 2022, on iOS.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.625,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3775914173201158,
+          "layer_32": 6.260433837576973
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "However, the social network delivered early when it comes to the web app at least. No word yet on wh...",
+        "new_generated_answer": "February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.859375,
+        "logprob_degradation": -0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1758246154711233,
+          "layer_32": 3.086937613205023
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "[114] A U.S.-based reporter for the BBC attempted to sign up in early April and was placed on a wait...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.203125,
+        "logprob_degradation": 0.421875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2859401662166287,
+          "layer_32": 3.8715679268683876
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "In early March 2022, multiple sources reported that Truth Social usage remained low, with Trump hims...",
+        "new_generated_answer": "According to the provided documents, Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.546875,
+        "logprob_degradation": 0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29547336066479873,
+          "layer_32": 4.124446124934308
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "Reports say that Trump has been privately complaining that Google was trying to \"fuck\" him. Accordin...",
+        "new_generated_answer": "According to the provided documents, Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.5,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3449713829162375,
+          "layer_32": 4.281931873395103
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "During May 2023, SimilarWeb's ranking of the Truth Social iOS app has fluctuated wildly, ranging fro...",
+        "new_generated_answer": "According to the provided documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.3125,
+        "logprob_degradation": 0.3125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2994972526524778,
+          "layer_32": 3.898789230049337
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "On October 21, 2021, the Software Freedom Conservancy group stated they suspected Truth Social had v...",
+        "new_generated_answer": "According to the documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.375,
+        "logprob_degradation": 0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29424463944156704,
+          "layer_32": 3.9726942476334908
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "In the meantime, the Truth Social website continues to list the Android app as “coming soon.” While ...",
+        "new_generated_answer": "According to the documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.34375,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31902358369272055,
+          "layer_32": 4.533238119251953
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "Violence — We don’t allow apps that depict or facilitate gratuitous violence or other dangerous acti...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.515625,
+        "logprob_degradation": 0.109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2767238355129332,
+          "layer_32": 3.9181301580517585
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Truth Social has no policy prohibiting hate speech, though its rules ostensibly prohibit violent thr...",
+        "new_generated_answer": "According to the documents, Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.390625,
+        "logprob_degradation": 0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2772366009316408,
+          "layer_32": 3.8267676095838516
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "- Truth Social really starts to become interesting as you connect with others. Search for a voice th...",
+        "new_generated_answer": "Truth Social was launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.5,
+        "logprob_degradation": 0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3039394484822822,
+          "layer_32": 4.405891762469822
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "Google’s decision to block the Truth Social app’s launch on the Play Store over content moderation i...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.34375,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2966824075362778,
+          "layer_32": 4.602293912401339
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "49] Rolling Stone observed that while Truth Social promises to be an open and free platform, Truth S...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.46875,
+        "logprob_degradation": 0.15625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31342967721053017,
+          "layer_32": 4.325819840212832
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "23][24] Some investors were surprised to learn their investment money was being used to finance a Tr...",
+        "new_generated_answer": "February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.484375,
+        "logprob_degradation": 0.140625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.27732100099262763,
+          "layer_32": 4.027730978756504
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "Truth Social has blocked accounts for behavior it considers harmful or inappropriate, including acco...",
+        "new_generated_answer": "According to the documents, Truth Social launched on iOS on February 21st, 2022, which is Presidents' Day in the US.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.375,
+        "logprob_degradation": 0.25,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.30262395253785274,
+          "layer_32": 3.7649909091622096
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "Former president Trump, Truth Social CEO and former House representative Devin Nunes, and Patrick Or...",
+        "new_generated_answer": "According to the provided documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.265625,
+        "logprob_degradation": 0.359375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2859978636968782,
+          "layer_32": 3.826684478382228
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "As of March 2023, prosecutors in the US Attorney for the Southern District of New York were investig...",
+        "new_generated_answer": "Truth Social was launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.34375,
+        "logprob_degradation": 0.28125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2930611250722946,
+          "layer_32": 3.84714044075785
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "187][188][189] Afterward, Trump posted a link[190] to an article claiming that by \"allows for,\" Trum...",
+        "new_generated_answer": "According to the documents, Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.234375,
+        "logprob_degradation": 0.390625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.28879320825607085,
+          "layer_32": 3.856711070417527
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "This app is available only on the App Store for iPhone. Truth Social 17+. Follow the Truth. T Media ...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.703125,
+        "logprob_degradation": -0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1734547389602354,
+          "layer_32": 2.362850636365426
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "Truth Social (stylized as TRUTH Social) is an alt-tech social media platform created by Trump Media ...",
+        "new_generated_answer": "Truth Social was launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.625,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.17735542319109593,
+          "layer_32": 2.4891918684497587
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "May 20, 2022 ... Donald Trump's Truth Social has launched a web app so that anyone can access his so...",
+        "new_generated_answer": "According to the documents, Truth Social was launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.765625,
+        "logprob_degradation": -0.140625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.19679937287496935,
+          "layer_32": 2.944548074235154
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "Sep 1, 2022 ... Truth Social does use content filtering screens on iOS to hide some posts behind a c...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.75,
+        "logprob_degradation": -0.125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.17727471686873406,
+          "layer_32": 2.383470086053277
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 28,
+        "removed_doc_text": "Polymarket | This is a market on if the Truth Social iOS app, affiliated with Donald Trump, will be ...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.828125,
+        "logprob_degradation": -0.203125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.19239414684769296,
+          "layer_32": 2.830733167309794
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 29,
+        "removed_doc_text": "Jun 11, 2022 ... With the Android app still unavailable, not a lot has actually changed since Truth ...",
+        "new_generated_answer": "Truth Social launched on iOS on February 21st, 2022.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -3.765625,
+        "logprob_degradation": -0.140625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.26521466137814254,
+          "layer_32": 3.177507121522826
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "query": "What won best drama at 79th Golden Globes?",
+    "baseline_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -1.28125,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "TAGGED AS: 79th Golden Globes Awards, Awards, Film, movies, television, TV  The Hollywood Foreign Pr...",
+        "new_generated_answer": "The Power of the Dog won Best Picture Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.75,
+        "logprob_degradation": -1.46875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.8862752844719923,
+          "layer_32": 7.504320420901342
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "Though the jury is very much out on if HFPA can squeeze its way back into the good graces of Hollywo...",
+        "new_generated_answer": "The Power of the Dog won Best Picture Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -2.171875,
+        "logprob_degradation": -0.890625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6368014319624425,
+          "layer_32": 5.971140452755066
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "The 79th Golden Globe Awards honored the best in film and American television of 2021, as chosen by ...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.046875,
+        "logprob_degradation": 0.234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.5453272091240344,
+          "layer_32": 5.530262060281473
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "Best Picture Drama: “The Power of the Dog” Jane Campion’s first film in more than a decade, “The Pow...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.84375,
+        "logprob_degradation": 0.4375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.6673542205493024,
+          "layer_32": 6.586803655658817
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "TAGGED AS: 79th Golden Globes Awards, Awards, Film, movies, television, TV  The Hollywood Foreign Pr...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.1484375,
+        "logprob_degradation": 0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.42136183843356834,
+          "layer_32": 4.1245180155028285
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "Isabella Gomez Sarmiento       The 80th Golden Globe Awards aired Tuesday night on NBC. Below is the...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.546875,
+        "logprob_degradation": -0.265625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.44462679698613067,
+          "layer_32": 4.310146391384498
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "Dec 13, 2021 ... The 79th annual Golden Globe Awards will be held on Sunday, Jan. 9, 2022. Chris Piz...",
+        "new_generated_answer": "The Power of the Dog won Best Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2734375,
+        "logprob_degradation": 0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.24311830848494587,
+          "layer_32": 2.436590395992298
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "On Tuesday night, the Golden Globes were held for the 80th time in history, though this year's cerem...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.1875,
+        "logprob_degradation": 0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.45504263276793294,
+          "layer_32": 4.554241748544313
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Best motion picture - drama WINNER: The FabelmansAvatar: The Way of WaterElvisTár Top Gun: Maverick ...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.28125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3745446732760816,
+          "layer_32": 4.141677303757741
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "Keeravani, Rahul Sipligunj (RRR) – WINNER Donald Glover, AtlantaBill Hader, BarrySteve Martin, Only ...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2265625,
+        "logprob_degradation": 0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.25995970968868953,
+          "layer_32": 3.238018123166413
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": ", The Old ManDiego Luna, AndorBob Odenkirk, Better Call SaulAdam Scott, Severance Best performance b...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.28125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3150529179154905,
+          "layer_32": 3.779850002054931
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Kate Winslet, Mare Of Easttown – WINNER 23. Best Performance By An Actor In A Limited Series, Anthol...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2265625,
+        "logprob_degradation": 0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2744051079211973,
+          "layer_32": 3.5050819388284746
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "After widespread criticism forced the organization that puts on the Golden Globes to lose its televi...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.1484375,
+        "logprob_degradation": 0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29838001592085284,
+          "layer_32": 3.771670249420311
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "Concerns about the lack of diversity in the HFPA board and the award nominees were brought up last y...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2890625,
+        "logprob_degradation": -0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3426631200103846,
+          "layer_32": 4.010715857496183
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "Keeravani, Kala Bhairava, Rahul Sipligunj from RRR WINNER: Abbott ElementaryThe BearHacksOnly Murder...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2890625,
+        "logprob_degradation": -0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3508096586363123,
+          "layer_32": 3.8799241222111984
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "The program was awarded the highest prize for drama television series, as well as seeing Jeremy Stro...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2890625,
+        "logprob_degradation": -0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3615754221450727,
+          "layer_32": 3.9521192370836005
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "Steven Spielberg, Tony Kushner, The Fabelmans Best performance by an actress in a motion picture - d...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.265625,
+        "logprob_degradation": 0.015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.26919929629138944,
+          "layer_32": 2.9324198883563537
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "Harris Goes to ParisMargot Robbie, BabylonAnya Taylor-Joy, The MenuEmma Thompson, Good Luck to You, ...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.265625,
+        "logprob_degradation": 0.015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34609784165078095,
+          "layer_32": 3.7493843744435376
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "Omar Sy, Lupin 18. Best Television Series – Musical Or Comedy The Great, Hulu Hacks, HBO/HBO Max – W...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.3125,
+        "logprob_degradation": -0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34895414899203364,
+          "layer_32": 3.898364819774178
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "Best Performance By An Actress In A Motion Picture – Musical Or Comedy Marion Cotillard, Annette Ala...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.3203125,
+        "logprob_degradation": -0.0390625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.35451398787323996,
+          "layer_32": 4.270234529181117
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "Brad Pitt, BabylonEddie Redmayne, The Good Nurse Angela Bassett, Black Panther: Wakanda Forever – WI...",
+        "new_generated_answer": "The Power of the Dog won the Best Motion Picture – Drama award at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.3671875,
+        "logprob_degradation": -0.0859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.36218022662704885,
+          "layer_32": 3.4631129143986343
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "All the winners of the 80th annual ceremony from the world of TV and film Avatar: The Way of WaterEl...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.625,
+        "logprob_degradation": -0.34375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.49070163782984005,
+          "layer_32": 4.353314275744936
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "With the event neither televised nor live-streamed — and with the media barred from covering it in p...",
+        "new_generated_answer": "The Power of the Dog won the award for Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.36972824338090887,
+          "layer_32": 3.755666760009655
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "of InisherinBrad Pitt, BabylonEddie Redmayne, The Good Nurse Best performance by an actress in a sup...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.28125,
+        "logprob_degradation": 0.0,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.25888261491161874,
+          "layer_32": 2.951961111694454
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "Murray Abraham, The White LotusDomhnall Gleeson, The PatientRichard Jenkins, Dahmer - Monster: The J...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2578125,
+        "logprob_degradation": 0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37293616657796963,
+          "layer_32": 4.230375267443532
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "Winners of the 79th Golden Globe Awards were announced Sunday evening via social media after the cer...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.109375,
+        "logprob_degradation": 0.171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.337546403968792,
+          "layer_32": 3.5765147801665313
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "Michaela Jaé Rodriguez made history as the first transgender person to win an acting award at the Go...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.1015625,
+        "logprob_degradation": 0.1796875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2206352490617215,
+          "layer_32": 2.6374386842976
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "Best Picture - Drama. See Category for All Years. The Fabelmans, 2022. Winner. Fabelmans, The ... 20...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.3359375,
+        "logprob_degradation": -0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.29069341789865716,
+          "layer_32": 2.7763927238275663
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 28,
+        "removed_doc_text": "Jan 9, 2022 ... On the television side, Succession won Best Television Series – Drama, while Hacks w...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.375,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.28036136594792227,
+          "layer_32": 2.70322079792762
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 29,
+        "removed_doc_text": "Jan 10, 2023 ... Golden Globes are seen during the 79th Annual Golden Globe Awards at The ... Best p...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.1953125,
+        "logprob_degradation": 0.0859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.24566541567205316,
+          "layer_32": 2.661688772688043
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 30,
+        "removed_doc_text": "Jan 10, 2023 ... Best actor in a TV series – drama. Jeff Bridges, The Old Man Kevin Costner, Yellows...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2578125,
+        "logprob_degradation": 0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21107232909219278,
+          "layer_32": 2.2660520151377677
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 31,
+        "removed_doc_text": "Jan 9, 2022 ... Best Actor in a Television Series—Drama · Brian Cox, \"Succession\" · Lee Jung-jae, \"S...",
+        "new_generated_answer": "The Power of the Dog won Best Motion Picture – Drama at the 79th Golden Globes.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -1.2734375,
+        "logprob_degradation": 0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.25664241098669005,
+          "layer_32": 2.6578624868226797
+        },
+        "is_causally_important": false
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "query": "How much are GA Tech softball 2022 season tickets?",
+    "baseline_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+    "baseline_fact_score": 1,
+    "baseline_logprob": -0.63671875,
+    "lodo_results": [
+      {
+        "removed_doc_index": 0,
+        "removed_doc_text": "THE FLATS – Georgia Tech softball 2022 season tickets are now on sale and can be purchased HERE. Sea...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.287109375,
+        "logprob_degradation": 0.349609375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 1.6099363387300738,
+          "layer_32": 8.60244408542306
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 1,
+        "removed_doc_text": "THE FLATS – Georgia Tech softball 2023 season and single-game tickets are now on sale and can be pur...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.5078125,
+        "logprob_degradation": 0.12890625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7523176658675196,
+          "layer_32": 6.453700989010569
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 2,
+        "removed_doc_text": "THE FLATS – Georgia Tech softball 2022 season tickets are now on sale and can be purchased HERE. Sea...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.86328125,
+        "logprob_degradation": -0.2265625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.7850648998458979,
+          "layer_32": 6.5115949528891806
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 3,
+        "removed_doc_text": "Wiley Ballard catches up with Coach Morales ahead of the Buzz Classic Storylines Series Notes 2022 S...",
+        "new_generated_answer": "I can not answer the question because of the insufficient information in documents.",
+        "new_fact_score": 0,
+        "target_logprob_without_doc": -0.734375,
+        "logprob_degradation": -0.09765625,
+        "fact_degradation": 1,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37970710036139643,
+          "layer_32": 4.8251232645712765
+        },
+        "is_causally_important": true
+      },
+      {
+        "removed_doc_index": 4,
+        "removed_doc_text": "THE FLATS – Georgia Tech softball 2023 season and single-game tickets are now on sale and can be pur...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.55859375,
+        "logprob_degradation": 0.078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34043499067774025,
+          "layer_32": 4.442506781560381
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 5,
+        "removed_doc_text": "Georgia Tech students must meet one of the following criteria to be eligible to claim/purchase a stu...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.75,
+        "logprob_degradation": -0.11328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.4079970745532925,
+          "layer_32": 5.374742110552952
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 6,
+        "removed_doc_text": "CHARLOTTESVILLE, Va. – Coming off the winningest campaign in more than a decade, Virginia softball a...",
+        "new_generated_answer": "Season tickets for GA Tech softball 2022 cost $100 per seat and are located in the reserved chairback sections of Mewborn Field.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.765625,
+        "logprob_degradation": -0.12890625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.42443501346217877,
+          "layer_32": 4.9261326238459455
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 7,
+        "removed_doc_text": "No visiting team colors may be worn in this area. All non-courtside students will be seated in the g...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.73046875,
+        "logprob_degradation": -0.09375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.38765548088383633,
+          "layer_32": 4.810425729539504
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 8,
+        "removed_doc_text": "Skip to content   Dear GT Softball Family, Let me first say \"thank you\" to everyone who supported Ge...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.65625,
+        "logprob_degradation": -0.01953125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.37206587484506826,
+          "layer_32": 4.344633362463987
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 9,
+        "removed_doc_text": "Georgia Tech opens the 2023 season hosting the annual Buzz Classic, beginning its action with a doub...",
+        "new_generated_answer": "Season tickets for GA Tech softball 2022 cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.6875,
+        "logprob_degradation": -0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3567618552820253,
+          "layer_32": 3.7707923266727543
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 10,
+        "removed_doc_text": "In order to maintain social distancing guidelines recommended for indoor and outdoor events by the C...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.58203125,
+        "logprob_degradation": 0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.33279056585783673,
+          "layer_32": 3.982028940088843
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 11,
+        "removed_doc_text": "Season Ticket Information • Ticketmaster • Ticket Policies • IPTAY • Parking • Premium Seating  If y...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.6875,
+        "logprob_degradation": -0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3931257962386107,
+          "layer_32": 4.854430619508706
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 12,
+        "removed_doc_text": "Doors open 1 hour prior to first serve. Postseason home matches - Contact the Georgia Tech ticket of...",
+        "new_generated_answer": "Season tickets for GA Tech softball 2022 are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.69140625,
+        "logprob_degradation": -0.0546875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.31967759602558266,
+          "layer_32": 3.0178706513703895
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 13,
+        "removed_doc_text": "The TECH Fund is the per-seat contribution* program for preferred seats for Georgia Tech Football an...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.7734375,
+        "logprob_degradation": -0.13671875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3422637912088011,
+          "layer_32": 3.589922079149621
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 14,
+        "removed_doc_text": "See A-T Priority Points for more info   The A-T giving year starts on July 1 and ends on June 30. So...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.62109375,
+        "logprob_degradation": 0.015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3426816332886782,
+          "layer_32": 3.7671979401874336
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 15,
+        "removed_doc_text": "Skip to content  Contributions to the TECH Fund are gifts made as part of a per-seat donation progra...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.76953125,
+        "logprob_degradation": -0.1328125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3452564800554574,
+          "layer_32": 4.568840689151544
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 16,
+        "removed_doc_text": "Buttons for each sport to link to a to z guide to view policies: Originally, the letters IPTAY stood...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.81640625,
+        "logprob_degradation": -0.1796875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34606428235927456,
+          "layer_32": 4.564323595196409
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 17,
+        "removed_doc_text": "TECH Fund donors enjoy access to the best areas in Bobby Dodd Stadium, McCamish Pavilion and Russ Ch...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.703125,
+        "logprob_degradation": -0.06640625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.3734906384737126,
+          "layer_32": 4.502324979346303
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 18,
+        "removed_doc_text": "Be a part of developing Georgia Tech’s Everyday Champions and helping the Yellow Jackets compete for...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.7578125,
+        "logprob_degradation": -0.12109375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.308584594522409,
+          "layer_32": 2.808544915793775
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 19,
+        "removed_doc_text": "© 2021 Georgia Tech Athletics...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.5859375,
+        "logprob_degradation": 0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.09440230574392103,
+          "layer_32": 1.6253001408324028
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 20,
+        "removed_doc_text": "© 2021 Georgia Tech Athletics...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.5859375,
+        "logprob_degradation": 0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.09440230574392103,
+          "layer_32": 1.6253001408324028
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 21,
+        "removed_doc_text": "Free accessible parking for home football games is in parking lot E-6 (behind Sikes Hall), along Par...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.6953125,
+        "logprob_degradation": -0.05859375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.34314606560165406,
+          "layer_32": 3.4662856742695523
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 22,
+        "removed_doc_text": "Bunch comes to The Flats following two years of steady improvement at Incarnate Word Bennett brings ...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.5859375,
+        "logprob_degradation": 0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21693838430638987,
+          "layer_32": 2.710200615561639
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 23,
+        "removed_doc_text": "Bunch comes to The Flats following two years of steady improvement at Incarnate Word Bennett brings ...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.5859375,
+        "logprob_degradation": 0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21693838430638987,
+          "layer_32": 2.710200615561639
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 24,
+        "removed_doc_text": "Virginia will go on the road for ACC series at Clemson (March 17-19), Pittsburgh (March 24-26), Flor...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.59375,
+        "logprob_degradation": 0.04296875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.33030150740628095,
+          "layer_32": 4.000156158147304
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 25,
+        "removed_doc_text": "The opening weekend also features a single game at Sam Houston State (Feb. 10) between days at the H...",
+        "new_generated_answer": "Season tickets for the 2022 season are $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.921875,
+        "logprob_degradation": -0.28515625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.36146581840013914,
+          "layer_32": 4.897897686280804
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 26,
+        "removed_doc_text": "Phone: 404-894-5414...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.60546875,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.10542834264840431,
+          "layer_32": 1.7243267112659588
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 27,
+        "removed_doc_text": "Phone: 404-894-5414...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.60546875,
+        "logprob_degradation": 0.03125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.10542834264840431,
+          "layer_32": 1.7243267112659588
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 28,
+        "removed_doc_text": "150 Bobby Dodd Way, N.W. Atlanta, GA 30332-0455...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.66015625,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.16784477429250683,
+          "layer_32": 2.030796573734992
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 29,
+        "removed_doc_text": "Please enable JS and disable any ad blocker...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.61328125,
+        "logprob_degradation": 0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.10877533470691511,
+          "layer_32": 1.7431130609289855
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 30,
+        "removed_doc_text": "Dear GT Softball Family,. Let me first say \"thank you\" to everyone who supported Georgia Tech Softba...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.62890625,
+        "logprob_degradation": 0.0078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2128424509499375,
+          "layer_32": 2.479751654624133
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 31,
+        "removed_doc_text": "Eligible students have two options for student tickets at Bobby Dodd Stadium: Option 1: Reserved sea...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.625,
+        "logprob_degradation": 0.01171875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.21692030018363917,
+          "layer_32": 2.9057193635813827
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 32,
+        "removed_doc_text": "If I continue purchasing my season tickets through the TECH Fund, should I make an ... Making an ann...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.65625,
+        "logprob_degradation": -0.01953125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.1913464472761955,
+          "layer_32": 2.522148342659269
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 33,
+        "removed_doc_text": "The official source for more info on GT Tickets | Central Page. ... For softball home games, attenda...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.65234375,
+        "logprob_degradation": -0.015625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.19466276950371678,
+          "layer_32": 2.7064559171475655
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 34,
+        "removed_doc_text": "Oct 18, 2022 ... Current softball season ticket members may renew their 2022 seats ... In ACC play, ...",
+        "new_generated_answer": "Season tickets for Georgia Tech softball 2022 cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.66015625,
+        "logprob_degradation": -0.0234375,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2438135710870457,
+          "layer_32": 2.9249559816144943
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 35,
+        "removed_doc_text": "Feb 1, 2023 ... THE FLATS – Georgia Tech softball 2023 season and single-game tickets are now on sal...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.6875,
+        "logprob_degradation": -0.05078125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.2789050434203857,
+          "layer_32": 2.980562304722654
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 36,
+        "removed_doc_text": "If you are interested in becoming a season ticket member for football, gymnastics, men's basketball,...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.6796875,
+        "logprob_degradation": -0.04296875,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.17996288599036941,
+          "layer_32": 2.4364631974688873
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 37,
+        "removed_doc_text": "Jul 21, 2022 ... ATLANTA – The 2022 Chick-fil-A Kickoff Game between Clemson and Georgia Tech has of...",
+        "new_generated_answer": "Season tickets are located in the reserved chairback sections of Mewborn Field and cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.70703125,
+        "logprob_degradation": -0.0703125,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.24213737922925307,
+          "layer_32": 3.1082072225813824
+        },
+        "is_causally_important": false
+      },
+      {
+        "removed_doc_index": 38,
+        "removed_doc_text": "Georgia Tech offers complimentary admission to children age 2 and younger for Georgia Tech athletic ...",
+        "new_generated_answer": "Season tickets for the Georgia Tech softball 2022 season cost $100 per seat.",
+        "new_fact_score": 1,
+        "target_logprob_without_doc": -0.57421875,
+        "logprob_degradation": 0.0625,
+        "fact_degradation": 0,
+        "representation_drift_l2": {
+          "layer_0": 0.0,
+          "layer_16": 0.22070382114304105,
+          "layer_32": 2.834491942669449
+        },
+        "is_causally_important": false
+      }
+    ]
+  }
+]
