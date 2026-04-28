@@ -1,0 +1,275 @@
+% !TEX program = pdflatex
+\documentclass[11pt]{article}
+\usepackage{acl2023}
+\usepackage{times}
+\usepackage{latexsym}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{inconsolata}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\title{What Makes a Retrieved Document Useful? \\
+A Causal and Mechanistic Analysis of Evidence Utilization in RAG}
+
+\author{
+  Gawon Lim \\
+  University of Illinois Urbana-Champaign \\
+  \texttt{gawonl2@illinois.edu}
+}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}
+
+Retrieval-Augmented Generation (RAG) has become a widely used approach for improving factuality in large language models (LLMs). A central unresolved question is: \textit{what makes a retrieved document genuinely useful?} This matters because in high-stakes domains---medicine, law, finance---an incorrectly retrieved document that confidently asserts a false fact can be far more dangerous than no document at all. A RAG system that cannot distinguish between a harmful contributor and a helpful one poses a real safety risk: it may present internally uncertain, factually wrong outputs with superficial confidence, giving users no signal that the generation is unreliable.
+
+Existing attribution methods such as ContextCite \cite{cohen2024contextcite}, TracLLM \cite{wang2025tracllm}, and AttriBoT \cite{dubey2025attribot} operationalize importance as causal contribution to the model's output. A document that strongly shifts the model's response receives a high importance score---regardless of whether that shift improves or harms factual correctness. A misleading document that confidently pushes the model toward a wrong answer would still be ranked as important. This is not a minor technical limitation but a practical danger: an attribution system that cannot separate helpful from harmful influence cannot be trusted to improve RAG reliability.
+
+This project proposes a refined definition: \textbf{a document is important only if its causal contribution is aligned with factual correctness}. We operationalize this through a Leave-One-Document-Out (LODO) evaluation framework that measures three axes of degradation simultaneously: factual correctness drop, log-probability collapse, and layer-wise representation drift. Beyond output-level evaluation, we investigate \textit{where inside the transformer} evidence integration occurs, and address a key methodological challenge identified during the midterm review: the confound between semantic absence and positional encoding shifts introduced by naive document removal.
+
+
+\section{Literature Review}
+
+\subsection{ContextCite}
+ContextCite \cite{cohen2024contextcite} learns a sparse linear surrogate via LASSO that predicts how the probability of the model's response changes when context is ablated. Its notion of importance is purely contributive: a document that strongly shifts the response receives high importance, regardless of factual direction.
+
+\subsection{TracLLM}
+TracLLM \cite{wang2025tracllm} handles very long contexts by recursively partitioning context, estimating contribution scores, and pruning unimportant groups. It introduces a denoising mechanism to reduce noise from irrelevant combinations. Like ContextCite, it measures influence on output, not whether that influence is factually beneficial.
+
+\subsection{AttriBoT}
+AttriBoT \cite{dubey2025attribot} makes leave-one-out attribution feasible at scale via cached activations, hierarchical attribution, and proxy models. It directly operationalizes likelihood-based LOO attribution efficiently. Its importance criterion, however, is again defined by how much a context span changes output likelihood---not whether the change improves correctness.
+
+\subsection{Gap}
+All three methods share a common limitation: they define importance as influence without factual qualification. This project addresses this gap by redefining importance as \emph{factuality-aware causal contribution} and extending analysis into the internal processing of the transformer to explain how the model handles beneficial versus harmful evidence.
+
+
+\section{Experiment Setup}
+
+\subsection{RGB Benchmark}
+We use the \textbf{RGB Benchmark} \cite{chen2024rgb}, which provides controlled retrieval settings evaluating four RAG abilities: Noise Robustness, Negative Rejection, Information Integration, and Counterfactual Robustness. RGB is particularly suitable because the counterfactual subset (\texttt{en\_counter\_mid}) presents retrieved documents that confidently assert a wrong answer, making document-level causal analysis meaningful.
+
+\subsection{Dataset Choice: Why en\_counter\_mid}
+
+A key lesson from the midterm phase is that dataset difficulty directly determines whether LODO can reveal meaningful signal. Initial experiments on the standard \texttt{en\_mid} subset showed near-ceiling accuracy across all prompt styles and noise levels (92--96\% at noise=0.4, 56--68\% even at noise=1.0). In this setting, the model answers correctly regardless of which document is removed, making factual degradation essentially unobservable.
+
+Switching to \texttt{en\_counter\_mid} drops average accuracy into the 8--17\% range (see Section~\ref{sec:cf_results}), where the model's correct output depends critically on the retrieved evidence. This makes document removal a meaningful causal intervention and LODO a valid evaluation framework.
+
+Figure~\ref{fig:dataset_motivation} illustrates this contrast directly: on \texttt{en\_mid}, accuracy is near-ceiling across all styles and noise levels, while \texttt{en\_counter\_mid} creates a challenging setting where document contribution can be observed.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{plots/CF4_dataset_motivation.png}
+    \caption{Accuracy comparison between \texttt{en\_mid} and \texttt{en\_counter\_mid}. The standard dataset (\texttt{en\_mid}) is near-ceiling, making LODO causally uninformative. The counterfactual dataset creates a challenging setting where document removal has measurable impact.}
+    \label{fig:dataset_motivation}
+\end{figure}
+
+\subsection{Counter-Factual Style Experiment}
+
+\textbf{Setup.} We evaluate five prompt styles---Base, Academic, Confident, Conversational, Narrative---on \texttt{en\_counter\_mid} using Llama-3.1-8B-Instruct ($\tau = 0.6$, passage=5). Each style-noise combination is run 10 times (50 samples each) to reduce stochastic variance. We test two noise conditions: noise=0.0 (no noise documents) and noise=0.4 (40\% of retrieved documents are noise).
+
+\subsection{Mechanistic LODO Evaluation}
+
+\textbf{Pipeline.} For each query, we construct a full-context baseline and generate a baseline answer. We then ablate documents one at a time, measuring:
+\begin{itemize}
+    \item $\Delta_{\text{fact}}$: factual correctness drop of a newly generated ablated answer.
+    \item $\Delta_{\text{logprob}}$: reduction in log-likelihood of the original baseline answer under ablated context (teacher forcing).
+    \item $\Delta_{\text{L2}}$: L2 distance between mean hidden states of baseline and ablated runs, layer by layer.
+\end{itemize}
+
+A document is classified causally important if $\Delta_{\text{fact}} > 0$ or $\Delta_{\text{logprob}} < -2.0$.
+
+\subsection{Position-Controlled LODO: Addressing the Positional Encoding Confound}
+
+The midterm review raised a critical methodological concern: in standard LODO, removing document $i$ from a list of $n$ shifts all subsequent documents to earlier positions. For models using rotary positional embeddings (RoPE) as in Llama-3, this changes the positional encodings of all subsequent tokens, potentially inflating L2 drift independent of semantic content removal.
+
+We address this with a \textbf{position-controlled ablation} design. Instead of removing document $i$, we replace it with a length-proportional neutral placeholder (\texttt{[DOCUMENT REMOVED]}, repeated to approximate the original word count). This preserves:
+\begin{enumerate}[noitemsep]
+    \item Total document count (positional structure unchanged)
+    \item Approximate sequence length (attention span similar)
+    \item Query-document attention patterns for all non-ablated documents
+\end{enumerate}
+
+The \textbf{positional encoding artifact} for each ablation can then be estimated as:
+\[
+\Delta_{\text{PE}} = \Delta_{\text{L2}}^{\text{standard}} - \Delta_{\text{L2}}^{\text{controlled}}
+\]
+If $\Delta_{\text{PE}}$ is large relative to $\Delta_{\text{L2}}^{\text{standard}}$, the original drift measurement was inflated by position shifts. If $\Delta_{\text{PE}} \approx 0$, the drift is attributable to semantic absence alone. The implementation is provided in \texttt{run\_lodo\_position\_controlled.py}.
+
+\textbf{Temperature.} The reviewer also raised temperature as a potential confound. We note that $\Delta_{\text{logprob}}$ and $\Delta_{\text{L2}}$ are computed via teacher forcing over the fixed baseline answer---these computations are fully deterministic given the input context, and temperature plays no role. Only the newly generated ablated answer (used for $\Delta_{\text{fact}}$) is affected by sampling temperature. To minimize variance on this axis, we fix $\tau = 0.7$ and report factual degradation as a binary signal rather than relying on its magnitude.
+
+
+\section{Counter-Factual Experiment Results}
+\label{sec:cf_results}
+
+\subsection{Overall Style Performance}
+
+Table~\ref{tab:cf_results} summarizes the mean and standard deviation across 10 runs for each style under both noise conditions.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{llrrr}
+\toprule
+Noise & Style & Acc (\%) & Rej (\%) & Wrong (\%) \\
+\midrule
+\multirow{5}{*}{0.0}
+  & Base          & $8.6 \pm 2.2$  & $10.4 \pm 2.0$ & $81.0 \pm 2.7$ \\
+  & Academic      & $8.8 \pm 2.2$  & $12.8 \pm 1.8$ & $78.4 \pm 2.0$ \\
+  & Confident     & $10.6 \pm 2.8$ & $9.0 \pm 2.6$  & $80.4 \pm 4.3$ \\
+  & Conversational& $10.8 \pm 1.3$ & $14.2 \pm 2.6$ & $75.0 \pm 3.3$ \\
+  & Narrative     & $\mathbf{15.4 \pm 2.0}$ & $7.6 \pm 2.3$ & $77.0 \pm 3.8$ \\
+\midrule
+\multirow{5}{*}{0.4}
+  & Base          & $12.6 \pm 2.8$ & $5.8 \pm 2.3$  & $81.6 \pm 4.1$ \\
+  & Academic      & $12.8 \pm 2.0$ & $13.0 \pm 2.0$ & $74.2 \pm 2.6$ \\
+  & Confident     & $14.8 \pm 1.8$ & $5.2 \pm 1.6$  & $80.0 \pm 2.0$ \\
+  & Conversational& $\mathbf{17.0 \pm 2.2}$ & $12.4 \pm 3.8$ & $\mathbf{70.6 \pm 4.3}$ \\
+  & Narrative     & $16.0 \pm 1.5$ & $9.0 \pm 2.7$  & $75.0 \pm 3.5$ \\
+\bottomrule
+\end{tabular}
+\caption{Counter-factual experiment results (mean $\pm$ std, $n=10$ runs, 50 samples per run). Bold = best per metric per noise level.}
+\label{tab:cf_results}
+\end{table}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{plots/CF1_style_noise_comparison.png}
+    \caption{Accuracy, Reject, and Wrong rates by style and noise level. Error bars indicate standard deviation across 10 runs.}
+    \label{fig:cf1}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{plots/CF2_boxplot_distributions.png}
+    \caption{Box plots of outcome distributions across 10 runs per style, separated by noise level.}
+    \label{fig:cf2}
+\end{figure}
+
+\subsection{Statistical Significance of Style Effects}
+
+Pairwise Welch's t-tests on accuracy across 10 runs reveal that style differences are not uniformly significant.
+
+At \textbf{noise=0.0}: Narrative significantly outperforms all other styles (all $p < 0.001$). Conversational significantly outperforms Base ($p = 0.019$) and Academic ($p = 0.033$). No significant difference exists between Base, Academic, Confident, and Conversational.
+
+At \textbf{noise=0.4}: Conversational and Narrative outperform Base and Academic (all $p < 0.005$). Academic vs.\ Confident becomes significant ($p = 0.042$). The Conversational vs.\ Narrative gap closes to non-significance ($p = 0.285$), suggesting both styles similarly leverage noisy counterfactual context.
+
+Figure~\ref{fig:cf6} shows the full pairwise significance matrix.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=\linewidth]{plots/CF6_pairwise_significance.png}
+    \caption{Pairwise Welch's t-test p-values for style accuracy comparisons. Green = low p-value (significant difference). * p<0.05, ** p<0.01.}
+    \label{fig:cf6}
+\end{figure}
+
+\subsection{Effect of Noise on Style Behavior}
+
+Introducing noise (noise=0.0 $\to$ noise=0.4) significantly increases accuracy for all styles \textit{except} Narrative ($p = 0.343$, ns). This is a counterintuitive finding: adding noise documents actually improves counterfactual accuracy for most styles, suggesting noise documents may dilute the influence of confidently-stated false evidence in the retrieved set.
+
+Figure~\ref{fig:cf3} shows the per-style deltas. The Conversational style shows the largest accuracy gain ($\Delta = +6.2\%$, $p < 0.001$) and the strongest reduction in wrong-answer rate ($\Delta = -4.4\%$), suggesting it is most sensitive to contextual signal strength.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.95\linewidth]{plots/CF3_noise_delta.png}
+    \caption{Change in accuracy, reject, and wrong rates when moving from noise=0.0 to noise=0.4. The Conversational style shows the largest accuracy gain.}
+    \label{fig:cf3}
+\end{figure}
+
+
+\section{Mechanistic LODO Results}
+
+The LODO mechanistic experiments are conducted on \texttt{en\_refine} (10 queries, 275 total document ablations) to enable direct comparison with the midterm baseline and to validate the three-axis measurement framework before scaling to \texttt{en\_counter\_mid}.
+
+\subsection{Sparsity of Causal Importance}
+
+Out of 275 ablations, only 4 (1.5\%) are classified as causally important: 3 via logprob collapse ($\Delta_{\text{logprob}} < -2.0$) and 1 via factual degradation ($\Delta_{\text{fact}} = 1$). The mean logprob degradation is $-0.056 \pm 0.367$; the IQR is tightly clustered around zero.
+
+This sparsity confirms two findings. First, most retrieved documents are redundant---the model can answer correctly when any single document is removed. Second, and importantly, even the one case of factual degradation (query 9, doc 3) demonstrates that factual degradation and logprob degradation are \textit{not} always co-occurring: the three cases of severe logprob collapse (min $= -3.375$) showed no factual degradation---the model's output remained correct despite massive internal confidence loss. This validates the need for all three measurement axes; factual accuracy alone would miss 3 of the 4 critical cases.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{1_logprob_outliers.png}
+    \caption{Logprob degradation distribution across 275 ablations. The IQR is tightly bound near 0; only a few extreme outliers fall below $-2.0$.}
+    \label{fig:logprob}
+\end{figure}
+
+\subsection{Information Integration Happens Late: The Integration Horizon}
+
+Layer-wise L2 drift (mean across ablations) is near-zero at layer 0, stable through layer 16 (median $\approx 0.5$), and jumps sharply to a median of $\sim 4.0$ at layer 32 (final layer). The maximum final-layer drift observed is 15.1.
+
+In the detailed case study comparing the top-5 divergence cases versus 5 average-baseline cases:
+\begin{itemize}[noitemsep]
+    \item Top divergence: mean last-layer drift $= 8.85$ (max $= 15.1$)
+    \item Average baseline: mean last-layer drift $= 3.43$ (max $= 5.0$)
+\end{itemize}
+
+The case-study trajectories (Figure~\ref{fig:layerwise}) reveal a consistent structural pattern: drift is essentially flat through layers 0--17, then begins an exponential rise starting at \textbf{layer 18--20}. We call this the \textbf{Integration Horizon}: the transition point at which the transformer shifts from syntactic/structural encoding to factual grounding in retrieved context.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{7_layerwise_drift_curve.png}
+    \caption{Layer-wise L2 drift trajectories. Gray: average-baseline cases. Red: top-divergence cases. The integration horizon at layers 18--20 marks where retrieved evidence begins to determine internal representations.}
+    \label{fig:layerwise}
+\end{figure}
+
+\subsection{Collapse Divergence: Hidden Internal Failure}
+
+The scatter plot in Figure~\ref{fig:divergence} highlights 3 ablations with severe logprob collapse (all shown as circles, meaning $\Delta_{\text{fact}} = 0$). The most extreme case (query 2, doc 2) shows logprob $= -3.375$ and layer-32 drift $= 15.1$---yet the model still generates the factually correct answer.
+
+This \textbf{collapse divergence} phenomenon is arguably the most important finding of this project: a model can exhibit massive internal disruption (confidence collapse, representation drift) while its surface output appears correct. Standard RAG evaluation metrics based solely on factual accuracy would classify this case as a non-event. Our three-axis framework exposes it as a critical fragility---one that could manifest as a factual error under slightly different sampling conditions or query phrasing.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.85\linewidth]{5_mechanistic_divergence.png}
+    \caption{Scatter plot of logprob degradation versus last-layer L2 drift. Red circles: logprob collapse without factual degradation (collapse divergence). The extreme case at the lower-left shows massive internal disruption despite correct surface output.}
+    \label{fig:divergence}
+\end{figure}
+
+\subsection{Token-Level Localization of Causal Influence}
+
+Token-wise logprob trajectories (Figure~\ref{fig:tokenwise}) show that structural and grammatical tokens (prepositions, articles, punctuation) are unaffected by document removal. The logprob collapse is highly localized to \textbf{1--2 named-entity or fact tokens} in the generated answer. For example, in query 2, the token ``Kentucky'' shows a logprob drop of $>3$ nats, while surrounding tokens remain stable.
+
+This localization has an important implication: a document's causal contribution to generation is concentrated at a very small number of factual tokens, not distributed across the output. This supports the design of future attribution methods that operate at token granularity rather than sentence or document granularity.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\linewidth]{6_tokenwise_trajectory.png}
+    \caption{Token-wise logprob trajectories. Causal influence is highly localized to 1--2 fact tokens (named entities, numbers), while structural tokens remain unaffected.}
+    \label{fig:tokenwise}
+\end{figure}
+
+
+\section{Discussion}
+
+\subsection{Addressing the Positional Encoding Confound}
+
+The midterm reviewer correctly identified that standard LODO conflates semantic absence with positional encoding shifts: removing document $i$ shifts the positions of all subsequent documents, which changes RoPE encodings and may inflate L2 drift independently of content. Our position-controlled ablation design (Section~\ref{sec:cf_results}, \texttt{run\_lodo\_position\_controlled.py}) addresses this by replacing removed documents with length-proportional placeholders. This isolates $\Delta_{\text{L2}}^{\text{semantic}}$ from $\Delta_{\text{PE}}$. Running this controlled experiment at scale is a direct next step; the implementation is ready.
+
+\subsection{Scalability of LODO}
+
+Standard single-document LODO has complexity $O(n)$ per query, where $n$ is the number of retrieved documents ($n = 5$ in our experiments). Leave-Two-Out would require $O(n^2)$ ablations (10 per query here), which is computationally feasible at small scales. However, measuring higher-order document interactions (e.g., complementary documents that only matter jointly) requires either Leave-$k$-Out for small $k$, or surrogate models such as those used by ContextCite. For the scope of this project, single-document ablation is sufficient to identify individually critical documents; joint importance is left for future work.
+
+\subsection{Why This Matters: Real-World Danger}
+
+The collapse divergence finding has direct safety implications. In a medical RAG system, a model can retrieve a document with an incorrect drug dosage, exhibit massive internal confidence collapse (our logprob and L2 drift axes would detect this), yet output the seemingly correct answer on most sampling runs. On a different run---or with slightly rephrased query---the factual failure becomes observable. A system relying only on factual accuracy evaluation would never detect this latent fragility. Factuality-aware causal attribution, as proposed here, provides an early-warning signal before surface errors appear.
+
+
+\section{Further Plans}
+
+\begin{enumerate}[noitemsep]
+    \item \textbf{Run position-controlled LODO}: Execute \texttt{run\_lodo\_position\_controlled.py} on \texttt{en\_counter\_mid} to quantify the positional encoding artifact and validate that the integration horizon finding is robust to position control.
+    \item \textbf{Distributional importance threshold}: Replace the heuristic $\Delta_{\text{logprob}} < -2.0$ threshold with a distributional criterion (e.g., $> 2\sigma$ below the per-query mean), making importance classification adaptive to query difficulty.
+    \item \textbf{Scale to en\_counter\_mid for mechanistic LODO}: Now that the counter-factual dataset is validated as sufficiently challenging, run the full mechanistic pipeline on \texttt{en\_counter\_mid} to observe factual degradation at a higher rate.
+    \item \textbf{Predictive signals}: Investigate whether integration-horizon drift at layers 18--20 can serve as a real-time signal to flag uncertain generations before decoding completes.
+\end{enumerate}
+
+
+\bibliography{references}
+\bibliographystyle{acl_natbib}
+
+\end{document}
