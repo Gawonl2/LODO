@@ -50,7 +50,7 @@ Llama-3.1-8B-Instruct, we find that 92.7\% of documents flagged as
 ``important'' under standard likelihood-based attribution cause \emph{zero}
 factual degradation---a phenomenon we term \emph{collapse divergence}. We
 introduce a six-category factuality-aware importance taxonomy
-(helpful-important, confidence-only, harmful-influential, and three
+(factuality-critical, confidence-only, factuality-disrupting, and three
 non-influential variants) and show that factuality-aware ranking achieves
 P@1\,=\,1.00 versus 0.50 for logprob-only ranking on queries with at least one
 factually critical document. A mechanistic analysis reveals an \emph{Integration
@@ -245,17 +245,17 @@ based on its ($\dlogp$, $\dfact$) pair:
 \toprule
 Category & $\dlogp$ & $\dfact$ \\
 \midrule
-Helpful-important   & $< -\thr$ & $> 0$ \\
+Factuality-critical   & $< -\thr$ & $> 0$ \\
 Confidence-only     & $< -\thr$ & $= 0$ \\
-Harmful-influential & $< -\thr$ & $< 0$ \\
+Factuality-disrupting & $< -\thr$ & $< 0$ \\
 Fact-only           & $\geq -\thr$ & $> 0$ \\
 Neutral             & $\geq -\thr$ & $= 0$ \\
-Harmful-weak        & $\geq -\thr$ & $< 0$ \\
+Factuality-weak        & $\geq -\thr$ & $< 0$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Only \emph{helpful-important} documents are both causally influential and
+Only \emph{factuality-critical} documents are both causally influential and
 factually necessary. \emph{Confidence-only} documents are the CDR population:
 influential by the likelihood criterion but factually irrelevant.
 
@@ -300,7 +300,7 @@ document importance.
 \paragraph{Integration Horizon.}
 We track $\dltwo^{(\ell)}$ across all transformer layers. Prior work
 suggests factual grounding occurs in mid-to-late layers; we test whether
-documents classified as helpful-important vs confidence-only produce
+documents classified as factuality-critical vs confidence-only produce
 distinguishable layer-wise drift profiles.
 
 \paragraph{Fact-token logprob.}
@@ -372,15 +372,15 @@ axis of the influence-usefulness gap.
 Across all 513 ablations, 55 documents (10.7\%) satisfy the standard
 logprob-importance criterion ($\dlogp < -2.0$). Among these, \textbf{51
 documents (92.7\%) cause zero factual degradation}---they are classified as
-confidence-only. Only 3 are helpful-important (5.5\%) and 1 is
-harmful-influential (1.8\%). The resulting \cdr = 92.7\% (Table~\ref{tab:cdr}).
+confidence-only. Only 3 are factuality-critical (5.5\%) and 1 is
+factuality-disrupting (1.8\%). The resulting \cdr = 92.7\% (Table~\ref{tab:cdr}).
 
 \begin{table}[h]
 \centering
 \small
 \begin{tabular}{lrrrr}
 \toprule
-Group & $N_{\mathrm{imp}}$ & CDR & HCR & HMCR \\
+Group & $N_{\mathrm{imp}}$ & CDR & FCR & FDCR \\
 \midrule
 All ablations            & 55 & 92.7\% & 5.5\% & 1.8\% \\
 Sweep only               & 52 & 92.3\% & 5.8\% & 1.9\% \\
@@ -394,8 +394,8 @@ Positive docs            & 32 & 93.8\% & 3.1\% & 3.1\% \\
 Negative docs            & 20 & 90.0\% & 10.0\% & 0.0\% \\
 \bottomrule
 \end{tabular}
-\caption{Collapse Divergence Rate (CDR), Helpful Collapse Rate (HCR), and
-Harmful Collapse Rate (HMCR). CDR measures the fraction of logprob-important
+\caption{Collapse Divergence Rate (CDR), Factuality-Critical Rate (FCR), and
+Factuality-Disrupting Rate (FDCR). CDR measures the fraction of logprob-important
 documents with zero factual degradation. Threshold $\thr = 2.0$.}
 \label{tab:cdr}
 \end{table}
@@ -403,7 +403,7 @@ documents with zero factual degradation. Threshold $\thr = 2.0$.}
 \begin{figure}[h]
   \centering
   \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260428_023148/plots/E1_cdr_by_passage_num.png}
-  \caption{CDR (orange), HCR (blue), and HMCR (green) as a fraction of
+  \caption{CDR (orange), FCR (blue), and FDCR (green) as a fraction of
            logprob-important documents, by passage count. CDR remains above
            90\% at every passage\_num, confirming that collapse divergence
            is not a low-redundancy artifact.}
@@ -418,14 +418,14 @@ At every level of redundancy, the model's internal confidence collapses
 frequently in response to document removal without any corresponding change
 in factual correctness.
 
-\subsection{RQ2: Can Factuality-Aware Scoring Distinguish Helpful from Harmful Evidence?}
+\subsection{RQ2: Can Factuality-Aware Scoring Separate Documents by Factuality Impact?}
 
 \paragraph{Importance taxonomy.}
 Across all 513 ablations, document importance decomposes as shown in
 Figure~\ref{fig:taxonomy_stacked}: 85.6\% are \emph{neutral} (no effect on
 either axis), 9.9\% are \emph{confidence-only}, 2.7\% are \emph{fact-only}
 (factual degradation without logprob collapse), and only 0.6\% are
-\emph{helpful-important} (Table~\ref{tab:taxonomy}).
+\emph{factuality-critical} (Table~\ref{tab:taxonomy}).
 
 \begin{table}[h]
 \centering
@@ -437,9 +437,9 @@ Category & Count & \% \\
 Neutral             & 439 & 85.6\% \\
 Confidence-only     &  51 &  9.9\% \\
 Fact-only           &  14 &  2.7\% \\
-Harmful-weak        &   5 &  1.0\% \\
-Helpful-important   &   3 &  0.6\% \\
-Harmful-influential &   1 &  0.2\% \\
+Factuality-weak        &   5 &  1.0\% \\
+Factuality-critical   &   3 &  0.6\% \\
+Factuality-disrupting &   1 &  0.2\% \\
 \bottomrule
 \end{tabular}
 \caption{Factuality-aware importance taxonomy across 513 ablations.
@@ -454,20 +454,20 @@ benefit---the CDR population.}
   \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260428_023148/plots/E2_taxonomy_stacked_by_passage_num.png}
   \caption{Importance taxonomy by passage count. Confidence-only documents
            (orange) are consistently the dominant non-neutral category at every
-           $n$, while helpful-important (blue) appears only at $n \geq 5$.}
+           $n$, while factuality-critical (blue) appears only at $n \geq 5$.}
   \label{fig:taxonomy_stacked}
 \end{figure}
 
 A notable asymmetry emerges at low passage count: at $n=3$, the entire
 logprob-important population is confidence-only (CDR\,=\,93.3\%,
-HCR\,=\,0.0\%). Helpful-important documents cannot appear when the baseline
+FCR\,=\,0.0\%). Factuality-critical documents cannot appear when the baseline
 accuracy is 0\%---factual degradation requires a correct baseline to degrade.
-At $n \geq 5$, where occasional correct baselines exist, helpful-important
+At $n \geq 5$, where occasional correct baselines exist, factuality-critical
 cases begin to appear, and fact-only cases become more frequent as the
 positive documents' individual contributions become observable.
 
 \paragraph{Ranking evaluation.}
-We evaluate how well each scoring method retrieves the 3 truly helpful-important
+We evaluate how well each scoring method retrieves the 3 truly factuality-critical
 documents from the pool of logprob-important candidates (Table~\ref{tab:ranking}).
 On the 4 queries that contain at least one factually useful document,
 \textbf{factuality-aware scoring (Eq.~\ref{eq:fa_score}) achieves P@1\,=\,1.00
@@ -488,7 +488,7 @@ Harmfulness-aware    & 0.25 & 0.42 & 0.55 & $-$0.42 \\
 \bottomrule
 \end{tabular}
 \caption{Ranking evaluation for identifying factually useful documents
-($\dfact > 0$) on queries with $\geq 1$ helpful document ($n_q = 4$).
+($\dfact > 0$) on queries with $\geq 1$ factuality-critical document ($n_q = 4$).
 Factuality-aware scoring substantially outperforms logprob-only at every metric.}
 \label{tab:ranking}
 \end{table}
@@ -497,7 +497,7 @@ Factuality-aware scoring substantially outperforms logprob-only at every metric.
   \centering
   \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260428_023148/plots/E6_precision_by_ranking_method.png}
   \caption{Precision@K for each ranking method on non-trivial queries.
-           Factuality-aware scoring correctly identifies helpful documents at
+           Factuality-aware scoring correctly identifies factuality-critical documents at
            rank 1; logprob-only is chance-level.}
   \label{fig:ranking}
 \end{figure}
@@ -577,7 +577,7 @@ encoding gives way to factual grounding in retrieved context.
 \paragraph{Mechanistic taxonomy comparison.}
 Using three-checkpoint drift (layers 0, 16, 32) across all sweep ablations,
 we compare mean L2 drift at layer 32 by taxonomy category
-(Table~\ref{tab:layer_drift}). Both helpful-important (19.95) and
+(Table~\ref{tab:layer_drift}). Both factuality-critical (19.95) and
 confidence-only (18.61) documents produce an order-of-magnitude larger drift
 than neutral (6.01) documents. Crucially, the two influential categories are
 nearly indistinguishable by L32 drift alone---the mechanistic signature of
@@ -590,17 +590,17 @@ internal disruption does not reveal whether that disruption is factually aligned
 \toprule
 Category & $n$ & Mean $\dltwo^{32}$ & Median $\dltwo^{32}$ \\
 \midrule
-Helpful-important    &  3 & 19.95 & 22.65 \\
+Factuality-critical    &  3 & 19.95 & 22.65 \\
 Confidence-only      & 51 & 18.61 & 16.71 \\
-Harmful-influential  &  1 & 27.41 & 27.41 \\
+Factuality-disrupting  &  1 & 27.41 & 27.41 \\
 \midrule
 Fact-only            & 14 &  8.07 &  7.54 \\
 Neutral              &439 &  6.01 &  4.87 \\
-Harmful-weak         &  5 &  5.43 &  6.61 \\
+Factuality-weak         &  5 &  5.43 &  6.61 \\
 \bottomrule
 \end{tabular}
 \caption{Mean and median L2 drift at layer 32 by importance category.
-Both helpful-important and confidence-only documents show nearly identical
+Both factuality-critical and confidence-only documents show nearly identical
 L32 drift, confirming that representation disruption alone cannot
 distinguish factually useful from confidence-only influence.}
 \label{tab:layer_drift}
@@ -610,8 +610,8 @@ distinguish factually useful from confidence-only influence.}
   \centering
   \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260428_023148/plots/E4_layerwise_drift_by_taxonomy.png}
   \caption{Mean L2 drift at layers 0, 16, and 32 by importance category.
-           All influential categories (helpful-important, confidence-only,
-           harmful-influential) show sharp late-layer increases while
+           All influential categories (factuality-critical, confidence-only,
+           factuality-disrupting) show sharp late-layer increases while
            neutral documents remain near zero throughout.}
   \label{fig:layerwise_cat}
 \end{figure}
@@ -688,7 +688,7 @@ the attribution objective to weight likelihood changes by factual alignment.
 Our results suggest that RAG evaluation metrics should track not just aggregate
 accuracy but also the proportion of causally important documents that are
 factually aligned. A RAG system with low CDR (most influential documents are
-actually helpful) is more reliable than one with high CDR (most influential
+actually factuality-critical) is more reliable than one with high CDR (most influential
 documents are confidence-only noise). The \lodo framework can serve as a
 diagnostic tool for auditing retrieval corpus quality and retriever behavior.
 
@@ -720,7 +720,7 @@ The $\dfact$ signal depends on the quality of the factuality scorer $f$.
 We use exact-match and keyword-match evaluation from the RGB benchmark,
 which may underestimate factual degradation for semantically equivalent
 paraphrases. A stronger entailment-based evaluator could increase the
-number of observed helpful-important cases.
+number of observed factuality-critical cases.
 
 \paragraph{Counterfactual setting.}
 All sweep experiments use \texttt{en\_counter\_mid}, where retrieved documents
@@ -767,13 +767,13 @@ no role in whether the answer is correct or incorrect.
 We proposed Factuality-Aware \lodo, a three-axis evaluation framework that
 jointly measures factual degradation, likelihood degradation, and
 representation drift per removed document. The resulting six-category importance
-taxonomy reveals that useful and harmful documents are rare outliers, and that
+taxonomy reveals that factuality-critical and factuality-disrupting documents are rare outliers, and that
 confidence-only documents---the source of attribution error---are the dominant
 non-neutral category at every passage count.
 
 Mechanistically, evidence integration in Llama-3.1-8B is concentrated at a
 late Integration Horizon (layers 18--20), and logprob collapse is localized to
-1--2 factual tokens per output. Both helpful-important and confidence-only
+1--2 factual tokens per output. Both factuality-critical and confidence-only
 documents produce similar magnitudes of internal disruption---confirming that
 representation drift, like likelihood degradation, is directionally agnostic.
 

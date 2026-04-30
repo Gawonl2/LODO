@@ -215,9 +215,9 @@
       \toprule
       Category & Count & \% \\
       \midrule
-      \textcolor{helpblue}{\textbf{Helpful-important}}     &   3 &  5.5\% \\
+      \textcolor{helpblue}{\textbf{Factuality-critical}}     &   3 &  5.5\% \\
       \textcolor{conforange}{\textbf{Confidence-only}}     &  51 & \hilight{92.7\%} \\
-      Harmful-influential                                  &   1 &  1.8\% \\
+      Factuality-disrupting                                  &   1 &  1.8\% \\
       \midrule
       \textbf{Total logprob-important}                     &  55 & 100\% \\
       \bottomrule
@@ -225,7 +225,7 @@
 
     \vspace{0.6em}
     \textbf{Full taxonomy (513 ablations):}\\[0.2em]
-    85.6\% neutral $\cdot$ 9.9\% conf.-only $\cdot$ only 0.6\% helpful
+    85.6\% neutral $\cdot$ 9.9\% conf.-only $\cdot$ only 0.6\% factuality-critical
 
     \column{0.48\textwidth}
     \textbf{Factuality-aware ranking vs logprob-only:}
@@ -293,7 +293,7 @@
       \item \textbf{Integration horizon: layers 18--20}\\
             Evidence grounding begins here; consistent with mid-layer factual storage
       \item \textbf{L2 drift cannot separate categories}\\
-            Helpful-important (19.95) $\approx$ Confidence-only (18.61)\\
+            Factuality-critical (19.95) $\approx$ Confidence-only (18.61)\\
             $\Rightarrow$ $\dltwo$ alone cannot replace $\dfact$
       \item \textbf{Logprob collapse is doubly sparse}\\
             Only 1--2 factual tokens (named entities, numbers) drop; structural tokens unchanged
@@ -333,7 +333,7 @@
       \node at (-0.6,-0.6) {\footnotesize conf.-only};
       \draw[fill=helpblue!50,rounded corners] (0.7,-1.2) rectangle (1.8,0.9);
       \node at (1.25,-0.15) {\footnotesize \textcolor{helpblue}{\textbf{5.5\%}}};
-      \node at (1.25,-0.6) {\footnotesize helpful};
+      \node at (1.25,-0.6) {\footnotesize crit.};
       \node[below] at (0,-1.4) {\footnotesize All $\dlogp < -2$};
     \end{tikzpicture}
     \end{center}
