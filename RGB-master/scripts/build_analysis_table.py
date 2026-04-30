@@ -30,13 +30,15 @@ def load_sweep(path: str) -> list[dict]:
         blogp = item["baseline_logprob"]
         for abl in item["ablations"]:
             drift = abl["representation_drift_l2"]
+            # Support both old (pure counter-factual) and new (mixed) JSON formats.
+            doc_type = abl.get("doc_type", "counter-factual")
             rows.append({
                 "source":           "sweep",
                 "query_id":         qid,
                 "passage_num":      pnum,
                 "doc_idx":          abl["doc_idx"],
-                "is_positive_doc":  None,
-                "doc_type":         "counter-factual",
+                "is_gt_doc":        abl.get("is_gt_doc", False),
+                "doc_type":         doc_type,
                 "logprob_degradation":  abl["logprob_degradation"],
                 "fact_degradation":     abl["fact_degradation"],
                 "layer_0_drift":    drift.get("layer_0",  float("nan")),

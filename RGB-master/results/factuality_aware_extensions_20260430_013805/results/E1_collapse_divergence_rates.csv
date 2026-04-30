@@ -1,0 +1,9 @@
+n_total,n_logprob_important,logprob_important_rate,n_fact_useful,CDR,HCR,HMCR,group,passage_num
+473,71,0.15010570824524314,23,0.6479,0.2254,0.1268,Overall (all sources),all
+198,68,0.3434343434343434,22,0.6324,0.2353,0.1324,Sweep only,all
+30,21,0.7,5,0.5714,0.2381,0.1905,passage_num=3,3
+44,17,0.38636363636363635,5,0.6471,0.2353,0.1176,passage_num=5,5
+55,17,0.3090909090909091,4,0.5882,0.2353,0.1765,passage_num=7,7
+69,13,0.18840579710144928,8,0.7692,0.2308,0.0,passage_num=10,10
+158,52,0.3291139240506329,11,0.7115,0.1154,0.1731,doc_type=counter-factual,all
+40,16,0.4,11,0.375,0.625,0.0,doc_type=ground-truth,all

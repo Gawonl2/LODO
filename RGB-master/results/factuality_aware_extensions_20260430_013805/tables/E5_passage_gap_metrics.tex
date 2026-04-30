@@ -1,0 +1,15 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+$n$ & ablations & base acc & logprob-imp & fact-useful & gap & CDR & mean $\Delta_{L2}^{32}$ \\
+\midrule
+  3 & 30 & 30\% & 70.0\% & 16.7\% & 53.3\% & 57.1\% & 16.87 \\
+  5 & 44 & 30\% & 38.6\% & 11.4\% & 27.3\% & 64.7\% & 12.02 \\
+  7 & 55 & 20\% & 30.9\% & 7.3\% & 23.6\% & 58.8\% & 10.18 \\
+  10 & 69 & 30\% & 18.8\% & 11.6\% & 7.2\% & 76.9\% & 8.88 \\
+\bottomrule
+\end{tabular}
+\caption{Influence-usefulness gap by passage count. Gap $=$ logprob-important rate $-$ fact-useful rate. CDR $=$ fraction of logprob-important documents with zero factual degradation.}
+\label{tab:e5_passage_gap}
+\end{table}

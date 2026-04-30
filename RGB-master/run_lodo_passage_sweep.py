@@ -1,22 +1,18 @@
 """
-LODO Passage-Number Sweep Experiment
+LODO Passage-Number Sweep — Mixed Setting (Experiment 3)
 
-Runs LODO on en_counter_mid with varying numbers of counter-factual documents
-(passage_num in [3, 5, 7, 10]) to measure how document count affects:
-  - Fraction of causally important documents
-  - Logprob degradation magnitude
-  - Layer-wise representation drift
+For each query, constructs a context of:
+  - 1 ground-truth document  (from en_mid positive)
+  - (passage_num - 1) counter-factual documents  (from en_counter_mid positive)
 
-In en_counter_mid, the 'positive' field contains documents that are relevant to
-the query but assert the WRONG answer (counter-factual). The 'negative' field
-contains irrelevant/noisy documents. Only 'positive' (counter-factual) documents
-are used so that the context is purely counter-factual, as the benchmark intends.
+This ensures the baseline is solvable (model can see the correct answer) while
+the majority of the context is adversarially misleading. The design directly
+tests whether logprob-only attribution can identify the single factually useful
+document among n-1 misleading ones.
 
-If a query has fewer counter-factual docs than passage_num, all available docs
-are used (actual count reported in n_docs_sampled).
-
-Hypothesis: with fewer documents each doc carries more weight → higher causal
-importance rate. With more documents, redundancy increases → importance is sparser.
+Each ablation result includes:
+  is_gt_doc  — True if the removed document was the ground-truth document
+  doc_type   — "ground-truth" | "counter-factual"
 """
 import os
 import json
@@ -37,28 +33,41 @@ def compute_l2_drift(states1: dict, states2: dict) -> dict:
     }
 
 
-def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
-                              instruction, temp, seed=42):
+def run_lodo_for_passage_num(model, counter_instance, gt_instance, passage_num,
+                              system_prompt, instruction, temp, seed=42):
     """Run full LODO for one query at a fixed passage_num. Returns per-ablation results.
 
-    In en_counter_mid, the 'positive' field contains the counter-factual documents
-    (relevant documents modified to assert the wrong answer). The 'negative' field
-    contains irrelevant/noisy documents. We use only the 'positive' (counter-factual)
-    documents so the context is purely counter-factual, as the benchmark intends.
+    Context = 1 ground-truth doc (from en_mid) + (passage_num-1) counter-factual docs
+    (from en_counter_mid positive). Each ablation records whether the removed doc
+    was the ground-truth document.
     """
     rng = random.Random(seed)
-    query            = instance['query']
-    ans_ground_truth = instance['answer']
+    query            = counter_instance['query']
+    ans_ground_truth = counter_instance['answer']
 
-    # All counter-factual documents are in the 'positive' field in en_counter_mid.
-    counter_docs = instance.get('positive', [])
+    # Ground-truth docs from en_mid positive field.
+    gt_docs = gt_instance.get('positive', [])
+    if gt_docs and isinstance(gt_docs[0], list):
+        gt_docs = [d[0] for d in gt_docs]
+
+    # Counter-factual docs from en_counter_mid positive field.
+    counter_docs = counter_instance.get('positive', [])
     if counter_docs and isinstance(counter_docs[0], list):
         counter_docs = [d[0] for d in counter_docs]
 
-    # Use min(passage_num, available) counter-factual docs.
-    n_docs = min(passage_num, len(counter_docs))
-    docs = rng.sample(counter_docs, n_docs)
+    if not gt_docs:
+        return None
+
+    # 1 ground-truth doc + (passage_num - 1) counter-factual docs.
+    gt_doc = rng.choice(gt_docs)
+    n_counter = min(passage_num - 1, len(counter_docs))
+    sampled_counter = rng.sample(counter_docs, n_counter)
+
+    docs = [gt_doc] + sampled_counter
+    gt_doc_text = gt_doc
     rng.shuffle(docs)
+
+    n_docs = len(docs)
 
     # Baseline
     docs_text  = '\n'.join(docs)
@@ -85,8 +94,11 @@ def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
         drift       = compute_l2_drift(baseline_features['hidden_states_mean'],
                                        abl_features['hidden_states_mean'])
 
+        is_gt = (doc == gt_doc_text)
         ablation_results.append({
             "doc_idx":              doc_idx,
+            "is_gt_doc":           is_gt,
+            "doc_type":            "ground-truth" if is_gt else "counter-factual",
             "logprob_degradation":  logprob_deg,
             "fact_degradation":     fact_deg,
             "representation_drift_l2": drift,
@@ -94,9 +106,11 @@ def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
         })
 
     return {
-        "query_id":            instance['id'],
+        "query_id":            counter_instance['id'],
         "passage_num":         passage_num,
         "n_docs_sampled":      n_docs,
+        "n_gt_docs":           1,
+        "n_counter_docs":      n_counter,
         "baseline_fact_score": baseline_fact_score,
         "baseline_logprob":    baseline_features['logprob'],
         "ablations":           ablation_results,
@@ -105,21 +119,30 @@ def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--dataset',     type=str,   default='en_counter_mid')
-    parser.add_argument('--modelname',   type=str,   default='llama3')
-    parser.add_argument('--temp',        type=float, default=0.7)
-    parser.add_argument('--max_queries', type=int,   default=10)
-    parser.add_argument('--passage_nums', type=int,  nargs='+', default=[3, 5, 7, 10])
-    parser.add_argument('--seed',        type=int,   default=42)
+    parser.add_argument('--counter_dataset', type=str, default='en_counter_mid')
+    parser.add_argument('--gt_dataset',      type=str, default='en_mid')
+    parser.add_argument('--modelname',       type=str, default='llama3')
+    parser.add_argument('--temp',            type=float, default=0.7)
+    parser.add_argument('--max_queries',     type=int,   default=10)
+    parser.add_argument('--passage_nums',    type=int,   nargs='+', default=[3, 5, 7, 10])
+    parser.add_argument('--seed',            type=int,   default=42)
     args = parser.parse_args()
 
-    instances = []
-    with open(f'data/{args.dataset}.json', 'r', encoding='utf-8') as f:
+    # Load counter-factual instances (en_counter_mid).
+    counter_instances = []
+    with open(f'data/{args.counter_dataset}.json', 'r', encoding='utf-8') as f:
         for line in f:
-            instances.append(json.loads(line))
-    instances = instances[:args.max_queries]
+            counter_instances.append(json.loads(line))
+    counter_instances = counter_instances[:args.max_queries]
 
-    lang_key = args.dataset[:2]
+    # Load ground-truth instances (en_mid), indexed by query ID.
+    gt_by_id = {}
+    with open(f'data/{args.gt_dataset}.json', 'r', encoding='utf-8') as f:
+        for line in f:
+            inst = json.loads(line)
+            gt_by_id[inst['id']] = inst
+
+    lang_key = args.counter_dataset[:2]
     prompt_config = yaml.load(
         open('config/instruction.yaml', 'r', encoding='utf-8'),
         Loader=yaml.FullLoader
@@ -134,18 +157,26 @@ def main():
         return
 
     all_results = []
-    output_file = f'lodo_passage_sweep_{args.dataset}_{args.modelname}.json'
+    output_file = f'lodo_passage_sweep_mixed_{args.modelname}.json'
 
     for passage_num in args.passage_nums:
         print(f"\n{'='*50}")
-        print(f"Running LODO with passage_num={passage_num}")
+        print(f"Running LODO with passage_num={passage_num} (1 GT + {passage_num-1} counter-factual)")
         print(f"{'='*50}")
-        bar = tqdm.tqdm(instances, desc=f"passage_num={passage_num}")
-        for instance in bar:
+        bar = tqdm.tqdm(counter_instances, desc=f"passage_num={passage_num}")
+        for counter_inst in bar:
+            qid = counter_inst['id']
+            gt_inst = gt_by_id.get(qid)
+            if gt_inst is None:
+                print(f"  WARNING: no en_mid instance for query {qid}, skipping")
+                continue
             result = run_lodo_for_passage_num(
-                model, instance, passage_num,
+                model, counter_inst, gt_inst, passage_num,
                 system_prompt, instruction, args.temp, args.seed
             )
+            if result is None:
+                print(f"  WARNING: no GT docs for query {qid}, skipping")
+                continue
             all_results.append(result)
             # Save incrementally
             with open(output_file, 'w', encoding='utf-8') as f:

@@ -1,0 +1,17 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{lrrrrr}
+\toprule
+Category & $n$ & Mean $\Delta_{L2}^{32}$ & Median & Max & Mean AUC\textsubscript{[0,32]} \\
+\midrule
+  factuality-critical & 16 & 15.68 & 13.58 & 24.34 & 147.8 \\
+  confidence-only & 46 & 14.05 & 12.56 & 34.87 & 133.3 \\
+  factuality-disrupting & 9 & 16.73 & 18.69 & 25.01 & 156.7 \\
+  fact-only & 7 & 7.96 & 6.98 & 12.83 & 70.8 \\
+  neutral & 378 & 5.65 & 4.61 & 19.75 & 53.6 \\
+  factuality-weak & 17 & 10.03 & 8.46 & 20.09 & 98.9 \\
+\bottomrule
+\end{tabular}
+\caption{Layer-32 representation drift and AUC by importance category. AUC approximated via trapezoid rule over checkpoints at layers 0, 16, 32.}
+\label{tab:e4_layer_drift_stats}
+\end{table}

@@ -1,0 +1,23 @@
+\begin{table}[h]
+\centering\small
+\begin{tabular}{llrr}
+\toprule
+Baseline & Category & Count & \% \\
+\midrule
+  Baseline Correct & factuality-critical & 16 & 5.0\% \\
+  Baseline Correct & confidence-only & 19 & 5.9\% \\
+  Baseline Correct & factuality-disrupting & 0 & 0.0\% \\
+  Baseline Correct & fact-only & 7 & 2.2\% \\
+  Baseline Correct & neutral & 278 & 86.9\% \\
+  Baseline Correct & factuality-weak & 0 & 0.0\% \\
+  Baseline Incorrect & factuality-critical & 0 & 0.0\% \\
+  Baseline Incorrect & confidence-only & 27 & 17.6\% \\
+  Baseline Incorrect & factuality-disrupting & 9 & 5.9\% \\
+  Baseline Incorrect & fact-only & 0 & 0.0\% \\
+  Baseline Incorrect & neutral & 100 & 65.4\% \\
+  Baseline Incorrect & factuality-weak & 17 & 11.1\% \\
+\bottomrule
+\end{tabular}
+\caption{Importance taxonomy split by baseline correctness. Helpful-important cases require a correct baseline, so they only appear in the ``Baseline Correct'' partition.}
+\label{tab:e2_taxonomy_by_baseline}
+\end{table}

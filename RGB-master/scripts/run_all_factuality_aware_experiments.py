@@ -81,7 +81,7 @@ def write_summary(out: Path, results: dict, table_csv: str) -> None:
                 "This directly shows that logprob-only attribution marks the majority of",
                 "'influential' documents as important even when they are factually irrelevant.",
                 "",
-                "| Group | CDR | HCR | HMCR |",
+                "| Group | CDR | FCR | FDCR |",
                 "|-------|-----|-----|------|",
             ]
             for _, r in e1_df.iterrows():
@@ -261,7 +261,7 @@ def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--output_dir", default=None,
                    help="Output directory (default: results/factuality_aware_extensions_TIMESTAMP)")
-    p.add_argument("--input_sweep",    default="lodo_passage_sweep_en_counter_mid_llama3.json")
+    p.add_argument("--input_sweep",    default="lodo_passage_sweep_mixed_llama3.json")
     p.add_argument("--input_refine",   default="lodo_results_en_refine_llama3.json")
     p.add_argument("--threshold",      type=float, default=-2.0)
     p.add_argument("--passage_nums",   nargs="+", type=int, default=[3, 5, 7, 10])

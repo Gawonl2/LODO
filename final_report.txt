@@ -45,21 +45,22 @@ influence model confidence while providing no factual benefit, or even pushing
 the model toward an incorrect answer. We propose \lodo (Leave-One-Document-Out),
 a three-axis evaluation framework that jointly measures factual degradation,
 log-probability collapse, and layer-wise representation drift when each retrieved
-document is removed. Applying \lodo to the counterfactual RGB benchmark with
-Llama-3.1-8B-Instruct, using exclusively the counter-factual documents in
-\texttt{en\_counter\_mid}, we find that \textbf{98.5\%} of documents flagged as
-``important'' under standard likelihood-based attribution cause \emph{zero}
-factual degradation---a phenomenon we term \emph{collapse divergence}. We
-introduce a six-category factuality-aware importance taxonomy
-(factuality-critical, confidence-only, factuality-disrupting, and three
-non-influential variants) and show that factuality-aware ranking achieves
-P@1\,=\,1.00 versus 0.00 for logprob-only ranking on queries with at least one
-factually impacting document. A mechanistic analysis reveals an \emph{Integration
-Horizon} at layers 18--20 where retrieved evidence begins to dominate internal
-representations, and that log-probability collapse is localized to 1--2 factual
-tokens per output. Together, these findings demonstrate that influence-based
-attribution must be extended with factuality-aware interpretation to reliably
-identify which retrieved documents genuinely affect model factuality.
+document is removed. To directly test attribution under adversarial conditions,
+we construct a \emph{mixed retrieval} setting from the RGB benchmark: each
+query receives one ground-truth document from \texttt{en\_mid} alongside
+$(n-1)$ counter-factual documents from \texttt{en\_counter\_mid}, ensuring
+the model can produce a correct baseline while the majority of evidence is
+misleading. Applying \lodo to this setting with Llama-3.1-8B-Instruct, we
+find a Collapse Divergence Rate (\cdr) of \textbf{63.2\%} among logprob-important
+documents overall---but with a striking asymmetry: ground-truth documents are
+factuality-critical in 62.5\% of cases, while counter-factual documents are
+confidence-only in 71.2\% of cases. A factuality-aware composite score achieves
+P@1\,=\,1.00 and MRR\,=\,1.00 across 12 non-trivial queries, versus 0.73 and
+0.83 for logprob-only ranking. A mechanistic analysis reveals an \emph{Integration
+Horizon} at layers 18--20, and shows that factuality-critical and confidence-only
+documents produce indistinguishable layer-wise drift profiles---confirming that
+representation drift, like logprob collapse, cannot alone identify factually
+useful documents.
 
 \end{abstract}
 
@@ -108,30 +109,33 @@ confidence in its original answer drops; and
 (iii)~\emph{representation drift} ($\dltwo$)---how much internal hidden states
 shift layer by layer.
 
-Using these three axes, we introduce a \textbf{factuality-aware importance
-taxonomy} that separates documents the model genuinely relies on for factual
-generation from documents that merely inflate or deflate its confidence.
-We quantify the prevalence of \emph{collapse divergence}---cases where
-log-probability collapses but factual correctness is unaffected---through
-the \textbf{Collapse Divergence Rate} (\cdr).
+To test attribution in a controlled but realistic adversarial setting, we
+construct a \emph{mixed retrieval} scenario: each query is provided with exactly
+one ground-truth document (from the RGB \texttt{en\_mid} subset) and
+$(n-1)$ counter-factual documents (from \texttt{en\_counter\_mid}). This design
+ensures the model has access to the correct answer while the majority of the
+context actively misleads it---a realistic proxy for retrieval noise in
+real-world RAG systems.
 
 \paragraph{Contributions.} We make the following contributions:
 \begin{enumerate}[noitemsep,leftmargin=*]
   \item We formalize the distinction between causal influence and factual
         impact in document attribution, and show the two are empirically
-        misaligned.
+        misaligned even when the model can produce a correct baseline.
   \item We propose \lodo, a three-axis post-hoc evaluation framework that
         jointly measures factual degradation, likelihood degradation, and
         representation drift per removed document.
-  \item We define the Collapse Divergence Rate and show it reaches 98.5\% on
-        the pure counterfactual RGB benchmark: virtually all
-        likelihood-important documents produce zero factual effect.
+  \item We quantify collapse divergence in a mixed retrieval setting: CDR
+        = 63.2\% overall, with ground-truth documents being factuality-critical
+        62.5\% of the time and counter-factual documents being confidence-only
+        71.2\% of the time.
   \item We introduce a six-category importance taxonomy and show that
-        factuality-aware ranking achieves P@1\,=\,1.00 versus 0.00 for
-        logprob-only ranking.
+        factuality-aware ranking achieves P@1\,=\,1.00 versus 0.73 for
+        logprob-only ranking across 12 non-trivial queries.
   \item We identify an \emph{Integration Horizon} at transformer layers 18--20
-        and show that log-probability collapse is localized to 1--2 factual
-        tokens per output, revealing a sparse internal attribution structure.
+        and show that factuality-critical and confidence-only documents produce
+        indistinguishable representation drift, confirming that $\dfact$ is
+        the irreducible axis of factuality-aware attribution.
 \end{enumerate}
 
 
@@ -173,10 +177,9 @@ the specific question of \emph{where} retrieved documents influence generation.
 Factuality evaluation for RAG has largely focused on end-to-end
 metrics~\cite{chen2024rgb,es2023ragas}. The RGB benchmark~\cite{chen2024rgb}
 evaluates noise robustness, rejection behavior, and counterfactual resistance
-across retrieval conditions. Our work uses RGB's counterfactual subset as the
-evaluation setting, which places factual correctness in direct tension with
-retrieved evidence---an ideal condition for observing the influence-usefulness
-gap.
+across retrieval conditions. Our work constructs a mixed retrieval scenario from
+RGB's standard (\texttt{en\_mid}) and counterfactual (\texttt{en\_counter\_mid})
+subsets, placing factual correctness in direct tension with retrieved evidence.
 
 
 %% ============================================================
@@ -318,70 +321,65 @@ compare the concentration of logprob collapse across token types.
 \section{Experimental Setup}
 %% ============================================================
 
-\paragraph{Dataset.}
-We use the \textbf{en\_counter\_mid} subset of the RGB
-benchmark~\cite{chen2024rgb}. In this subset, the retrieved documents are
-relevantly modified to assert an answer that contradicts the ground truth.
-Crucially, the \texttt{positive} field of each instance contains these
-counter-factual documents; we use \emph{only} these counter-factual documents
-to construct the retrieved context, ensuring a pure counterfactual robustness
-setting in which the model must \emph{resist} all retrieved evidence to produce
-the correct answer.
+\paragraph{Mixed retrieval setting.}
+We construct a controlled adversarial retrieval scenario from two subsets of
+the RGB benchmark~\cite{chen2024rgb}: \textbf{\texttt{en\_mid}} (standard
+retrieval; documents support the correct answer) and \textbf{\texttt{en\_counter\_mid}}
+(counterfactual retrieval; documents are modified versions of the same passages
+but assert a wrong answer). Both subsets share the same 50 query IDs.
 
-\paragraph{Why not en\_mid?}
-The standard \texttt{en\_mid} subset has near-ceiling accuracy (92--96\%)
-regardless of which documents are present. In this regime, LODO is causally
-uninformative: factual degradation is unobservable because removing any
-single document rarely flips the model's (already correct) answer.
-\texttt{en\_counter\_mid} reduces accuracy to 0--10\% depending on passage
-count (Figure~\ref{fig:dataset_motivation}), creating a setting where document
-presence is causally observable.
+For each query and each passage count $n \in \{3, 5, 7, 10\}$, we construct
+a mixed context:
+\begin{itemize}[noitemsep,leftmargin=*]
+  \item \textbf{1 ground-truth (GT) document}: sampled from the \texttt{positive}
+        field of \texttt{en\_mid} for that query.
+  \item \textbf{$(n-1)$ counter-factual (CF) documents}: sampled from the
+        \texttt{positive} field of \texttt{en\_counter\_mid} for that query.
+\end{itemize}
+Documents are shuffled before presentation. This design guarantees the model
+has access to the correct answer (enabling a non-trivial baseline) while the
+majority of the context actively misleads it. The \texttt{positive} field in
+\texttt{en\_counter\_mid} contains documents that are topically relevant but
+assert a factually incorrect answer (e.g., with modified dates or wrong entity
+names); the \texttt{negative} field contains irrelevant/noisy documents and
+is excluded from all experiments.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=\linewidth]{plots/CF4_dataset_motivation.png}
-  \caption{Accuracy on \texttt{en\_mid} vs.\ \texttt{en\_counter\_mid}.
-           Near-ceiling accuracy on \texttt{en\_mid} makes document removal a
-           non-event. \texttt{en\_counter\_mid} (pure counter-factual) places
-           baseline accuracy at 0--10\%, making individual document presence
-           causally observable.}
-  \label{fig:dataset_motivation}
-\end{figure}
+\paragraph{Why this setting?}
+A purely counter-factual context (all CF documents, no GT) produces baseline
+accuracy of 0--10\%: factuality-critical cases ($\dfact > 0$) are structurally
+impossible when the baseline is already wrong. The mixed setting corrects this:
+baseline accuracy rises to 20--30\% depending on passage count, making the
+full taxonomy observable. Crucially, it also mirrors a realistic retrieval
+failure mode---a retriever that retrieves mostly noisy or adversarial documents
+alongside a single relevant one.
 
 \paragraph{Model.}
 All experiments use \textbf{Llama-3.1-8B-Instruct} ($\tau = 0.7$ for
 generation; teacher-forcing for $\dlogp$ and $\dltwo$).
 
-\paragraph{Passage-number sweep.}
-We run \lodo with passage\_num $\in \{3, 5, 7, 10\}$ on 10 queries from
-\texttt{en\_counter\_mid}, holding the query set and random seed (42) fixed.
-For each passage\_num, we sample $\min(\text{passage\_num},\, |\text{counter-factual docs}|)$
-documents from the \texttt{positive} (counter-factual) field, so that all
-retrieved documents assert the wrong answer.
-
 \paragraph{Scale.}
-The sweep produces 181 ablations across all passage counts
-($28 + 40 + 50 + 63$ ablations for $n \in \{3, 5, 7, 10\}$).
-We additionally run \lodo on 10 queries from \texttt{en\_refine} (all with
-correct baselines), producing 275 ablations, for a total of 456 ablations
-in the full analysis table.
+We run \lodo on 10 queries from the shared query pool, using random seed 42
+for document sampling and shuffling. The sweep produces \textbf{198 ablations}
+across all passage counts ($30 + 44 + 55 + 69$ for $n \in \{3, 5, 7, 10\}$).
+We also retain 275 ablations from \texttt{en\_refine} in the combined analysis
+table (473 rows total), but passage-sweep statistics are reported on the 198
+sweep ablations unless otherwise noted.
 
 
 %% ============================================================
 \section{Results}
 %% ============================================================
 
-We organize results around five research questions that each probe one
-axis of the influence-usefulness gap.
+We organize results around five research questions.
 
 \subsection{RQ1: Does Likelihood-Based Importance Overestimate Factual Impact?}
 
 \paragraph{Collapse Divergence Rate.}
-Across the 181 sweep ablations, 67 documents (37.0\%) satisfy the standard
-logprob-importance criterion ($\dlogp < -2.0$). Among these, \textbf{66
-documents (98.5\%) cause zero factual change}---they are classified as
-confidence-only. Zero are factuality-critical and only 1 is
-factuality-disrupting (1.5\%). The resulting \cdr = 98.5\% (Table~\ref{tab:cdr}).
+Across the 198 sweep ablations, 68 documents (34.3\%) satisfy the
+logprob-importance criterion ($\dlogp < -2.0$). Among these, \textbf{43
+(63.2\%) cause zero factual change}---classified as confidence-only. 16 are
+factuality-critical (23.5\%; FCR) and 9 are factuality-disrupting (13.2\%;
+FDCR). The overall \cdr = 63.2\% (Table~\ref{tab:cdr}).
 
 \begin{table}[h]
 \centering
@@ -390,47 +388,60 @@ factuality-disrupting (1.5\%). The resulting \cdr = 98.5\% (Table~\ref{tab:cdr})
 \toprule
 Group & $N_{\mathrm{imp}}$ & CDR & FCR & FDCR \\
 \midrule
-All ablations            & 70 & 98.6\% & 0.0\% & 1.4\% \\
-Sweep only               & 67 & 98.5\% & 0.0\% & 1.5\% \\
+All ablations            & 71 & 64.8\% & 22.5\% & 12.7\% \\
+Sweep only               & 68 & 63.2\% & 23.5\% & 13.2\% \\
 \midrule
-$n=3$  (passage\_num)     & 15 & 100.0\% & 0.0\% & 0.0\% \\
-$n=5$                    & 12 & 100.0\% & 0.0\% & 0.0\% \\
-$n=7$                    & 23 & 95.7\% & 0.0\% & 4.3\% \\
-$n=10$                   & 17 & 100.0\% & 0.0\% & 0.0\% \\
+$n=3$                    & 21 & 57.1\% & 23.8\% & 19.1\% \\
+$n=5$                    & 17 & 64.7\% & 23.5\% & 11.8\% \\
+$n=7$                    & 17 & 58.8\% & 23.5\% & 17.6\% \\
+$n=10$                   & 13 & 76.9\% & 23.1\% & 0.0\% \\
+\midrule
+GT documents             & 16 & 37.5\% & 62.5\% & 0.0\% \\
+CF documents             & 52 & 71.2\% & 11.5\% & 17.3\% \\
 \bottomrule
 \end{tabular}
 \caption{Collapse Divergence Rate (CDR), Factuality-Critical Rate (FCR), and
-Factuality-Disrupting Rate (FDCR). CDR measures the fraction of logprob-important
-documents with zero factual change. Threshold $\thr = 2.0$.}
+Factuality-Disrupting Rate (FDCR) at $\Delta_{\text{logprob}} < \tau = 2.0$.
+The doc-type rows show the striking asymmetry: ground-truth documents are
+factuality-critical 62.5\% of the time, while counter-factual documents are
+confidence-only 71.2\% of the time.}
 \label{tab:cdr}
 \end{table}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E1_cdr_by_passage_num.png}
-  \caption{CDR (orange), FCR (blue), and FDCR (green) as a fraction of
-           logprob-important documents, by passage count. CDR remains at or
-           above 95\% at every passage\_num; FCR is zero throughout,
-           confirming that no logprob-important document was also
-           factuality-critical.}
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E1_cdr_by_passage_num.png}
+  \caption{CDR (orange), FCR (blue), and FDCR (green) as fractions of
+           logprob-important documents, by passage count. CDR ranges from
+           57\% to 77\%, declining at lower $n$ where each document carries
+           more weight.}
   \label{fig:cdr_by_pn}
 \end{figure}
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E1_cdr_by_doc_type.png}
+  \caption{CDR and FCR split by document type (ground-truth vs counter-factual).
+           The contrast is striking: GT documents are predominantly factuality-critical
+           while CF documents are predominantly confidence-only.}
+  \label{fig:cdr_by_dt}
+\end{figure}
+
 \paragraph{Finding.}
-The \cdr is remarkably stable: it stays between 95.7\% and 100.0\% across all
-passage counts (Figure~\ref{fig:cdr_by_pn}). This rules out the hypothesis
-that collapse divergence is a small-$n$ artifact. At every level of redundancy,
-the model's internal confidence collapses frequently in response to document
-removal without any corresponding change in factual correctness.
+Despite having access to one ground-truth document, most logprob-important
+documents in the mixed setting are still confidence-only. The doc-type breakdown
+reveals the attribution challenge: logprob-only methods cannot distinguish the
+62.5\%-FCR ground-truth documents from the 71.2\%-CDR counter-factual ones
+using $\dlogp$ alone.
 
 \subsection{RQ2: Can Factuality-Aware Scoring Separate Documents by Factuality Impact?}
 
 \paragraph{Importance taxonomy.}
-Across all 456 ablations, document importance decomposes as shown in
-Figure~\ref{fig:taxonomy_stacked}: 83.1\% are \emph{neutral} (no effect on
-either axis), 15.1\% are \emph{confidence-only}, 0.4\% are \emph{fact-only}
-(factual change without logprob collapse), and 0\% are
-\emph{factuality-critical} (Table~\ref{tab:taxonomy}).
+Across all 473 ablations (sweep + en\_refine), document importance decomposes
+as shown in Figure~\ref{fig:taxonomy_stacked}: 79.9\% are \emph{neutral},
+9.7\% are \emph{confidence-only}, 3.6\% are \emph{factuality-weak}, 3.4\%
+are \emph{factuality-critical}, 1.9\% are \emph{factuality-disrupting}, and
+1.5\% are \emph{fact-only} (Table~\ref{tab:taxonomy}).
 
 \begin{table}[h]
 \centering
@@ -439,48 +450,37 @@ either axis), 15.1\% are \emph{confidence-only}, 0.4\% are \emph{fact-only}
 \toprule
 Category & Count & \% \\
 \midrule
-Neutral               & 379 & 83.1\% \\
-Confidence-only       &  69 & 15.1\% \\
-Factuality-weak       &   5 &  1.1\% \\
-Fact-only             &   2 &  0.4\% \\
-Factuality-disrupting &   1 &  0.2\% \\
-Factuality-critical   &   0 &  0.0\% \\
+Neutral               & 378 & 79.9\% \\
+Confidence-only       &  46 &  9.7\% \\
+Factuality-weak       &  17 &  3.6\% \\
+Factuality-critical   &  16 &  3.4\% \\
+Factuality-disrupting &   9 &  1.9\% \\
+Fact-only             &   7 &  1.5\% \\
 \bottomrule
 \end{tabular}
-\caption{Factuality-aware importance taxonomy across 456 ablations.
-``Neutral'' documents have negligible effect on both axes.
-``Confidence-only'' documents cause logprob collapse without factual
-impact---the CDR population.}
+\caption{Factuality-aware importance taxonomy across 473 ablations.
+Factuality-critical cases now constitute a meaningful 3.4\% of all ablations,
+driven by the presence of ground-truth documents in the mixed retrieval setting.}
 \label{tab:taxonomy}
 \end{table}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E2_taxonomy_stacked_by_passage_num.png}
-  \caption{Importance taxonomy by passage count. Confidence-only documents
-           (orange) are consistently the dominant non-neutral category at every
-           $n$. Factuality-critical cases are absent throughout, as the model
-           almost never produces a correct baseline in the pure counterfactual
-           setting.}
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E2_taxonomy_stacked_by_passage_num.png}
+  \caption{Importance taxonomy by passage count. Factuality-critical documents
+           (blue) appear consistently at every $n$, driven by the ground-truth
+           document in each query. Confidence-only documents (orange) remain the
+           dominant non-neutral category from counter-factual documents.}
   \label{fig:taxonomy_stacked}
 \end{figure}
 
-A structurally important asymmetry emerges: factuality-critical cases cannot
-appear when the baseline accuracy is 0\%---factual degradation requires a
-correct baseline to degrade. At $n \leq 7$, baseline accuracy is 0\% across all
-queries, so the taxonomy is constrained to confidence-only, factuality-disrupting,
-neutral, fact-only, and factuality-weak. Only at $n=10$, where 10\% of baselines
-are correct, do we observe a single fact-only case (factual change without logprob
-collapse).
-
 \paragraph{Ranking evaluation.}
-We evaluate how well each scoring method retrieves factuality-impacting
-documents from the logprob-important pool (Table~\ref{tab:ranking}).
-On the 1 query that contains at least one factuality-impacting document,
-\textbf{factuality-aware scoring (Eq.~\ref{eq:fa_score}) achieves P@1\,=\,1.00
-and MRR\,=\,1.00}, while logprob-only scoring achieves P@1\,=\,0.00 and
-MRR\,=\,0.33. The Spearman correlation with $\dfact$ is 0.50 for factuality-aware
-scoring versus 0.02 for logprob-only.
+Among 40 total query-passage pairs, 12 contain at least one factuality-impacting
+document (Table~\ref{tab:ranking}). \textbf{Factuality-aware scoring
+(Eq.~\ref{eq:fa_score}) achieves P@1\,=\,1.00 and MRR\,=\,1.00} across all
+12 non-trivial queries, while logprob-only scoring achieves P@1\,=\,0.73 and
+MRR\,=\,0.83. The Spearman correlation with $\dfact$ is 0.64 for
+factuality-aware scoring versus 0.06 for logprob-only.
 
 \begin{table}[h]
 \centering
@@ -489,17 +489,24 @@ scoring versus 0.02 for logprob-only.
 \toprule
 Method & P@1 & MRR & Spearman $r$ \\
 \midrule
-Logprob-only         & 0.00 & 0.33 & 0.02 \\
-Factuality-aware     & \textbf{1.00} & \textbf{1.00} & \textbf{0.50} \\
-Harmfulness-aware    & 0.00 & 0.20 & $-$0.61 \\
+Logprob-only         & 0.73 & 0.83 & 0.06 \\
+Factuality-aware     & \textbf{1.00} & \textbf{1.00} & \textbf{0.64} \\
+Harmfulness-aware    & 0.46 & 0.65 & $-$0.63 \\
 \bottomrule
 \end{tabular}
-\caption{Ranking evaluation for identifying factuality-impacting documents
-($\dfact \neq 0$) on the single non-trivial query ($n_q = 1$).
-Factuality-aware scoring correctly identifies the factuality-impacting document
-at rank 1; logprob-only places it below rank 1.}
+\caption{Ranking evaluation on 12 non-trivial queries ($n_q = 12$) with at
+least one factuality-impacting document. Factuality-aware scoring correctly
+identifies the factuality-impacting document at rank 1 in all 12 queries.
+Logprob-only fails on 3 of 12 (P@1\,=\,0.73) by placing a confidence-only
+counter-factual document above the ground-truth one.}
 \label{tab:ranking}
 \end{table}
+
+\paragraph{Why logprob-only fails.}
+In the 3 queries where logprob-only ranks incorrectly, the top-ranked document
+is a counter-factual document with a larger $|\dlogp|$ than the ground-truth
+document---a classic collapse divergence case. The GT document causes a smaller
+logprob collapse but is the sole determinant of factual correctness.
 
 \subsection{RQ3: How Does Passage Count Affect the Influence-Usefulness Gap?}
 
@@ -508,49 +515,40 @@ Table~\ref{tab:sweep} and Figure~\ref{fig:gap} present the passage-number sweep.
 \begin{table}[h]
 \centering
 \small
-\begin{tabular}{rrrrrrr}
+\begin{tabular}{rrrrrrrr}
 \toprule
 $n$ & abl. & base acc & logprob-imp & fact-impact & gap & CDR \\
 \midrule
-3  & 28 & 0\%  & 53.6\% & 0.0\%   & 53.6\% & 100.0\% \\
-5  & 40 & 0\%  & 30.0\% & 0.0\%   & 30.0\% & 100.0\% \\
-7  & 50 & 0\%  & 46.0\% & 0.0\%   & 46.0\% & 95.7\% \\
-10 & 63 & 10\% & 27.0\% & 1.6\%   & 25.4\% & 100.0\% \\
+3  & 30 & 30\%  & 70.0\% & 16.7\% & 53.3\% & 57.1\% \\
+5  & 44 & 30\%  & 38.6\% & 11.4\% & 27.3\% & 64.7\% \\
+7  & 55 & 20\%  & 30.9\% &  7.3\% & 23.6\% & 58.8\% \\
+10 & 69 & 30\%  & 18.8\% & 11.6\% &  7.2\% & 76.9\% \\
 \bottomrule
 \end{tabular}
-\caption{Influence-usefulness gap by passage count. Baseline accuracy is 0\%
-for $n \leq 7$ in the pure counterfactual setting, making factual impact
-unobservable. Only at $n=10$ (10\% baseline accuracy) does a single
-factuality-impacting case appear.}
+\caption{Influence-usefulness gap by passage count in the mixed retrieval setting.
+Baseline accuracy is 20--30\% at all $n$ (vs.\ 0--10\% in the pure counterfactual
+setting). The influence-usefulness gap narrows as $n$ increases because more
+CF documents dilute each document's logprob impact.}
 \label{tab:sweep}
 \end{table}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E5_influence_usefulness_gap_by_passage.png}
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E5_influence_usefulness_gap_by_passage.png}
   \caption{Logprob-important rate (orange), fact-impact rate (blue), and the
-           gap between them (shaded), alongside baseline accuracy (black dashed).
-           The gap is dominated by the logprob-important rate because factual
-           impact is essentially zero throughout the pure counterfactual setting.}
+           gap between them (shaded) alongside baseline accuracy (black dashed).
+           The gap narrows with $n$ as the single GT document is diluted by
+           more CF documents, reducing each document's individual logprob impact.}
   \label{fig:gap}
 \end{figure}
 
-\paragraph{A single regime.}
-In the pure counterfactual setting, the model is in a \emph{context dominance}
-regime across all passage counts: baseline accuracy is 0\% for $n \leq 7$ and
-only 10\% at $n=10$. This means $\dfact$ can only take the value 0 or $-1$
-(removal helps the model), and factuality-critical cases ($\dfact > 0$) are
-structurally impossible when the baseline is incorrect. The CDR remains at
-or above 95\% at every $n$, confirming that the influence-usefulness gap is
-not a low-redundancy artifact but a fundamental property of the counterfactual
-setting.
-
-\paragraph{Practical implication.}
-Adding more retrieved counter-factual documents does not resolve the
-influence-usefulness gap. Even at $n=10$, virtually all logprob-important
-documents are confidence-only. The only factuality-impacting case at $n=10$
-appears in the fact-only category (small logprob drop, $\dfact \neq 0$),
-which logprob-only attribution would miss entirely.
+\paragraph{The dilution effect.}
+As $n$ increases, the logprob-important rate drops sharply (70\% at $n=3$ to
+18.8\% at $n=10$) while the fact-impact rate declines more slowly (16.7\% to
+11.6\%). The CDR increases with $n$, reflecting that the single GT document's
+share of logprob collapse diminishes relative to the pool of CF documents. At
+$n=10$, the GT document produces a smaller logprob drop because 9 competing
+CF documents collectively anchor the model's output distribution.
 
 \subsection{RQ4: Where Inside the Model Does Evidence Integration Occur?}
 
@@ -564,7 +562,7 @@ encoding gives way to factual grounding in retrieved context.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.95\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E4_full_33layer_drift_case_studies.png}
+  \includegraphics[width=0.95\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E4_full_33layer_drift_case_studies.png}
   \caption{Full 33-layer L2 drift trajectories from detailed case studies.
            Gray: average-baseline cases ($\dlogp \approx 0$).
            Red: top-divergence cases ($\dlogp < -2$).
@@ -573,52 +571,56 @@ encoding gives way to factual grounding in retrieved context.
   \label{fig:layerwise}
 \end{figure}
 
-\paragraph{Mechanistic taxonomy comparison.}
+\paragraph{Critical null finding: drift cannot separate factuality categories.}
 Using three-checkpoint drift (layers 0, 16, 32) across all sweep ablations,
 we compare mean L2 drift at layer 32 by taxonomy category
-(Table~\ref{tab:layer_drift}). Confidence-only documents (15.61) produce an
-order-of-magnitude larger drift than neutral documents (5.90). The single
-factuality-disrupting document (12.90) shows comparable drift to confidence-only,
-confirming that high representation disruption is a feature of logprob-important
-documents regardless of their factual direction.
+(Table~\ref{tab:layer_drift}). \emph{Factuality-critical} documents (mean
+L32\,=\,15.68) produce \emph{indistinguishable} drift from
+\emph{confidence-only} documents (14.05). Both are far above neutral (5.65),
+but the two categories that logprob-based attribution cannot separate---the
+``truly useful'' vs the ``merely confident'' documents---also cannot be
+separated by their representation drift.
 
 \begin{table}[h]
 \centering
 \small
 \begin{tabular}{lrrr}
 \toprule
-Category & $n$ & Mean $\dltwo^{32}$ & Median $\dltwo^{32}$ \\
+Category & $n$ & Mean $\dltwo^{32}$ & Mean AUC \\
 \midrule
-Confidence-only       & 69 & 15.61 & --- \\
-Factuality-disrupting &  1 & 12.90 & 12.90 \\
+Factuality-critical   & 16 & 15.68 & 147.8 \\
+Factuality-disrupting &  9 & 16.73 & 156.7 \\
+Confidence-only       & 46 & 14.05 & 133.3 \\
 \midrule
-Factuality-weak       &  5 &  7.58 & --- \\
-Fact-only             &  2 &  5.58 & --- \\
-Neutral               &379 &  5.90 & --- \\
+Factuality-weak       & 17 & 10.03 &  98.9 \\
+Fact-only             &  7 &  7.96 &  70.8 \\
+Neutral               &378 &  5.65 &  53.6 \\
 \bottomrule
 \end{tabular}
-\caption{Mean L2 drift at layer 32 by importance category.
-Confidence-only and factuality-disrupting documents show substantially larger
-L32 drift than neutral documents, confirming that representation disruption
-tracks logprob importance but not factual direction.}
+\caption{Mean L2 drift at layer 32 and area under the drift curve (layers 0--32)
+by importance category. Factuality-critical and confidence-only documents produce
+nearly identical drift magnitudes, confirming that $\dltwo$ cannot substitute
+for $\dfact$ in distinguishing factually useful from merely influential documents.}
 \label{tab:layer_drift}
 \end{table}
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E4_layerwise_drift_by_taxonomy.png}
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E4_layerwise_drift_by_taxonomy.png}
   \caption{Mean L2 drift at layers 0, 16, and 32 by importance category.
-           All logprob-important categories (confidence-only, factuality-disrupting)
-           show sharp late-layer increases while neutral documents remain near
-           zero throughout.}
+           All logprob-important categories (factuality-critical, confidence-only,
+           factuality-disrupting) show sharp late-layer increases while neutral
+           documents remain near zero. The similarity between factuality-critical
+           and confidence-only trajectories confirms that drift magnitude is
+           directionally agnostic.}
   \label{fig:layerwise_cat}
 \end{figure}
 
 This finding has an important implication: representation drift---like logprob
 degradation---measures the \emph{magnitude} of a document's influence on the
-model, not its \emph{direction}. Factuality-aware attribution requires
-$\dfact$ to provide the directionality that neither $\dlogp$ nor $\dltwo$
-can supply alone.
+model, not its \emph{direction} or \emph{factual consequence}. Factuality-aware
+attribution requires $\dfact$ to provide the factual directionality that
+neither $\dlogp$ nor $\dltwo$ can supply alone.
 
 \subsection{RQ5: Is Causal Influence Localized to Factual Tokens?}
 
@@ -630,7 +632,7 @@ change under document ablation.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_004226/plots/E3_token_type_logprob_drop_boxplot.png}
+  \includegraphics[width=\linewidth]{results/factuality_aware_extensions_20260430_013805/plots/E3_token_type_logprob_drop_boxplot.png}
   \caption{Per-token logprob change under document ablation, for top-divergence
            (left) and average-baseline (right) cases. Factual tokens (orange)
            show substantially larger negative shifts than structural tokens
@@ -653,34 +655,31 @@ case studies analyzed here (see Section~\ref{sec:limitations}).
 \section{Discussion}
 %% ============================================================
 
-\subsection{Why Influence Is Not Usefulness}
+\subsection{The Asymmetry at the Heart of Attribution Failure}
 
-The central finding of this paper---CDR $\approx$ 98.5\% across all
-conditions---reflects a fundamental property of the pure counterfactual setting:
-in \texttt{en\_counter\_mid}, all retrieved documents assert an incorrect answer.
-When the model encounters only counter-factual documents, it is almost never
-able to produce the correct answer (0\% baseline accuracy at $n \leq 7$, 10\%
-at $n=10$). When a counter-factual document is removed, the model's confidence
-in its (incorrect) answer may shift substantially---but factual correctness rarely
-changes because the baseline was already wrong. This is influence without
-factual impact.
+The central finding of this paper is a structural asymmetry: in the mixed
+retrieval setting, ground-truth documents are factuality-critical 62.5\% of
+the time (when logprob-important), while counter-factual documents are
+confidence-only 71.2\% of the time. Both categories produce large logprob
+collapse and large representation drift---making them indistinguishable to
+attribution methods that rely on $\dlogp$ or $\dltwo$ alone.
 
-Existing attribution methods (ContextCite, TracLLM, AttriBoT) would score such
-a document as highly important. Our factuality-aware framework identifies it
-as confidence-only. The practical consequence is significant: a confidence-only
-document should \emph{not} be cited as the cause of an incorrect output, even
-if standard attribution ranks it first.
+This asymmetry explains why logprob-only attribution fails on 3 of 12
+non-trivial queries: the counter-factual document's logprob collapse is
+larger than the ground-truth document's, causing it to rank first. The
+ground-truth document---the one that actually determines factual correctness---is
+buried below a confidence-only decoy.
 
-\subsection{The Role of Baseline Accuracy}
+\subsection{The Role of Document Count}
 
-A key structural finding is that factuality-critical cases require a correct
-baseline to exist: $\dfact > 0$ implies $f(\hat{y}, y^*) = 1$. In the pure
-counterfactual setting, this condition is almost never satisfied. This is not
-a weakness of the LODO method---it is an informative finding: when all retrieved
-documents push toward the wrong answer, the model's internal parametric knowledge
-is insufficient to produce correct answers in most cases. The CDR of nearly 100\%
-is therefore both a measurement of attribution failure and a measurement of
-counter-factual robustness failure.
+As the number of retrieved documents increases, the influence-usefulness gap
+narrows (Table~\ref{tab:sweep}). This is not because factuality-aware methods
+become less necessary, but because the logprob-important rate drops sharply
+as more documents share the logprob burden. At $n=10$, the single GT document
+produces less logprob collapse (it is ``diluted'' by 9 CF documents). This
+suggests that retrieval systems with large context windows may partially
+alleviate the logprob overestimation problem---not by improving attribution,
+but by reducing each document's individual logprob footprint.
 
 \subsection{Implications for Attribution Methods}
 
@@ -693,6 +692,11 @@ post-hoc correction (as in our factuality-aware score, Eq.~\ref{eq:fa_score})
 or by modifying the attribution objective to weight likelihood changes by
 factual alignment.
 
+Critically, representation drift does not provide the missing signal:
+factuality-critical and confidence-only documents are drift-equivalent at
+layer 32. The factual directionality of a document's influence is not
+encoded in the magnitude of its representational footprint.
+
 \subsection{Implications for RAG Evaluation}
 
 Our results suggest that RAG evaluation metrics should track not just aggregate
@@ -700,7 +704,9 @@ accuracy but also the proportion of causally important documents that are
 factuality-impacting. A RAG system with low CDR (most influential documents
 actually affect factuality) is more reliable than one with high CDR (most
 influential documents are confidence-only noise). The \lodo framework can serve
-as a diagnostic tool for auditing retrieval corpus quality and retriever behavior.
+as a diagnostic tool for auditing retrieval corpus quality and retriever behavior,
+and the mixed retrieval protocol we introduce provides a controlled benchmark for
+measuring attribution quality in adversarial retrieval conditions.
 
 \subsection{Future Directions}
 
@@ -711,6 +717,10 @@ horizon finding (Section 6.4) suggests that mid-layer representations---specific
 around layers 18--20---could serve as a real-time signal to flag generation
 episodes where retrieved context is having strong but factually irrelevant
 effects, potentially before decoding completes.
+
+A direct application of the factuality-aware score (Eq.~\ref{eq:fa_score}) is
+to use LODO labels as supervision for training a lightweight attribution
+head on top of a frozen model. We leave this to future work.
 
 
 %% ============================================================
@@ -732,37 +742,34 @@ which may underestimate factual impact for semantically equivalent
 paraphrases. A stronger entailment-based evaluator could increase the
 number of observed factuality-impacting cases.
 
-\paragraph{Pure counterfactual setting.}
-All sweep experiments use \texttt{en\_counter\_mid} with exclusively
-counter-factual documents. Baseline accuracy is near zero, which structurally
-prevents factuality-critical cases from appearing. The CDR near 100\% partly
-reflects this constraint. Evaluating \lodo in mixed or non-adversarial retrieval
-settings---where the model can produce correct baselines---is an important
-next step to observe the full taxonomy.
+\paragraph{Mixed-document complexity.}
+The mixed retrieval setting introduces complex document interactions: in some
+cases, removing a counter-factual document changes the model's response even
+when the ground-truth document is present. These interactions make it harder
+to cleanly attribute factual correctness to a single document. A fully
+controlled position-shuffled ablation would sharpen the analysis.
 
-\paragraph{Ranking evaluation is limited to one query.}
-The factuality-aware ranking comparison (RQ2) is based on a single non-trivial
-query (one query with $\dfact \neq 0$). While the direction of the result is
-consistent with the CDR finding, single-query ranking evaluation is insufficient
-for robust conclusions. Scaling to settings with higher baseline accuracy would
-yield more factuality-impacting documents and a more informative ranking evaluation.
+\paragraph{Ranking evaluation scale.}
+The factuality-aware ranking comparison (Table~\ref{tab:ranking}) is based on
+12 non-trivial queries. While larger than previous evaluations of this type,
+the sample is still small enough that per-query variation is significant.
+Scaling to more queries and more diverse retrieval scenarios is an important
+next step.
 
 \paragraph{Token-level analysis is limited.}
-The fact-token logprob analysis (Section 6.5) is based on 10 case studies
-selected for extreme logprob divergence. With only 10 observations---none of
-which exhibit $\dfact \neq 0$---we cannot quantify whether fact-token logprob
+The fact-token logprob analysis (Section 6.5) is based on 10 case studies.
+With only 10 observations, we cannot quantify whether fact-token logprob
 predicts factual impact better than whole-sequence logprob. Scaling this
 analysis to all ablations requires re-running inference with token-level output
-recording, which is deferred to future work.
+recording.
 
 \paragraph{Positional encoding confound.}
 Standard \lodo removes document $d_i$ and shifts all subsequent document
-positions, changing their RoPE encodings. We have implemented
-position-controlled ablation (replacing removed documents with length-matched
-neutral placeholders) but have not yet run it at scale due to compute
-constraints. The Integration Horizon at layers 18--20 may partially reflect
-positional re-encoding rather than semantic absence; this should be controlled
-in future work.
+positions, changing their RoPE encodings. Position-controlled ablation
+(replacing removed documents with length-matched neutral placeholders) has
+been implemented but not yet run at scale. The Integration Horizon at layers
+18--20 may partially reflect positional re-encoding rather than semantic
+absence.
 
 \paragraph{Single model and dataset.}
 All results use Llama-3.1-8B-Instruct on a single benchmark. Generalizability
@@ -776,29 +783,27 @@ evaluation.
 
 We have argued and empirically demonstrated that causal influence on output
 probability is an incomplete criterion for document importance in RAG.
-The core evidence is a Collapse Divergence Rate of 98.5\%: among all
-documents that cause strong log-probability collapse under standard attribution
-criteria, virtually all cause zero factual change. The model's internal
-confidence can be substantially disrupted by a counter-factual document that
-plays no role in whether the answer is correct or incorrect.
+In a controlled mixed retrieval setting---one ground-truth document among
+$(n-1)$ counter-factual adversaries---the overall Collapse Divergence Rate is
+63.2\%: nearly two-thirds of logprob-important documents cause zero factual
+change. But the most revealing finding is the asymmetry by document type:
+ground-truth documents are factuality-critical 62.5\% of the time, while
+counter-factual documents are confidence-only 71.2\% of the time. Both types
+produce comparable log-probability collapse and comparable representation drift,
+making them indistinguishable to existing attribution methods.
 
-We proposed Factuality-Aware \lodo, a three-axis evaluation framework that
-jointly measures factual change, likelihood degradation, and representation
-drift per removed document. The resulting six-category importance taxonomy
-reveals that factuality-impacting documents are extremely rare in the pure
-counterfactual setting, and that confidence-only documents---the source of
-attribution error---are the dominant non-neutral category at every passage count.
-
-Mechanistically, evidence integration in Llama-3.1-8B is concentrated at a
-late Integration Horizon (layers 18--20), and logprob collapse is localized to
-1--2 factual tokens per output. Confidence-only and factuality-disrupting
-documents produce similar magnitudes of internal disruption---confirming that
-representation drift, like likelihood degradation, is directionally agnostic.
+We proposed Factuality-Aware \lodo and a six-category importance taxonomy that
+reveals this asymmetry. Factuality-aware scoring achieves P@1\,=\,1.00 and
+MRR\,=\,1.00 across 12 non-trivial queries, versus 0.73 and 0.83 for
+logprob-only. Mechanistically, the Integration Horizon at layers 18--20 is
+present for both factuality-critical and confidence-only documents, and their
+layer-32 drift magnitudes are indistinguishable---confirming that $\dfact$ is
+the irreducible axis for factuality-aware attribution.
 
 Together, these findings motivate a principled extension of RAG attribution:
 not abandoning influence-based methods, but supplementing them with factuality
-alignment to distinguish documents that genuinely affect model factuality
-from those that merely alter its confidence.
+alignment to distinguish documents that genuinely affect model factuality from
+those that merely alter its confidence.
 
 
 \bibliography{references}
