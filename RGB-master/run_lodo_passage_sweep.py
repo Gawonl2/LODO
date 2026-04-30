@@ -1,11 +1,19 @@
 """
 LODO Passage-Number Sweep Experiment
 
-Runs LODO on en_counter_mid (or en_mid) with varying numbers of retrieved
-documents (passage_num in [3, 5, 7, 10]) to measure how document count affects:
+Runs LODO on en_counter_mid with varying numbers of counter-factual documents
+(passage_num in [3, 5, 7, 10]) to measure how document count affects:
   - Fraction of causally important documents
   - Logprob degradation magnitude
   - Layer-wise representation drift
+
+In en_counter_mid, the 'positive' field contains documents that are relevant to
+the query but assert the WRONG answer (counter-factual). The 'negative' field
+contains irrelevant/noisy documents. Only 'positive' (counter-factual) documents
+are used so that the context is purely counter-factual, as the benchmark intends.
+
+If a query has fewer counter-factual docs than passage_num, all available docs
+are used (actual count reported in n_docs_sampled).
 
 Hypothesis: with fewer documents each doc carries more weight → higher causal
 importance rate. With more documents, redundancy increases → importance is sparser.
@@ -31,26 +39,25 @@ def compute_l2_drift(states1: dict, states2: dict) -> dict:
 
 def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
                               instruction, temp, seed=42):
-    """Run full LODO for one query at a fixed passage_num. Returns per-ablation results."""
+    """Run full LODO for one query at a fixed passage_num. Returns per-ablation results.
+
+    In en_counter_mid, the 'positive' field contains the counter-factual documents
+    (relevant documents modified to assert the wrong answer). The 'negative' field
+    contains irrelevant/noisy documents. We use only the 'positive' (counter-factual)
+    documents so the context is purely counter-factual, as the benchmark intends.
+    """
     rng = random.Random(seed)
     query            = instance['query']
     ans_ground_truth = instance['answer']
 
-    pos_docs = instance.get('positive', [])
-    neg_docs = instance.get('negative', [])
-    if pos_docs and isinstance(pos_docs[0], list):
-        pos_docs = [d[0] for d in pos_docs]
-    if neg_docs and isinstance(neg_docs[0], list):
-        neg_docs = [d[0] for d in neg_docs]
+    # All counter-factual documents are in the 'positive' field in en_counter_mid.
+    counter_docs = instance.get('positive', [])
+    if counter_docs and isinstance(counter_docs[0], list):
+        counter_docs = [d[0] for d in counter_docs]
 
-    # Always include at least 1 positive doc; fill the rest with negatives.
-    # Mirrors the standard RGB sampling strategy.
-    n_pos = max(1, passage_num // 2)
-    n_neg = passage_num - n_pos
-
-    sampled_pos = rng.sample(pos_docs, min(n_pos, len(pos_docs)))
-    sampled_neg = rng.sample(neg_docs, min(n_neg, len(neg_docs)))
-    docs = sampled_pos + sampled_neg
+    # Use min(passage_num, available) counter-factual docs.
+    n_docs = min(passage_num, len(counter_docs))
+    docs = rng.sample(counter_docs, n_docs)
     rng.shuffle(docs)
 
     # Baseline
@@ -80,18 +87,16 @@ def run_lodo_for_passage_num(model, instance, passage_num, system_prompt,
 
         ablation_results.append({
             "doc_idx":              doc_idx,
-            "is_positive_doc":      doc in sampled_pos,
             "logprob_degradation":  logprob_deg,
             "fact_degradation":     fact_deg,
             "representation_drift_l2": drift,
-            "is_causally_important": bool(fact_deg > 0 or logprob_deg < -2.0),
+            "is_causally_important": bool(fact_deg != 0 or logprob_deg < -2.0),
         })
 
     return {
         "query_id":            instance['id'],
         "passage_num":         passage_num,
-        "n_pos_sampled":       len(sampled_pos),
-        "n_neg_sampled":       len(sampled_neg),
+        "n_docs_sampled":      n_docs,
         "baseline_fact_score": baseline_fact_score,
         "baseline_logprob":    baseline_features['logprob'],
         "ablations":           ablation_results,

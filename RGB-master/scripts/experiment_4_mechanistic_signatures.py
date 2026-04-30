@@ -31,21 +31,21 @@ from scipy.stats import mannwhitneyu
 
 
 CATEGORY_ORDER = [
-    "helpful-important",
+    "factuality-critical",
     "confidence-only",
-    "harmful-influential",
+    "factuality-disrupting",
     "fact-only",
     "neutral",
-    "harmful-weak",
+    "factuality-weak",
 ]
 
 COLORS = {
-    "helpful-important":   "#5b9bd5",
+    "factuality-critical":   "#5b9bd5",
     "confidence-only":     "#e07b54",
-    "harmful-influential": "#ffc000",
+    "factuality-disrupting": "#ffc000",
     "fact-only":           "#70ad47",
     "neutral":             "#bfbfbf",
-    "harmful-weak":        "#9e480e",
+    "factuality-weak":        "#9e480e",
 }
 
 THR = -2.0
@@ -54,9 +54,9 @@ THR = -2.0
 def assign_category(row):
     lp, fd = row["logprob_degradation"], row["fact_degradation"]
     if lp < THR:
-        return "helpful-important" if fd > 0 else ("confidence-only" if fd == 0 else "harmful-influential")
+        return "factuality-critical" if fd > 0 else ("confidence-only" if fd == 0 else "factuality-disrupting")
     else:
-        return "fact-only" if fd > 0 else ("neutral" if fd == 0 else "harmful-weak")
+        return "fact-only" if fd > 0 else ("neutral" if fd == 0 else "factuality-weak")
 
 
 def parse_args():
@@ -172,10 +172,10 @@ def main():
     # LaTeX table: Statistical tests
     # -----------------------------------------------------------------------
     test_pairs = [
-        ("helpful-important", "confidence-only",  "layer_32_drift"),
-        ("helpful-important", "confidence-only",  "auc_late_approx"),
+        ("factuality-critical", "confidence-only",  "layer_32_drift"),
+        ("factuality-critical", "confidence-only",  "auc_late_approx"),
         ("confidence-only",   "neutral",           "layer_32_drift"),
-        ("helpful-important", "neutral",            "layer_32_drift"),
+        ("factuality-critical", "neutral",            "layer_32_drift"),
     ]
     test_rows = []
     for catA, catB, metric in test_pairs:

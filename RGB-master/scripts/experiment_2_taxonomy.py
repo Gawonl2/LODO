@@ -4,12 +4,12 @@ Experiment 2: Factuality-Aware Importance Taxonomy
 Classifies every ablated document into six mutually exclusive categories
 based on logprob degradation and factual degradation:
 
-  1. helpful-important     logprob < -2  AND  fact > 0
+  1. factuality-critical     logprob < -2  AND  fact > 0
   2. confidence-only       logprob < -2  AND  fact == 0
   3. harmful-influential   logprob < -2  AND  fact < 0
   4. fact-only             logprob >= -2 AND  fact > 0
   5. neutral               logprob >= -2 AND  fact == 0
-  6. harmful-weak          logprob >= -2 AND  fact < 0
+  6. factuality-weak          logprob >= -2 AND  fact < 0
 
 Outputs
 -------
@@ -32,21 +32,21 @@ import numpy as np
 
 
 CATEGORY_ORDER = [
-    "helpful-important",
+    "factuality-critical",
     "confidence-only",
-    "harmful-influential",
+    "factuality-disrupting",
     "fact-only",
     "neutral",
-    "harmful-weak",
+    "factuality-weak",
 ]
 
 COLORS = {
-    "helpful-important":   "#5b9bd5",
-    "confidence-only":     "#e07b54",
-    "harmful-influential": "#ffc000",
-    "fact-only":           "#70ad47",
-    "neutral":             "#bfbfbf",
-    "harmful-weak":        "#9e480e",
+    "factuality-critical":   "#5b9bd5",
+    "confidence-only":       "#e07b54",
+    "factuality-disrupting": "#ffc000",
+    "fact-only":             "#70ad47",
+    "neutral":               "#bfbfbf",
+    "factuality-weak":       "#9e480e",
 }
 
 
@@ -54,13 +54,13 @@ def assign_category(row, thr):
     lp = row["logprob_degradation"]
     fd = row["fact_degradation"]
     if lp < thr:
-        if fd > 0:   return "helpful-important"
+        if fd > 0:    return "factuality-critical"
         elif fd == 0: return "confidence-only"
-        else:         return "harmful-influential"
+        else:         return "factuality-disrupting"
     else:
-        if fd > 0:   return "fact-only"
+        if fd > 0:    return "fact-only"
         elif fd == 0: return "neutral"
-        else:         return "harmful-weak"
+        else:         return "factuality-weak"
 
 
 def make_freq_table(df: pd.DataFrame) -> pd.DataFrame:
@@ -171,7 +171,7 @@ def main():
             r"\end{tabular}" + "\n"
             r"\caption{Importance taxonomy by passage count (percentages). "
             r"Factual degradation is only observable when the baseline is correct, "
-            r"explaining the low helpful-important rate at small $n$.}" + "\n"
+            r"explaining the low factuality-critical rate at small $n$.}" + "\n"
             r"\label{tab:e2_taxonomy_by_passage_num}" + "\n"
             r"\end{table}" + "\n"
         )

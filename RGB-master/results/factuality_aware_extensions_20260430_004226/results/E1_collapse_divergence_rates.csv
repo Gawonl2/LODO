@@ -1,0 +1,7 @@
+n_total,n_logprob_important,logprob_important_rate,n_fact_useful,CDR,HCR,HMCR,group,passage_num
+456,70,0.15350877192982457,2,0.9857,0.0,0.0143,Overall (all sources),all
+181,67,0.3701657458563536,1,0.9851,0.0,0.0149,Sweep only,all
+28,15,0.5357142857142857,0,1.0,0.0,0.0,passage_num=3,3
+40,12,0.3,0,1.0,0.0,0.0,passage_num=5,5
+50,23,0.46,0,0.9565,0.0,0.0435,passage_num=7,7
+63,17,0.2698412698412698,1,1.0,0.0,0.0,passage_num=10,10

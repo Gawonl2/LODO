@@ -1,0 +1,13 @@
+method,target,eval_set,n_queries,n_queries_with_pos,spearman_r,P@1,P@3,R@1,R@3,MRR
+Logprob-only,helpful,all_queries,40,1,0.018,0.0,0.008,0.0,1.0,0.008
+Logprob-only,helpful,nontrivial_queries,1,1,0.018,0.0,0.333,0.0,1.0,0.333
+Logprob-only,harmful,all_queries,40,3,0.018,0.0,0.025,0.0,0.5,0.031
+Logprob-only,harmful,nontrivial_queries,3,3,0.018,0.0,0.333,0.0,0.5,0.417
+Factuality-aware,helpful,all_queries,40,1,0.503,0.025,0.008,1.0,1.0,0.025
+Factuality-aware,helpful,nontrivial_queries,1,1,0.503,1.0,0.333,1.0,1.0,1.0
+Factuality-aware,harmful,all_queries,40,3,0.503,0.025,0.025,0.167,0.5,0.042
+Factuality-aware,harmful,nontrivial_queries,3,3,0.503,0.333,0.333,0.167,0.5,0.556
+Harmfulness-aware,helpful,all_queries,40,1,-0.612,0.0,0.0,0.0,0.0,0.005
+Harmfulness-aware,helpful,nontrivial_queries,1,1,-0.612,0.0,0.0,0.0,0.0,0.2
+Harmfulness-aware,harmful,all_queries,40,3,-0.612,0.05,0.042,0.333,0.833,0.062
+Harmfulness-aware,harmful,nontrivial_queries,3,3,-0.612,0.667,0.556,0.333,0.833,0.833

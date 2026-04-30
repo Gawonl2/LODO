@@ -1,0 +1,20 @@
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{lrrrrr}
+\toprule
+Group & $N$ & $N_{\text{logprob-imp}}$ & CDR & FCR & FDCR \\
+\midrule
+  Overall (all sources) & 456 & 70 & 98.6\% & 0.0\% & 1.4\% \\
+  Sweep only & 181 & 67 & 98.5\% & 0.0\% & 1.5\% \\
+  passage_num=3 & 28 & 15 & 100.0\% & 0.0\% & 0.0\% \\
+  passage_num=5 & 40 & 12 & 100.0\% & 0.0\% & 0.0\% \\
+  passage_num=7 & 50 & 23 & 95.7\% & 0.0\% & 4.3\% \\
+  passage_num=10 & 63 & 17 & 100.0\% & 0.0\% & 0.0\% \\
+\bottomrule
+\end{tabular}
+\caption{Collapse Divergence Rate (CDR), Factuality-Critical Rate (FCR), and
+Factuality-Disrupting Rate (FDCR) at $\Delta_{\text{logprob}} < -2.0$.
+CDR = fraction of logprob-important documents with zero factual degradation.}
+\label{tab:e1_cdr}
+\end{table}

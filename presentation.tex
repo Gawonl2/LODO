@@ -70,7 +70,7 @@
 
 \graphicspath{
   {RGB-master/plots/}
-  {RGB-master/results/factuality_aware_extensions_20260428_023148/plots/}
+  {RGB-master/results/factuality_aware_extensions_20260430_004226/plots/}
   {RGB-master/}
 }
 
@@ -107,14 +107,14 @@
     \[
       d_i\ \text{is important} \Leftrightarrow |\dlogp(d_i)|\ \text{is large}
     \]
-    \textit{They measure confidence shift — not factual benefit.}
+    \textit{They measure confidence shift — not factual impact.}
 
     \vspace{0.7em}
     \begin{alertblock}{Collapse Divergence}
-      A counterfactual document asserts the \textbf{wrong fact}.\\
+      A counter-factual document asserts the \textbf{wrong fact}.\\
       Removing it: logprob \textbf{collapses} ($\dlogp \ll 0$),\\
-      but the correct answer \textbf{persists} ($\dfact = 0$).\\[0.3em]
-      Attribution says ``important.'' Reality: factually useless.
+      but factual correctness \textbf{unchanged} ($\dfact = 0$).\\[0.3em]
+      Attribution says ``important.'' Reality: factually irrelevant.
     \end{alertblock}
 
     \column{0.48\textwidth}
@@ -122,14 +122,14 @@
       \node[draw,fill=uiucblue!8,rounded corners,
             minimum width=5.4cm,minimum height=1.0cm,align=center]
         (full) at (0,3.0)
-        {Full context $\mathbf{D}$\\
-         \footnotesize Model outputs \textcolor{factgreen}{\textbf{correct}} $\hat{y}$};
+        {Full context $\mathbf{D}$ (all counter-factual)\\
+         \footnotesize Model outputs \textcolor{conforange}{\textbf{wrong}} $\hat{y}$};
 
       \node[draw,fill=conforange!18,rounded corners,
             minimum width=5.4cm,minimum height=1.0cm,align=center]
         (abl) at (0,1.3)
-        {Remove $d_i$ (counterfactual doc)\\
-         \footnotesize Still outputs \textcolor{factgreen}{\textbf{correct}} $\hat{y}_{-i}$};
+        {Remove $d_i$ (counter-factual doc)\\
+         \footnotesize Still outputs \textcolor{conforange}{\textbf{wrong}} $\hat{y}_{-i}$};
 
       \draw[->,thick] (full)--(abl) node[midway,right=2pt]{\footnotesize ablation};
 
@@ -138,18 +138,18 @@
         at (-1.35,0.1)
         {\footnotesize $\dlogp \ll 0$\\[-0.1em]\tiny logprob collapses};
 
-      \node[draw,fill=factgreen!20,rounded corners,
+      \node[draw,fill=neutralgray!30,rounded corners,
             minimum width=2.3cm,minimum height=0.65cm,align=center]
         at (1.35,0.1)
-        {\footnotesize $\dfact = 0$\\[-0.1em]\tiny fact unchanged};
+        {\footnotesize $\dfact = 0$\\[-0.1em]\tiny still wrong};
 
       \draw[->,dashed,thick,conforange] (abl.south west) -- (-1.35,0.42);
-      \draw[->,dashed,thick,factgreen]  (abl.south east) -- (1.35,0.42);
+      \draw[->,dashed,thick,neutralgray]  (abl.south east) -- (1.35,0.42);
 
       \node[draw,fill=uiucorange!20,rounded corners,
             minimum width=5.4cm,minimum height=0.65cm,align=center]
         at (0,-0.75)
-        {\textbf{Attribution:} ``important'' \quad \textbf{Reality:} useless};
+        {\textbf{Attribution:} ``important'' \quad \textbf{Reality:} irrelevant};
     \end{tikzpicture}
   \end{columns}
 \end{frame}
@@ -163,8 +163,11 @@
     \column{0.50\textwidth}
     \textbf{Dataset: RGB \texttt{en\_counter\_mid}}
     \begin{itemize}\setlength{\itemsep}{0.3em}
-      \item All retrieved docs assert the \textbf{wrong} answer
-      \item Model must resist evidence to be correct (0--20\% accuracy)
+      \item All retrieved docs are \textbf{counter-factual} (assert wrong answer)
+      \item Only the \texttt{positive} field is used — these are the\\
+            counter-factual docs; the \texttt{negative} field contains\\
+            irrelevant/noisy docs and is excluded
+      \item Model accuracy: 0--10\% (must resist all evidence to be correct)
       \item \textit{Why not \texttt{en\_mid}?} Near-ceiling accuracy (92\%) makes\\
             every document removal a non-event — LODO is uninformative
     \end{itemize}
@@ -174,14 +177,14 @@
     \begin{itemize}\setlength{\itemsep}{0.3em}
       \item Llama-3.1-8B-Instruct, $\tau = 0.7$
       \item Passage sweep: $n \in \{3, 5, 7, 10\}$,\ 10 queries
-      \item \textbf{513 total ablations}
+      \item \textbf{181 sweep ablations} (456 total incl.\ en\_refine)
     \end{itemize}
 
     \column{0.48\textwidth}
     \textbf{Three evaluation axes per ablated document $d_i$:}
 
     \vspace{0.4em}
-    \textbf{(1) Factual degradation}
+    \textbf{(1) Factual change}
     \[
       \dfact(d_i) = f(\hat{y}, y^*) - f(\hat{y}_{-i}, y^*)
     \]
@@ -207,7 +210,7 @@
 \begin{frame}{Results}
   \begin{columns}
     \column{0.50\textwidth}
-    \textbf{CDR = 92.7\%: 9 out of 10 logprob-important\\documents provide zero factual benefit}
+    \textbf{CDR = 98.5\%: virtually all logprob-important\\documents produce zero factual change}
 
     \vspace{0.4em}
     \renewcommand{\arraystretch}{1.25}
@@ -215,17 +218,21 @@
       \toprule
       Category & Count & \% \\
       \midrule
-      \textcolor{helpblue}{\textbf{Factuality-critical}}     &   3 &  5.5\% \\
-      \textcolor{conforange}{\textbf{Confidence-only}}     &  51 & \hilight{92.7\%} \\
-      Factuality-disrupting                                  &   1 &  1.8\% \\
+      \textcolor{conforange}{\textbf{Confidence-only}}       &  66 & \hilight{98.5\%} \\
+      \textcolor{helpblue}{\textbf{Factuality-critical}}     &   0 &  0.0\% \\
+      Factuality-disrupting                                  &   1 &  1.5\% \\
       \midrule
-      \textbf{Total logprob-important}                     &  55 & 100\% \\
+      \textbf{Total logprob-important}                       &  67 & 100\% \\
       \bottomrule
     \end{tabular}
 
     \vspace{0.6em}
-    \textbf{Full taxonomy (513 ablations):}\\[0.2em]
-    85.6\% neutral $\cdot$ 9.9\% conf.-only $\cdot$ only 0.6\% factuality-critical
+    \textbf{Full taxonomy (456 ablations):}\\[0.2em]
+    83.1\% neutral $\cdot$ 15.1\% conf.-only $\cdot$ only 0.0\% factuality-critical
+
+    \vspace{0.4em}
+    \small\textit{Factuality-critical = 0 because baseline accuracy $\approx$ 0\%\\
+    in pure counter-factual; model never produces correct baseline.}
 
     \column{0.48\textwidth}
     \textbf{Factuality-aware ranking vs logprob-only:}
@@ -236,8 +243,8 @@
       \toprule
       Method & P@1 & MRR & Spearman $r$ \\
       \midrule
-      Logprob-only         & 0.50 & 0.75 & 0.04 \\
-      \textbf{Fact.-aware} & \textbf{1.00} & \textbf{1.00} & \textbf{0.72} \\
+      Logprob-only         & 0.00 & 0.33 & 0.02 \\
+      \textbf{Fact.-aware} & \textbf{1.00} & \textbf{1.00} & \textbf{0.50} \\
       \bottomrule
     \end{tabular}
 
@@ -247,7 +254,7 @@
       s_{\mathrm{FA}}(d_i) = \max(0,-\dlogp)\cdot\max(0,\dfact)
     \]
     Non-zero only when a document is \textbf{both} logprob-important\\
-    \emph{and} factually useful.
+    \emph{and} factuality-critical.
 
     \vspace{0.4em}
     \includegraphics[width=0.85\linewidth]{E1_cdr_by_passage_num.png}
@@ -261,25 +268,25 @@
 \begin{frame}{Insights}
   \begin{columns}
     \column{0.50\textwidth}
-    \textbf{Two passage-count regimes}
+    \textbf{Context dominance across all passage counts}
 
     \vspace{0.3em}
     \begin{tabular}{crrr}
       \toprule
-      $n$ & Logprob-imp & Fact-useful & CDR \\
+      $n$ & Logprob-imp & Fact-impact & CDR \\
       \midrule
-      3  & 50.0\% &  0.0\% & 93\% \\
-      5  & 22.0\% &  2.0\% & 91\% \\
-      7  & 17.6\% &  7.4\% & 92\% \\
-      10 & 15.6\% & 11.1\% & 93\% \\
+      3  & 53.6\% &  0.0\% & 100\% \\
+      5  & 30.0\% &  0.0\% & 100\% \\
+      7  & 46.0\% &  0.0\% & 96\% \\
+      10 & 27.0\% &  1.6\% & 100\% \\
       \bottomrule
     \end{tabular}
 
     \vspace{0.4em}
     \begin{itemize}\setlength{\itemsep}{0.3em}
-      \item $n=3$: \textbf{Context starvation} — 0\% baseline accuracy; every removal collapses logprob, $\dfact$ can never be $>0$
-      \item $n \geq 5$: \textbf{Redundancy} — correct baselines emerge, but CDR stays $>$90\%
-      \item \hilight{Adding docs doesn't fix the gap — just adds more confidence-only noise}
+      \item \textbf{0\% baseline accuracy} at $n \leq 7$: model cannot resist all-counter-factual context; $\dfact > 0$ structurally impossible
+      \item $n=10$: 10\% baseline acc, 1 factuality-impacting case appears (fact-only)
+      \item \hilight{CDR $\geq$ 95\% at every $n$ — not a low-redundancy artifact}
     \end{itemize}
 
     \column{0.48\textwidth}
@@ -291,12 +298,12 @@
     \vspace{0.2em}
     \begin{itemize}\setlength{\itemsep}{0.3em}
       \item \textbf{Integration horizon: layers 18--20}\\
-            Evidence grounding begins here; consistent with mid-layer factual storage
+            Evidence grounding begins here
       \item \textbf{L2 drift cannot separate categories}\\
-            Factuality-critical (19.95) $\approx$ Confidence-only (18.61)\\
+            Confidence-only (15.61) $\approx$ Factuality-disrupting (12.90)\\
             $\Rightarrow$ $\dltwo$ alone cannot replace $\dfact$
       \item \textbf{Logprob collapse is doubly sparse}\\
-            Only 1--2 factual tokens (named entities, numbers) drop; structural tokens unchanged
+            Only 1--2 factual tokens (entities, numbers) drop; structural tokens unchanged
     \end{itemize}
   \end{columns}
 \end{frame}
@@ -314,13 +321,16 @@
   \begin{columns}
     \column{0.55\textwidth}
     \begin{itemize}\setlength{\itemsep}{0.5em}
-      \item \textbf{CDR = 92.7\%}: among logprob-important docs,\\
-            9 out of 10 provide zero factual benefit — robust across all $n$
+      \item \textbf{CDR = 98.5\%}: among logprob-important docs,\\
+            virtually all produce zero factual change — robust across all $n$
+      \item \textbf{Factuality-critical = 0}: in pure counter-factual setting,\\
+            baseline accuracy $\approx 0\%$ makes factuality-critical cases structurally absent
       \item \textbf{$\dfact$ is necessary}: neither $\dlogp$ nor $\dltwo$ can substitute;\\
-            factuality-aware ranking achieves P@1 = 1.00 vs 0.50
+            factuality-aware ranking achieves P@1 = 1.00 vs 0.00
       \item \textbf{Integration horizon at layers 18--20}:\\
             potential real-time uncertainty signal before decoding completes
-      \item \textbf{Future work}: position-controlled LODO, mid-layer early warning flag, factuality-aware retriever reranking
+      \item \textbf{Future work}: position-controlled LODO, mid-layer early warning flag,\\
+            factuality-aware retriever reranking, evaluation in non-adversarial settings
     \end{itemize}
 
     \column{0.43\textwidth}
@@ -328,12 +338,11 @@
     \begin{tikzpicture}[scale=0.78, every node/.style={font=\small}]
       \draw[fill=uiucblue!8,rounded corners] (-2,-1.5) rectangle (2,1.5);
       \node[above] at (0,1.2) {\footnotesize logprob-important docs};
-      \draw[fill=conforange!40,rounded corners] (-1.7,-1.2) rectangle (0.5,0.9);
-      \node at (-0.6,-0.15) {\footnotesize \textcolor{conforange}{\textbf{93\%}}};
-      \node at (-0.6,-0.6) {\footnotesize conf.-only};
-      \draw[fill=helpblue!50,rounded corners] (0.7,-1.2) rectangle (1.8,0.9);
-      \node at (1.25,-0.15) {\footnotesize \textcolor{helpblue}{\textbf{5.5\%}}};
-      \node at (1.25,-0.6) {\footnotesize crit.};
+      \draw[fill=conforange!40,rounded corners] (-1.7,-1.2) rectangle (1.6,0.9);
+      \node at (-0.05,-0.15) {\footnotesize \textcolor{conforange}{\textbf{98.5\%}}};
+      \node at (-0.05,-0.6) {\footnotesize conf.-only};
+      \draw[fill=helpblue!50,rounded corners] (1.65,-1.2) rectangle (1.8,0.9);
+      \node[below] at (1.72,-1.3) {\tiny 1.5\%};
       \node[below] at (0,-1.4) {\footnotesize All $\dlogp < -2$};
     \end{tikzpicture}
     \end{center}

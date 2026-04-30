@@ -156,13 +156,13 @@ def main():
 \small
 \begin{tabular}{lrrrrr}
 \toprule
-Group & $N$ & $N_{\text{logprob-imp}}$ & CDR & HCR & HMCR \\
+Group & $N$ & $N_{\text{logprob-imp}}$ & CDR & FCR & FDCR \\
 \midrule
 """ + "\n".join(tex_rows) + r"""
 \bottomrule
 \end{tabular}
-\caption{Collapse Divergence Rate (CDR), Helpful Collapse Rate (HCR), and
-Harmful Collapse Rate (HMCR) at $\Delta_{\text{logprob}} < """ + str(thr) + r"""$.
+\caption{Collapse Divergence Rate (CDR), Factuality-Critical Rate (FCR), and
+Factuality-Disrupting Rate (FDCR) at $\Delta_{\text{logprob}} < """ + str(thr) + r"""$.
 CDR = fraction of logprob-important documents with zero factual degradation.}
 \label{tab:e1_cdr}
 \end{table}
@@ -183,10 +183,10 @@ CDR = fraction of logprob-important documents with zero factual degradation.}
         ax.bar(x, pn_df["CDR"],  width, label="CDR (confidence-only / logprob-important)",
                color="#e07b54", alpha=0.9)
         ax.bar(x, pn_df["HCR"],  width, bottom=pn_df["CDR"],
-               label="HCR (helpful / logprob-important)", color="#5b9bd5", alpha=0.9)
+               label="FCR (factuality-critical / logprob-important)", color="#5b9bd5", alpha=0.9)
         ax.bar(x, pn_df["HMCR"], width,
                bottom=pn_df["CDR"] + pn_df["HCR"],
-               label="HMCR (harmful / logprob-important)", color="#70ad47", alpha=0.9)
+               label="FDCR (factuality-disrupting / logprob-important)", color="#70ad47", alpha=0.9)
 
         ax.set_xticks(x)
         ax.set_xticklabels([f"n={int(r['passage_num'])}\n({int(r['n_logprob_important'])} logprob-imp)"

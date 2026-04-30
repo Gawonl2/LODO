@@ -110,35 +110,8 @@ plt.savefig(f'{PLOTS_DIR}/S2_sweep_distributions.png', dpi=150, bbox_inches='tig
 plt.close()
 print("Saved S2")
 
-# -----------------------------------------------------------------------
-# Plot S3: Positive vs negative doc causal importance breakdown
-# -----------------------------------------------------------------------
-fig, ax = plt.subplots(figsize=(9, 5))
-
-pos_causal_pct = []
-neg_causal_pct = []
-for pn in PASSAGE_NUMS:
-    ablations = get_ablations(pn)
-    pos_abl = [a for a in ablations if a['is_positive_doc']]
-    neg_abl = [a for a in ablations if not a['is_positive_doc']]
-    pos_causal_pct.append(100 * sum(a['is_causally_important'] for a in pos_abl) / len(pos_abl) if pos_abl else 0)
-    neg_causal_pct.append(100 * sum(a['is_causally_important'] for a in neg_abl) / len(neg_abl) if neg_abl else 0)
-
-x = np.arange(len(PASSAGE_NUMS))
-width = 0.35
-ax.bar(x - width/2, pos_causal_pct, width, color='#55A868', alpha=0.85, label='Positive doc (ground truth)')
-ax.bar(x + width/2, neg_causal_pct, width, color='#C44E52', alpha=0.85, label='Negative doc (noise/counter)')
-ax.set_xticks(x)
-ax.set_xticklabels([f'n={pn}' for pn in PASSAGE_NUMS], fontsize=11)
-ax.set_ylabel('Causal Importance Rate (%)', fontsize=11)
-ax.set_title('Causal Importance Rate by Document Type\n(Positive vs. Negative/Counterfactual)',
-             fontsize=11, fontweight='bold')
-ax.legend(fontsize=10)
-ax.grid(axis='y', alpha=0.3)
-plt.tight_layout()
-plt.savefig(f'{PLOTS_DIR}/S3_pos_vs_neg_importance.png', dpi=150, bbox_inches='tight')
-plt.close()
-print("Saved S3")
+# S3 removed: all docs are counter-factual (from en_counter_mid positive field),
+# so positive vs negative breakdown is no longer applicable.
 
 # -----------------------------------------------------------------------
 # Plot S4: Scatter — logprob degradation vs L2 drift, all passage_nums
@@ -149,12 +122,10 @@ for ax, pn, color in zip(axes.flatten(), PASSAGE_NUMS, COLORS):
     ldegs  = [a['logprob_degradation'] for a in ablations]
     drifts = [get_drift(a) for a in ablations]
     causal = [a['is_causally_important'] for a in ablations]
-    is_pos = [a['is_positive_doc'] for a in ablations]
 
-    markers = ['^' if p else 'o' for p in is_pos]
-    for ldeg, drift, c, m in zip(ldegs, drifts, causal, markers):
+    for ldeg, drift, c in zip(ldegs, drifts, causal):
         fc = color if c else 'lightgray'
-        ax.scatter(ldeg, drift, color=fc, marker=m, s=60,
+        ax.scatter(ldeg, drift, color=fc, s=60,
                    edgecolors=color if c else 'gray', linewidths=0.8, alpha=0.85)
 
     ax.axvline(-2.0, color='gray', linestyle='--', linewidth=1)
@@ -165,12 +136,10 @@ for ax, pn, color in zip(axes.flatten(), PASSAGE_NUMS, COLORS):
 
     causal_patch  = mpatches.Patch(color=color, label='Causally important')
     neutral_patch = mpatches.Patch(color='lightgray', label='Not important')
-    tri = plt.Line2D([0],[0], marker='^', color='w', markerfacecolor='gray', markersize=8, label='Positive doc')
-    circle = plt.Line2D([0],[0], marker='o', color='w', markerfacecolor='gray', markersize=8, label='Negative doc')
-    ax.legend(handles=[causal_patch, neutral_patch, tri, circle], fontsize=7, loc='upper right')
+    ax.legend(handles=[causal_patch, neutral_patch], fontsize=7, loc='upper right')
 
 fig.suptitle('Logprob Degradation vs. Representation Drift per Passage Count\n'
-             'Triangle=positive doc, Circle=negative doc; colored=causally important',
+             '(all docs counter-factual; colored=causally important)',
              fontsize=11, fontweight='bold')
 plt.tight_layout()
 plt.savefig(f'{PLOTS_DIR}/S4_scatter_per_passage.png', dpi=150, bbox_inches='tight')

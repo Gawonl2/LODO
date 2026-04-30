@@ -33,9 +33,9 @@ THR = -2.0
 
 def assign_category(lp, fd):
     if lp < THR:
-        return "helpful-important" if fd > 0 else ("confidence-only" if fd == 0 else "harmful-influential")
+        return "factuality-critical" if fd > 0 else ("confidence-only" if fd == 0 else "factuality-disrupting")
     else:
-        return "fact-only" if fd > 0 else ("neutral" if fd == 0 else "harmful-weak")
+        return "fact-only" if fd > 0 else ("neutral" if fd == 0 else "factuality-weak")
 
 
 def parse_args():
