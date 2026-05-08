@@ -223,3 +223,14 @@ The project delivers:
 
 In short, this project reframes attribution quality from  
 **"Did the model react?"** to **"Did the document actually matter for factual correctness?"**
+
+## 10) Use of AI
+From one of my past researches, I was introduced to RGB benchmark. From then, I always wanted to find out what makes document really important. 
+To make this a proper research question, I did quick literature review through **Gemini** and Google Scholar, finding how current methods (SOTA) define document importance. 
+After, I used **chatGPT** to formulate my thoughts into proper and structured RQs. For example, I asked "What do you think about adding factuality component when defining Document Importance in RAG context?".
+In this process, more detailed literature review was needed, so I deliberatly read and selected papers that I think it mattered the most. I used **notebookLM** for getting help with connecting them to my work. 
+
+The project base is from RGB-master branch. Utilizing this source code, I used **Claude Code** to re-construct overall structure of my project folder where I explicitly prompted roles to each script needed. 
+While I used Claude Code for big-picture, I used **Cursor** for editing individual .py files as it is in IDE format, making it easier for file-level editing. 
+
+For writing reports, I used **ChatGPT** as a writing assistant. When I first start drafting a paper, I usually create the \section{} structure and build a high-level outline. Then, I rapidly write down my ideas in both Korean and English, moving back and forth across different sections rather than writing in a strictly chronological order. GPT helps me translate phrases that are in Korean, and finds parts where I need to make stronger connections between sections or sentences.
